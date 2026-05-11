@@ -1,0 +1,122 @@
+{
+  "theme": "dark",
+  "archetype": "Jewel & Luxury (Archetype 5)",
+  "vibe": "Immersive devotional journey, luxury spiritual tourism, cinematic, mystical, golden glow on dark backgrounds",
+  "colors": {
+    "primary": {
+      "DEFAULT": "#F59E0B",
+      "light": "#FCD34D",
+      "dark": "#B45309",
+      "description": "Divine Saffron / Gold for CTAs and highlights"
+    },
+    "background": {
+      "main": "#0A0505",
+      "secondary": "#1A0B0C",
+      "overlay": "rgba(10, 5, 5, 0.6)",
+      "description": "Ink-black and deep maroon for cinematic depth"
+    },
+    "text": {
+      "primary": "#FDF8F5",
+      "secondary": "#D1C4B7",
+      "accent": "#F59E0B"
+    },
+    "surface": {
+      "glass": "bg-black/40 backdrop-blur-xl border border-white/10",
+      "card": "bg-[#1A0B0C] border border-[#F59E0B]/20 shadow-[0_8px_32px_rgba(245,158,11,0.05)]",
+      "glow": "shadow-[0_0_40px_rgba(245,158,11,0.2)]"
+    }
+  },
+  "typography": {
+    "headings": {
+      "fontFamily": "'Cormorant Garamond', serif",
+      "weight": "font-medium or font-semibold",
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "fontFamily": "'Tenor Sans', sans-serif",
+      "weight": "font-normal",
+      "tracking": "tracking-normal"
+    },
+    "devanagari": {
+      "fontFamily": "'Tiro Devanagari Hindi', serif",
+      "usage": "Used for daily mantras and spiritual chants"
+    }
+  },
+  "components_strategy": {
+    "hero": "Cinematic full-screen with max bg-black/40 overlay. Use framer-motion for smooth entrance. Floating golden bokeh particles over the background. Large bold serif typography.",
+    "buttons": "Primary: Saffron background with white text, hover glow effect. Secondary: Glassmorphic with golden border and saffron text.",
+    "cards": "Dark maroon/black base with subtle 1px gold-tinted borders. Soft inner glow on hover.",
+    "navigation": "Crystal glassmorphism (backdrop-blur-xl bg-black/60) sticky header, 1px bottom border of white/10. Include primary CTA."
+  },
+  "motion_and_interactions": {
+    "hover": "Subtle scale up (scale-105), border color shifts to solid gold, shadow intensity increases.",
+    "scroll": "Lenis smooth scrolling is mandatory. Fade-up and blur-in animations for sections using framer-motion.",
+    "page_transitions": "Slow, cinematic cross-fades.",
+    "particles": "Use framer-motion or simple CSS animations for floating golden dots (bokeh/dust) in hero and live darshan sections."
+  },
+  "layout_patterns": {
+    "spacing": "Generous spacing. Use py-24 or py-32 for sections. Gap-8 to gap-12 for grids.",
+    "grid": "Bento grids for gallery and features. Asymmetrical layouts for storytelling sections (e.g. Miracle stories)."
+  },
+  "pages_structure": {
+    "Home": [
+      "Cinematic Hero: Image background with golden bokeh, large title 'Shree Maa Baglamukhi Siddha Peeth', 'Book Puja' and 'Live Darshan' CTAs",
+      "Daily Mantra: Floating devanagari text with audio play icon, mystical background",
+      "Temple History/About: Asymmetrical layout with parallax images, overlapping text and imagery",
+      "Online Puja Booking: Bento grid of available pujas (e.g., Shatru Nashak, Graha Shanti) with priest profiles",
+      "Live Darshan: Video embed wrapper (mock YouTube) with live devotee counter, virtual diya offering interaction",
+      "Festivals & Events: Timeline layout with countdown timers for Navratri, Baglamukhi Jayanti",
+      "Miracles/Devotees: Masonry wall of beautifully styled testimonial cards",
+      "Donation: Premium cards for Gau Seva, Anna Daan, Temple Development",
+      "Footer: Newsletter subscription, quick links, detailed contact info, dark contrast"
+    ]
+  },
+  "assets": {
+    "image_urls": [
+      {
+        "category": "hero_background",
+        "url": "https://images.unsplash.com/photo-1698153210197-5a1027c6c5e8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxoaW5kdSUyMHRlbXBsZSUyMGFyY2hpdGVjdHVyZSUyMGdvbGRlbiUyMGhvdXJ8ZW58MHx8fHwxNzc4NDc5NDgzfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Temple architecture at golden hour"
+      },
+      {
+        "category": "puja_booking",
+        "url": "https://images.unsplash.com/photo-1774020039814-c5bdab09e1cf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBwcmllc3QlMjBwb29qYXxlbnwwfHx8fDE3Nzg0Nzk0ODN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Indian priest performing rituals"
+      },
+      {
+        "category": "live_darshan",
+        "url": "https://images.unsplash.com/photo-1597122582304-97edf3b0ff69?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwzfHxkaXlhJTIwZmxhbWUlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3Nzg0Nzk0ODN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Diya flame in dark background for virtual offering"
+      },
+      {
+        "category": "festivals_decor",
+        "url": "https://images.unsplash.com/photo-1661142175513-a5f0871f1ad1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxtYXJpZ29sZCUyMGZsb3dlcnN8ZW58MHx8fHwxNzc4NDc5NDg3fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Marigold flowers for festival decor"
+      },
+      {
+        "category": "golden_particles",
+        "url": "https://images.unsplash.com/photo-1769159076690-43f36fc8adcf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwyfHxnb2xkZW4lMjBnbG93aW5nJTIwYm9rZWh8ZW58MHx8fHwxNzc4NDc5NDg3fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Golden glowing bokeh for overlays (use with mix-blend-screen)"
+      },
+      {
+        "category": "mountain_pilgrimage",
+        "url": "https://images.unsplash.com/photo-1547992039-47e365bcaee7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBtb3VudGFpbiUyMHN1bnNldHxlbnwwfHx8fDE3Nzg0Nzk0ODd8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Mountain silhouette during golden hour for 'How to reach' section"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install and configure Lenis for smooth scrolling.",
+    "Use framer-motion heavily for cinematic entrances, staggered list animations, and scroll-linked effects.",
+    "Add font links to index.html: <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Tenor+Sans&family=Tiro+Devanagari+Hindi&display=swap' rel='stylesheet'>",
+    "Configure Tailwind with these exact font families.",
+    "Ensure all interactive elements have data-testid attributes for testing.",
+    "Do NOT use pure black (#000000). Use the specified deep maroon/ink-black (#0A0505).",
+    "Use lucide-react for standard icons.",
+    "Never use placeholder text or images. Rely entirely on the provided assets and themes.",
+    "For the 3D/Cinematic feel, use multiple background layers (e.g., base color + image + golden bokeh overlay with mix-blend-screen opacity-50) rather than standard flat images.",
+    "Build the UI in React/Tailwind/Framer Motion.",
+    "For components like the 'virtual diya', create an interactive button that brightens a flame icon or image when clicked.",
+    "Use Shadcn UI for forms, selects, and dialogs (e.g., Booking a Puja modal), but highly customize their appearance (remove default gray borders, use golden borders and dark backgrounds)."
+  ]
+}
