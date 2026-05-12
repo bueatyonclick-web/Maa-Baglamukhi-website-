@@ -15,14 +15,25 @@ import SiteScaffold from "../components/site/SiteScaffold";
 
 export default function HomePage() {
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return undefined;
+
+    const lenis = new Lenis({
+      duration: 0.82,
+      smoothWheel: true,
+      wheelMultiplier: 0.92,
+      touchMultiplier: 1.15,
+    });
+    let rafId = 0;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    const id = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
     return () => {
-      cancelAnimationFrame(id);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);

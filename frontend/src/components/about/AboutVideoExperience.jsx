@@ -26,7 +26,7 @@ function thumbUrl(videoId) {
 }
 
 function EmberField() {
-  const embers = Array.from({ length: 28 }, (_, i) => ({
+  const embers = Array.from({ length: 16 }, (_, i) => ({
     k: i,
     left: `${(i * 6.7) % 100}%`,
     delay: `${(i % 9) * 0.5}s`,
@@ -99,7 +99,7 @@ function VideoCard({
       layout
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12%" }}
+      viewport={{ once: true, margin: "0px 0px 100px 0px", amount: 0.12 }}
       transition={{ duration: 0.85, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       style={{ rotateX: springRx, rotateY: springRy, transformPerspective: 1200 }}
       className={`group relative shrink-0 snap-center ${widthClass}`}

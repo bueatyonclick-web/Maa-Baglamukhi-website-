@@ -1,7 +1,7 @@
 import React from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 
-export default function LanguageToggle() {
+function LanguageToggle() {
   const { lang, setLanguage, t } = useLanguage();
 
   return (
@@ -42,3 +42,5 @@ export default function LanguageToggle() {
     </div>
   );
 }
+
+export default React.memo(LanguageToggle);

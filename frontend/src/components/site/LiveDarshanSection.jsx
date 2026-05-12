@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Users, Radio, Flame as FlameIcon } from "lucide-react";
 import { toast } from "sonner";
-import { apiGet, apiPost } from "../../lib/api";
+import { apiGetCached, apiPost } from "../../lib/api";
 import { DIYA_IMAGE } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useInViewActivation } from "../../hooks/useInViewActivation";
+
+const LIVE_EMBED_SRC = "https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&mute=1";
 
 export default function LiveDarshanSection() {
   const { t, lang } = useLanguage();
@@ -14,9 +17,10 @@ export default function LiveDarshanSection() {
   const [lit, setLit] = useState(false);
   const [wish, setWish] = useState("");
   const [name, setName] = useState("");
+  const [videoHostRef, loadIframe] = useInViewActivation("200px 0px");
 
   useEffect(() => {
-    apiGet("/temple-stats").then(setStats).catch(() => {});
+    apiGetCached("/temple-stats").then(setStats).catch(() => {});
   }, []);
 
   const lightDiya = async () => {
@@ -37,7 +41,7 @@ export default function LiveDarshanSection() {
   return (
     <section id="darshan" className="relative py-24 lg:py-32 overflow-hidden" data-testid="darshan-section">
       <div className="absolute inset-0">
-        <img src={DIYA_IMAGE} alt="" className="absolute inset-0 w-full h-full object-cover opacity-25" />
+        <img src={DIYA_IMAGE} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-25" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-900 via-ink-900/70 to-ink-900" />
       </div>
 
@@ -60,15 +64,31 @@ export default function LiveDarshanSection() {
 
         <div className="grid lg:grid-cols-3 gap-7">
           <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-saffron-500/30 shadow-[0_30px_80px_-20px_rgba(245,158,11,0.3)]">
-            <div className="aspect-video bg-ink-800">
-              <iframe
-                src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&mute=1"
-                title={t("liveDarshan.iframeTitle")}
-                className="w-full h-full"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                data-testid="live-darshan-iframe"
-              />
+            <div ref={videoHostRef} className="relative aspect-video bg-ink-800">
+              {!loadIframe ? (
+                <div className="absolute inset-0 overflow-hidden" aria-hidden>
+                  <img
+                    src={DIYA_IMAGE}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full scale-105 object-cover opacity-35"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-ink-900/40">
+                    <span className="font-cinzel text-[10px] tracking-[0.35em] text-amber-200/60">Loading stream…</span>
+                  </div>
+                </div>
+              ) : (
+                <iframe
+                  src={LIVE_EMBED_SRC}
+                  title={t("liveDarshan.iframeTitle")}
+                  className="absolute inset-0 h-full w-full border-0"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  data-testid="live-darshan-iframe"
+                />
+              )}
             </div>
             <div className="bg-ink-800 p-5 grid grid-cols-3 gap-4 border-t border-saffron-500/15">
               <Stat icon={Radio} label={t("liveDarshan.statViewers")} value={stats.live_viewers} isHi={isHi} />
@@ -131,14 +151,16 @@ export default function LiveDarshanSection() {
   );
 }
 
-const Stat = ({ icon: Icon, label, value, isHi }) => (
-  <div className="flex items-center gap-3">
-    <div className="w-10 h-10 rounded-full grid place-items-center bg-saffron-500/15 border border-saffron-500/30 text-saffron-300">
-      <Icon className="w-4 h-4" />
+const Stat = React.memo(function StatInner({ icon: Icon, label, value, isHi }) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-full grid place-items-center bg-saffron-500/15 border border-saffron-500/30 text-saffron-300">
+        <Icon className="w-4 h-4" />
+      </div>
+      <div>
+        <p className="text-white font-serif text-lg leading-none">{value}</p>
+        <p className={`text-white/55 ${isHi ? "font-deva text-sm leading-snug" : "text-xs tracking-wide"}`}>{label}</p>
+      </div>
     </div>
-    <div>
-      <p className="text-white font-serif text-lg leading-none">{value}</p>
-      <p className={`text-white/55 ${isHi ? "font-deva text-sm leading-snug" : "text-xs tracking-wide"}`}>{label}</p>
-    </div>
-  </div>
-);
+  );
+});

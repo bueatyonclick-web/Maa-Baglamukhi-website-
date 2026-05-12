@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap");
-
 @layer base {
   :root {
     --background: 8 40% 4%;
@@ -52,12 +50,17 @@
 
 @layer base {
   * { @apply border-border; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+    overscroll-behavior-y: contain;
+  }
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background-color: #0A0505;
     color: #FDF8F5;
     font-family: "Tenor Sans", sans-serif;
+    overflow-x: clip;
   }
   html.lang-hi body {
     font-family: "Noto Sans Devanagari", "Tenor Sans", system-ui, sans-serif;
@@ -196,5 +199,11 @@ html.lang-hi .btn-ghost-sacred {
     border-left-width: inherit; border-right-width: inherit; border-top-width: inherit; border-bottom-width: inherit;
     border-left-style: inherit; border-right-style: inherit; border-top-style: inherit; border-bottom-style: inherit;
     border-left-color: inherit; border-right-color: inherit; border-top-color: inherit; border-bottom-color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

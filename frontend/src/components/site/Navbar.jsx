@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -16,19 +16,30 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
-  /** Main nav (desktop center): Book Puja as text link; Contact after Donate. */
-  const mainNavLinks = [
-    { label: t("nav.home"), href: "/" },
-    { label: t("nav.about"), href: "/about" },
-    { label: t("nav.bookPuja"), href: "/book-puja" },
-    { label: t("nav.gallery"), href: "/gallery" },
-    { label: t("nav.donate"), href: "/donate" },
-    { label: t("nav.contact"), href: "/contact" },
-  ];
+  const mainNavLinks = useMemo(
+    () => [
+      { label: t("nav.home"), href: "/" },
+      { label: t("nav.about"), href: "/about" },
+      { label: t("nav.bookPuja"), href: "/book-puja" },
+      { label: t("nav.gallery"), href: "/gallery" },
+      { label: t("nav.donate"), href: "/donate" },
+      { label: t("nav.contact"), href: "/contact" },
+    ],
+    [t],
+  );
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 

@@ -10,21 +10,25 @@ gsap.registerPlugin(ScrollTrigger);
  */
 export function useAboutGsap() {
   useLayoutEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
+
     const ctx = gsap.context(() => {
       gsap.utils.toArray("[data-about-reveal]").forEach((el) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 56, filter: "blur(6px)" },
+          { opacity: 0, y: 36 },
           {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
-            duration: 1.25,
-            ease: "power3.out",
+            duration: 0.75,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 88%",
+              start: "top 90%",
               toggleActions: "play none none none",
+              fastScrollEnd: true,
             },
           },
         );

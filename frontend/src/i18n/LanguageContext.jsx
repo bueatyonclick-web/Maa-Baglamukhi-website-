@@ -10,6 +10,16 @@ function interpolate(str, vars) {
   return str.replace(/\{\{(\w+)\}\}/g, (_, k) => (vars && vars[k] != null ? String(vars[k]) : ""));
 }
 
+function setOrCreateMeta(attr, key, content) {
+  let el = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
@@ -21,14 +31,18 @@ export function LanguageProvider({ children }) {
     root.lang = lang === "hi" ? "hi" : "en";
     root.classList.toggle("lang-hi", lang === "hi");
     root.classList.toggle("lang-en", lang === "en");
-    document.title = TRANSLATIONS[lang]?.seo?.title || TRANSLATIONS.en?.seo?.title || document.title;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", TRANSLATIONS[lang]?.seo?.description || TRANSLATIONS.en?.seo?.description || "");
+
+    const title = TRANSLATIONS[lang]?.seo?.title || TRANSLATIONS.en?.seo?.title || document.title;
+    const desc =
+      TRANSLATIONS[lang]?.seo?.description || TRANSLATIONS.en?.seo?.description || "";
+    document.title = title;
+
+    setOrCreateMeta("name", "description", desc);
+    setOrCreateMeta("property", "og:title", title);
+    setOrCreateMeta("property", "og:description", desc);
+    setOrCreateMeta("property", "og:locale", lang === "hi" ? "hi_IN" : "en_IN");
+    setOrCreateMeta("name", "twitter:title", title);
+    setOrCreateMeta("name", "twitter:description", desc);
   }, [lang]);
 
   const setLanguage = useCallback((next) => {

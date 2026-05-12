@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
@@ -9,7 +9,7 @@ const VIDEO_SRC =
   "https://assets.mixkit.co/videos/preview/mixkit-candles-burning-in-front-of-a-religious-image-40976-large.mp4";
 
 function GoldParticles() {
-  const particles = Array.from({ length: 48 }, (_, i) => ({
+  const particles = Array.from({ length: 28 }, (_, i) => ({
     id: i,
     left: `${(i * 7.3) % 100}%`,
     delay: `${(i % 12) * 0.8}s`,
@@ -33,11 +33,28 @@ export default function AboutHeroCinematic() {
   const isHi = lang === "hi";
   const wrapRef = useRef(null);
   const [videoOk, setVideoOk] = useState(true);
+  const [videoInView, setVideoInView] = useState(false);
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
   const sx = useSpring(mx, { stiffness: 40, damping: 24 });
   const sy = useSpring(my, { stiffness: 40, damping: 24 });
   const spotlight = useMotionTemplate`radial-gradient(650px circle at ${sx} ${sy}, rgba(245,158,11,0.18), transparent 55%)`;
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVideoInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "180px 0px", threshold: 0.02 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const onMove = useCallback(
     (e) => {
@@ -61,18 +78,29 @@ export default function AboutHeroCinematic() {
       <div className="absolute inset-0 bg-ink-900">
         {videoOk ? (
           <div className="absolute inset-0 overflow-hidden">
-            <video
-              className="h-full w-full scale-110 object-cover opacity-55 animate-ken-burns"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={ABOUT_IMAGE}
-              onError={() => setVideoOk(false)}
-            >
-              <source src={VIDEO_SRC} type="video/mp4" />
-            </video>
+            {videoInView ? (
+              <video
+                className="h-full w-full scale-110 object-cover opacity-55 animate-ken-burns"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={ABOUT_IMAGE}
+                onError={() => setVideoOk(false)}
+              >
+                <source src={VIDEO_SRC} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                src={ABOUT_IMAGE}
+                alt=""
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="h-full w-full scale-110 object-cover opacity-55"
+              />
+            )}
           </div>
         ) : (
           <div className="absolute inset-0 overflow-hidden">

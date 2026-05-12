@@ -19,7 +19,7 @@ const fadeUp = {
 function GoldSparkles() {
   const sparks = React.useMemo(
     () =>
-      Array.from({ length: 22 }, (_, i) => ({
+      Array.from({ length: 14 }, (_, i) => ({
         k: i,
         left: `${(i * 11.3) % 100}%`,
         top: `${42 + (i % 9) * 4}%`,
@@ -205,12 +205,12 @@ export default function HeroSection() {
         </div>
 
         {/* ——— RIGHT: goddess — sharp focal, golden drama (no full-screen yellow fog) ——— */}
-        <div className="relative order-1 min-h-[min(52vh,560px)] w-full flex-1 lg:order-2 lg:min-h-[100dvh] lg:flex-1">
+        <div className="relative order-1 min-h-[min(52vh,560px)] w-full min-w-0 flex-1 lg:order-2 lg:min-h-[100dvh] lg:flex-1">
           <div className="absolute inset-0 overflow-hidden bg-[#080604]">
             <motion.img
               src={heroSrc}
               alt="Śrī Maa Bagalamukhī — Siddha Peeth"
-              className="h-full w-full object-cover object-[center_24%] contrast-[1.12] saturate-[1.02] brightness-[0.92] lg:object-[center_18%]"
+              className="h-full w-full min-h-full min-w-full object-cover object-center contrast-[1.12] saturate-[1.02] brightness-[0.92] sm:object-[center_22%] lg:object-[center_18%]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -222,8 +222,8 @@ export default function HeroSection() {
               }}
             />
 
-            {/* Blend into left column — dark edge only */}
-            <div className="absolute inset-y-0 left-0 z-[9] w-[28%] max-w-[220px] bg-gradient-to-r from-[#040201] via-[#040201]/85 to-transparent lg:w-[32%] lg:max-w-[280px]" />
+            {/* Blend into left column on desktop only — on mobile this read as grey pillar bars */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-[9] hidden w-[32%] max-w-[280px] bg-gradient-to-r from-[#040201] via-[#040201]/85 to-transparent lg:block" />
 
             {/* Focused aura + mandala (right side only) */}
             <motion.div

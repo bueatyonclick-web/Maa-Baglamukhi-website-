@@ -26,10 +26,10 @@ export default function GallerySection() {
             <motion.button
               key={i}
               onClick={() => setOpen(item)}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "0px 0px 120px 0px", amount: 0.15 }}
+              transition={{ duration: 0.45, delay: Math.min(i * 0.03, 0.24), ease: [0.22, 1, 0.36, 1] }}
               className={`relative rounded-xl overflow-hidden group ${
                 i === 0 || i === 5 ? "md:row-span-2 md:col-span-2 aspect-square md:aspect-auto" : "aspect-square"
               }`}
