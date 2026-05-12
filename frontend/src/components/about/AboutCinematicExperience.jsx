@@ -2,7 +2,7 @@ import React from "react";
 import { useAboutGsap } from "./useAboutGsap";
 import AboutHeroCinematic from "./AboutHeroCinematic";
 import AboutMainSection from "./AboutMainSection";
-import AboutHistoryDivineLegacy from "./AboutHistoryDivineLegacy";
+import AboutDivineLegacy from "./AboutDivineLegacy";
 import AboutDivineEnergy from "./AboutDivineEnergy";
 import AboutVideoExperience from "./AboutVideoExperience";
 import AboutSacredRituals from "./AboutSacredRituals";
@@ -10,7 +10,7 @@ import AboutSpiritualQuote from "./AboutSpiritualQuote";
 import AboutFinalConnection from "./AboutFinalConnection";
 
 /**
- * Full cinematic About page: hero, main about block, history & legacy, energy, video experience, rituals, quote, CTA.
+ * Full cinematic About page: hero, main about block, divine legacy history, energy, video experience, rituals, quote, CTA.
  * Theme matches existing ink/saffron luxury UI.
  */
 export default function AboutCinematicExperience() {
@@ -21,7 +21,7 @@ export default function AboutCinematicExperience() {
       <meta itemProp="name" content="Shree Maa Baglamukhi Siddha Peeth Nalkheda" />
       <AboutHeroCinematic />
       <AboutMainSection />
-      <AboutHistoryDivineLegacy />
+      <AboutDivineLegacy />
       <AboutDivineEnergy />
       <AboutVideoExperience />
       <AboutSacredRituals />

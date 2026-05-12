@@ -11,7 +11,6 @@ module.exports = {
         cinzel: ["'Cinzel'", "serif"],
         playfair: ["'Playfair Display'", "Georgia", "serif"],
         inter: ["'Inter'", "system-ui", "sans-serif"],
-        poppins: ["'Poppins'", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
