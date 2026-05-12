@@ -133,11 +133,11 @@ export default function HeroSection() {
             transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="mt-5"
           >
-            <h1 className="font-deva tracking-tight py-1 leading-[1.38]">
-              <span className="block text-[clamp(2.85rem,8.8vw,5.35rem)] text-amber-50 [text-shadow:0_2px_40px_rgba(251,191,36,0.42),0_1px_0_rgba(217,119,6,0.35)]">
+            <h1 className="font-deva tracking-tight leading-none">
+              <span className="block text-[clamp(2.85rem,8.8vw,5.35rem)] leading-none text-amber-50 [text-shadow:0_2px_40px_rgba(251,191,36,0.42),0_1px_0_rgba(217,119,6,0.35)]">
                 {t("hero.titleLine1")}
               </span>
-              <span className="mt-2 block text-[clamp(2.2rem,6.4vw,4.15rem)] text-amber-200 [text-shadow:0_2px_48px_rgba(245,158,11,0.45),0_1px_0_rgba(146,64,14,0.4)]">
+              <span className="block text-[clamp(2.2rem,6.4vw,4.15rem)] leading-[1.05] text-amber-200 [text-shadow:0_2px_48px_rgba(245,158,11,0.45),0_1px_0_rgba(146,64,14,0.4)]">
                 {t("hero.titleLine2")}
               </span>
             </h1>

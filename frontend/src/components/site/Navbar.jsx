@@ -16,13 +16,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
-  /** Main nav (desktop center): Contact sits immediately after Donate. */
+  /** Main nav (desktop center): Book Puja as text link; Contact after Donate. */
   const mainNavLinks = [
     { label: t("nav.home"), href: "/" },
     { label: t("nav.about"), href: "/about" },
     { label: t("nav.bookPuja"), href: "/book-puja" },
-    { label: t("nav.liveDarshan"), href: "/live-darshan" },
-    { label: t("nav.festivals"), href: "/festivals" },
     { label: t("nav.gallery"), href: "/gallery" },
     { label: t("nav.donate"), href: "/donate" },
     { label: t("nav.contact"), href: "/contact" },
@@ -56,7 +54,7 @@ export default function Navbar() {
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${headerSurface}`}
       data-testid="site-navbar"
     >
-      <div className="flex w-full items-center justify-between gap-3 px-4 py-4 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-4 md:px-6 lg:px-10">
+      <div className="flex w-full items-center justify-between gap-3 px-4 py-4 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-6 md:px-6 lg:gap-8 lg:px-10">
         <Link
           to="/"
           className="flex shrink-0 items-center gap-3.5 md:gap-4 group justify-self-start"
@@ -87,7 +85,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex min-w-0 items-center justify-center gap-3 lg:gap-5 justify-self-center px-2">
+        <nav className="hidden min-w-0 items-center justify-center justify-self-center gap-4 px-2 md:flex lg:gap-6">
           {mainNavLinks.map((l) => {
             const active = pathname === l.href;
             return (
@@ -112,11 +110,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="hidden md:flex min-w-0 shrink-0 items-center justify-end justify-self-end gap-3 lg:gap-4">
+        <div className="hidden shrink-0 items-center justify-end justify-self-end md:flex">
           <LanguageToggle />
-          <Link to="/book-puja" className="inline-flex shrink-0 btn-primary-sacred text-sm py-2.5 px-5" data-testid="nav-book-puja">
-            {t("nav.bookPuja")}
-          </Link>
         </div>
 
         <div className="flex items-center justify-end md:hidden">
@@ -157,9 +152,6 @@ export default function Navbar() {
             <div className="mt-2">
               <LanguageToggle />
             </div>
-            <Link to="/book-puja" onClick={() => setOpen(false)} className="btn-primary-sacred mt-2 justify-center">
-              {t("nav.bookPuja")}
-            </Link>
           </div>
         </motion.div>
       )}
