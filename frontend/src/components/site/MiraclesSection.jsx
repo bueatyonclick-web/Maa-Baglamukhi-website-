@@ -1,29 +1,41 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
-import { MIRACLES } from "../../data/content";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 export default function MiraclesSection() {
+  const { t, lang } = useLanguage();
+  const isHi = lang === "hi";
+  const stories = useMemo(
+    () =>
+      [0, 1, 2, 3].map((i) => ({
+        text: t(`miracles.m${i}`),
+        name: t(`miracles.n${i}`),
+        city: t(`miracles.c${i}`),
+      })),
+    [t],
+  );
+
   return (
     <section className="relative py-24 lg:py-32 mandala-bg" data-testid="miracles-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-1">
-            <p className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-5">✦ DEVOTEE STORIES ✦</p>
-            <h2 className="font-serif text-4xl lg:text-5xl text-white leading-tight">
-              Where <span className="text-gold-shimmer italic">miracles</span> are remembered.
-            </h2>
-            <p className="mt-5 text-white/70 leading-relaxed">
-              From courtrooms in Mumbai to homes in California, devotees share how Maa Baglamukhi
-              turned despair into divine victory.
+            <p className={`mb-5 text-saffron-300 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-xs tracking-[0.5em]"}`}>
+              {t("miracles.label")}
             </p>
+            <h2 className={`text-4xl text-white lg:text-5xl ${isHi ? "font-deva leading-snug" : "font-serif leading-tight"}`}>
+              {t("miracles.titleBefore")} <span className="text-gold-shimmer italic">{t("miracles.titleAccent")}</span>{" "}
+              {t("miracles.titleAfter")}
+            </h2>
+            <p className={`mt-5 text-white/70 leading-relaxed ${isHi ? "font-deva text-base" : ""}`}>{t("miracles.blurb")}</p>
             <a href="#contact" className="btn-ghost-sacred mt-7 inline-flex" data-testid="share-story-btn">
-              Share Your Story
+              {t("miracles.shareStory")}
             </a>
           </div>
 
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-5">
-            {MIRACLES.map((m, i) => (
+            {stories.map((m, i) => (
               <motion.div
                 key={m.name}
                 initial={{ opacity: 0, y: 30 }}
@@ -34,10 +46,14 @@ export default function MiraclesSection() {
                 data-testid={`miracle-card-${i}`}
               >
                 <Quote className="w-7 h-7 text-saffron-400/70 mb-3" />
-                <p className="text-white/85 text-sm leading-relaxed italic">"{m.text}"</p>
+                <p className={`text-white/85 italic leading-relaxed ${isHi ? "font-deva text-[15px] md:text-base" : "text-sm"}`}>
+                  &ldquo;{m.text}&rdquo;
+                </p>
                 <div className="mt-5 pt-4 border-t border-saffron-500/15">
-                  <p className="font-serif text-saffron-200 text-base">{m.name}</p>
-                  <p className="text-white/50 text-xs tracking-wide">{m.city}</p>
+                  <p className={isHi ? "font-deva text-base text-saffron-200" : "font-serif text-base text-saffron-200"}>
+                    {m.name}
+                  </p>
+                  <p className={`text-white/50 tracking-wide ${isHi ? "font-deva text-sm leading-snug" : "text-xs"}`}>{m.city}</p>
                 </div>
               </motion.div>
             ))}

@@ -9,6 +9,9 @@ module.exports = {
         sans: ["'Tenor Sans'", "sans-serif"],
         deva: ["'Tiro Devanagari Hindi'", "serif"],
         cinzel: ["'Cinzel'", "serif"],
+        playfair: ["'Playfair Display'", "Georgia", "serif"],
+        inter: ["'Inter'", "system-ui", "sans-serif"],
+        poppins: ["'Poppins'", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -73,6 +76,49 @@ module.exports = {
           "0%, 100%": { boxShadow: "0 0 20px rgba(245,158,11,0.3)" },
           "50%": { boxShadow: "0 0 60px rgba(245,158,11,0.7)" },
         },
+        "havan-border-shine": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "200% 50%" },
+        },
+        "havan-float": {
+          "0%, 100%": { transform: "translateY(0) scale(1)", opacity: "0.4" },
+          "50%": { transform: "translateY(-14px) scale(1.05)", opacity: "0.75" },
+        },
+        "ken-burns": {
+          "0%": { transform: "scale(1) translate3d(0,0,0)" },
+          "100%": { transform: "scale(1.12) translate3d(-1%, -1%, 0)" },
+        },
+        "smoke-drift": {
+          "0%": { transform: "translateX(-10%) translateY(0)", opacity: "0.15" },
+          "50%": { opacity: "0.35" },
+          "100%": { transform: "translateX(10%) translateY(-8%)", opacity: "0.12" },
+        },
+        "ray-sweep": {
+          "0%": { opacity: "0.15", transform: "rotate(-8deg) translateX(-20%)" },
+          "50%": { opacity: "0.35" },
+          "100%": { opacity: "0.15", transform: "rotate(-8deg) translateX(20%)" },
+        },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        "diya-float": {
+          "0%, 100%": { transform: "translateY(0) scale(1)" },
+          "50%": { transform: "translateY(-18px) scale(1.05)" },
+        },
+        "book-puja-bell": {
+          "0%, 100%": { transform: "rotate(5deg)" },
+          "50%": { transform: "rotate(-6deg)" },
+        },
+        "book-puja-smoke-wisp": {
+          "0%": { transform: "translateY(0) scaleY(1)", opacity: "0.35" },
+          "100%": { transform: "translateY(-28px) scaleY(1.15)", opacity: "0" },
+        },
+        "book-puja-dust": {
+          "0%": { transform: "translate(0, 0)", opacity: "0.2" },
+          "50%": { opacity: "0.55" },
+          "100%": { transform: "translate(30px, -40px)", opacity: "0.15" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -82,6 +128,16 @@ module.exports = {
         "shimmer": "shimmer 6s linear infinite",
         "spin-slow": "spin-slow 40s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "havan-border-shine": "havan-border-shine 4s linear infinite",
+        "havan-float": "havan-float 7s ease-in-out infinite",
+        "ken-burns": "ken-burns 28s ease-in-out infinite alternate",
+        "smoke-drift": "smoke-drift 22s ease-in-out infinite alternate",
+        "ray-sweep": "ray-sweep 16s ease-in-out infinite alternate",
+        "float-slow": "float-slow 8s ease-in-out infinite",
+        "diya-float": "diya-float 5s ease-in-out infinite",
+        "book-puja-bell": "book-puja-bell 7s ease-in-out infinite",
+        "book-puja-smoke-wisp": "book-puja-smoke-wisp 5s ease-out infinite",
+        "book-puja-dust": "book-puja-dust 14s ease-in-out infinite",
       },
     },
   },

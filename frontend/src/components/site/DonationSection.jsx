@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Heart, Wheat, MilkOff, Building2, Check } from "lucide-react";
@@ -6,17 +6,31 @@ import { apiPost } from "../../lib/api";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useLanguage } from "../../i18n/LanguageContext";
 
-const causes = [
-  { id: "anna-daan", icon: Wheat, title: "Anna Daan", desc: "Feed 1,000 pilgrims daily at the temple kitchen.", suggested: 1100 },
-  { id: "gau-seva", icon: MilkOff, title: "Gau Seva", desc: "Care for 80+ rescued cows in our goshala.", suggested: 2100 },
-  { id: "temple-dev", icon: Building2, title: "Temple Development", desc: "Restore ancient stone carvings & sanctum.", suggested: 5100 },
-  { id: "general", icon: Heart, title: "General Donation", desc: "Support the trust's spiritual mission.", suggested: 501 },
+const CAUSE_DEFS = [
+  { id: "anna-daan", icon: Wheat, titleKey: "causeAnna", descKey: "causeAnnaDesc", suggested: 1100 },
+  { id: "gau-seva", icon: MilkOff, titleKey: "causeGau", descKey: "causeGauDesc", suggested: 2100 },
+  { id: "temple-dev", icon: Building2, titleKey: "causeTemple", descKey: "causeTempleDesc", suggested: 5100 },
+  { id: "general", icon: Heart, titleKey: "causeGeneral", descKey: "causeGeneralDesc", suggested: 501 },
 ];
 
 const amounts = [501, 1100, 2100, 5100, 11000, 21000];
 
 export default function DonationSection() {
+  const { t, lang } = useLanguage();
+  const isHi = lang === "hi";
+  const loc = lang === "hi" ? "hi-IN" : "en-IN";
+  const causes = useMemo(
+    () =>
+      CAUSE_DEFS.map((c) => ({
+        ...c,
+        title: t(`donate.${c.titleKey}`),
+        desc: t(`donate.${c.descKey}`),
+      })),
+    [t],
+  );
+
   const [openCause, setOpenCause] = useState(null);
   const [amount, setAmount] = useState(1100);
   const [form, setForm] = useState({ donor_name: "", email: "", phone: "", message: "", is_anonymous: false });
@@ -34,11 +48,11 @@ export default function DonationSection() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await apiPost("/donations", { ...form, cause: openCause.title, amount });
+      const res = await apiPost("/donations", { ...form, cause: openCause.id, amount });
       setSuccess(res);
-      toast.success("🙏 Maa accepts your offering with grace.");
+      toast.success(t("donate.toastOk"));
     } catch {
-      toast.error("Donation failed. Please retry.");
+      toast.error(t("donate.toastErr"));
     } finally {
       setSubmitting(false);
     }
@@ -48,13 +62,13 @@ export default function DonationSection() {
     <section id="donate" className="py-24 lg:py-32" data-testid="donation-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-14">
-          <p className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-5">✦ DAAN ✦</p>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">
-            Your offering, <span className="text-gold-shimmer italic">infinite</span> blessings.
-          </h2>
-          <p className="mt-4 text-white/70 max-w-2xl mx-auto">
-            Every rupee is used transparently for seva, daily prasad, gau seva and temple restoration.
+          <p className={`mb-5 text-saffron-300 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-xs tracking-[0.5em]"}`}>
+            {t("donate.label")}
           </p>
+          <h2 className={`text-4xl text-white sm:text-5xl lg:text-6xl ${isHi ? "font-deva leading-snug" : "font-serif leading-tight"}`}>
+            {t("donate.titleBefore")} <span className="text-gold-shimmer italic">{t("donate.titleAccent")}</span> {t("donate.titleAfter")}
+          </h2>
+          <p className={`mx-auto mt-4 max-w-2xl text-white/70 ${isHi ? "font-deva text-base leading-relaxed md:text-lg" : ""}`}>{t("donate.sub")}</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -72,10 +86,10 @@ export default function DonationSection() {
               <div className="w-14 h-14 rounded-full grid place-items-center bg-gradient-to-br from-saffron-400/20 to-saffron-700/20 border border-saffron-500/30 group-hover:from-saffron-400 group-hover:to-saffron-700 transition-all">
                 <c.icon className="w-6 h-6 text-saffron-300 group-hover:text-ink-900 transition-colors" />
               </div>
-              <h3 className="font-serif text-2xl text-white mt-5">{c.title}</h3>
-              <p className="text-white/60 text-sm mt-2 leading-relaxed">{c.desc}</p>
-              <p className="mt-5 text-saffron-300 text-sm font-cinzel tracking-wider">
-                FROM ₹{c.suggested.toLocaleString("en-IN")}
+              <h3 className={`mt-5 text-2xl text-white ${isHi ? "font-deva leading-snug" : "font-serif"}`}>{c.title}</h3>
+              <p className={`mt-2 text-sm leading-relaxed text-white/60 ${isHi ? "font-deva" : ""}`}>{c.desc}</p>
+              <p className={`mt-5 text-sm text-saffron-300 ${isHi ? "font-deva tracking-wide" : "font-cinzel tracking-wider"}`}>
+                {t("donate.from")} ₹{c.suggested.toLocaleString(loc)}
               </p>
             </motion.button>
           ))}
@@ -86,7 +100,7 @@ export default function DonationSection() {
         <DialogContent className="bg-ink-800 border border-saffron-500/30 text-white max-w-lg" data-testid="donation-dialog">
           <DialogHeader>
             <DialogTitle className="font-serif text-2xl text-saffron-300">
-              {success ? "Thank you, devotee" : `Donate — ${openCause?.title}`}
+              {success ? t("donate.thankTitle") : `${t("donate.donatePrefix")} ${openCause?.title || ""}`}
             </DialogTitle>
           </DialogHeader>
 
@@ -95,22 +109,27 @@ export default function DonationSection() {
               <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center animate-glow-pulse mb-5">
                 <Check className="w-10 h-10 text-ink-900" />
               </div>
-              <p className="font-serif text-2xl text-white">Your daan has reached Maa's feet</p>
+              <p className="font-serif text-2xl text-white">{t("donate.successLine")}</p>
               <p className="mt-2 text-white/70 text-sm">
-                Receipt: <span className="text-saffron-300 font-cinzel">{success.receipt}</span>
+                {t("donate.receipt")} <span className="text-saffron-300 font-cinzel">{success.receipt}</span>
               </p>
               <p className="mt-1 text-white/60 text-sm">
-                Amount: <span className="text-saffron-200">₹{success.amount.toLocaleString("en-IN")}</span>
+                {t("donate.amount")} <span className="text-saffron-200">₹{success.amount.toLocaleString(loc)}</span>
               </p>
-              <button onClick={() => setOpenCause(null)} className="btn-primary-sacred mt-6">Om Shanti</button>
+              <button onClick={() => setOpenCause(null)} className="btn-primary-sacred mt-6">
+                {t("donate.omShanti")}
+              </button>
             </div>
           ) : (
             <form onSubmit={submit} className="space-y-4 mt-2" data-testid="donation-form">
               <div>
-                <Label className="text-white/70 text-xs">Select amount</Label>
+                <Label className="text-white/70 text-xs">{t("donate.selectAmount")}</Label>
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {amounts.map((a) => (
-                    <button key={a} type="button" onClick={() => setAmount(a)}
+                    <button
+                      key={a}
+                      type="button"
+                      onClick={() => setAmount(a)}
                       className={`py-2.5 rounded-lg text-sm border transition-all ${
                         amount === a
                           ? "bg-saffron-500 text-ink-900 border-saffron-500"
@@ -118,39 +137,62 @@ export default function DonationSection() {
                       }`}
                       data-testid={`amount-${a}`}
                     >
-                      ₹{a.toLocaleString("en-IN")}
+                      ₹{a.toLocaleString(loc)}
                     </button>
                   ))}
                 </div>
-                <Input type="number" min="51" value={amount}
+                <Input
+                  type="number"
+                  min="51"
+                  value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                   className="bg-ink-700 border-saffron-500/20 text-white mt-3"
-                  data-testid="amount-input" />
+                  data-testid="amount-input"
+                />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label htmlFor="don-name" className="text-white/70 text-xs">Name</Label>
-                  <Input id="don-name" required value={form.donor_name}
+                  <Label htmlFor="don-name" className="text-white/70 text-xs">
+                    {t("donate.name")}
+                  </Label>
+                  <Input
+                    id="don-name"
+                    required
+                    value={form.donor_name}
                     onChange={(e) => setForm({ ...form, donor_name: e.target.value })}
-                    className="bg-ink-700 border-saffron-500/20 text-white mt-1" data-testid="donor-name" />
+                    className="bg-ink-700 border-saffron-500/20 text-white mt-1"
+                    data-testid="donor-name"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="don-email" className="text-white/70 text-xs">Email</Label>
-                  <Input id="don-email" type="email" required value={form.email}
+                  <Label htmlFor="don-email" className="text-white/70 text-xs">
+                    {t("donate.email")}
+                  </Label>
+                  <Input
+                    id="don-email"
+                    type="email"
+                    required
+                    value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="bg-ink-700 border-saffron-500/20 text-white mt-1" data-testid="donor-email" />
+                    className="bg-ink-700 border-saffron-500/20 text-white mt-1"
+                    data-testid="donor-email"
+                  />
                 </div>
               </div>
               <label className="flex items-center gap-2 text-white/70 text-sm">
-                <input type="checkbox" checked={form.is_anonymous}
+                <input
+                  type="checkbox"
+                  checked={form.is_anonymous}
                   onChange={(e) => setForm({ ...form, is_anonymous: e.target.checked })}
-                  className="accent-saffron-500" data-testid="anonymous-checkbox" />
-                Donate anonymously
+                  className="accent-saffron-500"
+                  data-testid="anonymous-checkbox"
+                />
+                {t("donate.anonymous")}
               </label>
               <button type="submit" disabled={submitting} className="btn-primary-sacred w-full justify-center" data-testid="submit-donation">
-                {submitting ? "Offering..." : `Donate ₹${amount.toLocaleString("en-IN")}`}
+                {submitting ? t("donate.offering") : t("donate.donateBtn", { amount: amount.toLocaleString(loc) })}
               </button>
-              <p className="text-white/40 text-xs text-center">80G tax exemption certificate emailed instantly</p>
+              <p className="text-white/40 text-xs text-center">{t("donate.taxNote")}</p>
             </form>
           )}
         </DialogContent>

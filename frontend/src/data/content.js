@@ -1,6 +1,15 @@
 export const HERO_IMAGE =
   "https://images.unsplash.com/photo-1698153210197-5a1027c6c5e8?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400";
 
+/** Home page hero — Maa Baglamukhi (`frontend/public/home-hero-maa-baglamukhi.png`). */
+export const HOME_HERO_IMAGE = `${process.env.PUBLIC_URL || ""}/home-hero-maa-baglamukhi.png`;
+
+/** Used if `frontend/public/maa-baglamukhi-hero.png` is missing or fails to load. */
+export const BOOK_PUJA_MAA_FALLBACK = HERO_IMAGE;
+
+/** About page — Maa Baglamukhi illustration (`frontend/public/about-maa-baglamukhi-peeth.png`). */
+export const ABOUT_PAGE_MAA_IMAGE = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.png`;
+
 export const ABOUT_IMAGE =
   "https://images.unsplash.com/photo-1774020039814-c5bdab09e1cf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
 
@@ -17,80 +26,118 @@ export const MOUNTAIN_IMAGE =
   "https://images.unsplash.com/photo-1547992039-47e365bcaee7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
 
 export const GALLERY = [
-  "https://images.unsplash.com/photo-1605649487212-47bdab064df7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1582719471384-894fbb16e074?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1564507592333-c60657eea523?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1609766418204-94aae0ecf4e5?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1606293926249-ed22e4f2f12a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1583309217394-d63f2bf7b3fa?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-  "https://images.unsplash.com/photo-1604608672516-f1b9b1d52cd1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-];
-
-export const MANTRA = {
-  sanskrit: "ॐ ह्लीं बगलामुखी सर्वदुष्टानां वाचं मुखं स्तम्भय ह्लीं ॐ नमः",
-  meaning: "O Maa Baglamukhi, paralyze the speech and mind of all malevolent forces. Salutations to you.",
-};
-
-export const MIRACLES = [
   {
-    name: "Rohini Sharma",
-    city: "Mumbai",
-    text: "After 8 years of legal struggle, I performed Baglamukhi Havan at Nalkheda. Within 41 days, the verdict turned in my favor. Maa truly answers.",
+    src: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Morning Aarti Glow", hi: "प्रातः आरती का प्रकाश" },
+    description: {
+      en: "The first light of diyas — a quiet beginning before the chants fill the sanctum.",
+      hi: "दीपों की पहली लौ — मंत्रोच्चार से पहले का शांत, पवित्र क्षण।",
+    },
   },
   {
-    name: "Vikram Joshi",
-    city: "Delhi",
-    text: "My business was on the verge of collapse. The Pandit ji performed Shatru Nashak Puja remotely. Today, we are debt-free and thriving.",
+    src: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Temple Courtyard Serenity", hi: "मंदिर प्रांगण की शांति" },
+    description: {
+      en: "A sacred pause in the temple space — where devotion feels timeless.",
+      hi: "मंदिर की पवित्र शांति — जहाँ भक्ति समय से परे लगती है।",
+    },
   },
   {
-    name: "Anita Reddy",
-    city: "Bengaluru",
-    text: "I traveled 1600 km with a heavy heart. I came back lighter than a feather. The energy of this Siddha Peeth is beyond words.",
+    src: "https://images.unsplash.com/photo-1564507592333-c60657eea523?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Golden Mandir Details", hi: "स्वर्णिम मंदिर शिल्प" },
+    description: {
+      en: "Ornate textures and warm gold tones that echo the sacred atmosphere.",
+      hi: "सूक्ष्म शिल्प और स्वर्णिम आभा — जो दिव्यता का अनुभव कराए।",
+    },
   },
   {
-    name: "Ramesh Kothari",
-    city: "Ahmedabad",
-    text: "Maa Baglamukhi removed obstacles I thought were permanent. The cosmic intelligence here is real, ancient, and alive.",
-  },
-];
-
-export const FAQS = [
-  {
-    q: "Where is Shree Maa Baglamukhi Siddha Peeth located?",
-    a: "The temple is located in Nalkheda, Agar Malwa district, Madhya Pradesh, India — one of only three ancient Baglamukhi shrines in the country.",
+    src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Deepa & Incense", hi: "दीपक और धूप" },
+    description: {
+      en: "Smoke, flame, and silence — the simplest offerings carry the deepest prayer.",
+      hi: "धुआँ, लौ और मौन — सरल अर्पण में ही गहन प्रार्थना।",
+    },
   },
   {
-    q: "Can puja be performed on my behalf if I cannot visit?",
-    a: "Yes. Online puja with sankalp in your name and gotra is performed by our priests. You receive a video recording and prasad by courier.",
+    src: "https://images.unsplash.com/photo-1609766418204-94aae0ecf4e5?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Sacred Bells Above", hi: "ऊपर झूलती घंटियाँ" },
+    description: {
+      en: "Temple bells swaying softly — every ring feels like a blessing.",
+      hi: "मंदिर की घंटियाँ — हर ध्वनि मानो आशीर्वाद बन जाए।",
+    },
   },
   {
-    q: "What are the temple darshan timings?",
-    a: "Morning: 5:00 AM – 12:30 PM. Evening: 4:00 PM – 10:00 PM. Mangala Aarti at 5:30 AM and Shayan Aarti at 9:30 PM.",
+    src: "https://images.unsplash.com/photo-1606293926249-ed22e4f2f12a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Evening Ritual Light", hi: "सांध्य अनुष्ठान की रोशनी" },
+    description: {
+      en: "Warm amber light at dusk — a cinematic calm across the temple.",
+      hi: "सांझ की स्वर्णिम रोशनी — मंदिर में छाया दिव्य सुकून।",
+    },
   },
   {
-    q: "Is there accommodation near the temple?",
-    a: "Yes, the temple trust dharamshala, premium hotels and homestays are available within 2 km. We assist with booking on request.",
+    src: "https://images.unsplash.com/photo-1583309217394-d63f2bf7b3fa?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Offerings & Flowers", hi: "अर्पण और पुष्प" },
+    description: {
+      en: "Marigolds, petals, and sacred intent — devotion arranged with care.",
+      hi: "गेंदा, पुष्प और संकल्प — श्रद्धा को स्नेह से सजाया गया।",
+    },
   },
   {
-    q: "How is Maa Baglamukhi different from other Devis?",
-    a: "Maa Baglamukhi is the 8th Mahavidya. She represents the power to stop, paralyse and silence enemies — granting victory in court, debate, conflict, and inner battles.",
+    src: "https://images.unsplash.com/photo-1604608672516-f1b9b1d52cd1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+    title: { en: "Temple Lamps & Shadows", hi: "दीप और छायाएँ" },
+    description: {
+      en: "A play of lamp-light and shadow — a timeless temple mood.",
+      hi: "दीप प्रकाश और छाया का खेल — मंदिर का शाश्वत वातावरण।",
+    },
+  },
+  {
+    src: ABOUT_IMAGE,
+    title: { en: "Sanctum Atmosphere", hi: "गर्भगृह का वातावरण" },
+    description: {
+      en: "A sacred interior mood — quiet, focused, and devotional.",
+      hi: "पवित्र भीतरी वातावरण — शांत, एकाग्र और भक्तिमय।",
+    },
+  },
+  {
+    src: DIYA_IMAGE,
+    title: { en: "Diya Flame Close-up", hi: "दीपक की लौ" },
+    description: {
+      en: "A single diya can hold a whole prayer — steady and luminous.",
+      hi: "एक दीपक में पूरी प्रार्थना — स्थिर और उज्ज्वल।",
+    },
+  },
+  {
+    src: FLOWER_IMAGE,
+    title: { en: "Sacred Flowers", hi: "पवित्र पुष्प" },
+    description: {
+      en: "Flowers offered with sankalp — simplicity that reaches the divine.",
+      hi: "संकल्प सहित अर्पित पुष्प — सरलता में दिव्यता।",
+    },
+  },
+  {
+    src: MOUNTAIN_IMAGE,
+    title: { en: "Pilgrimage Journey", hi: "तीर्थ यात्रा" },
+    description: {
+      en: "Every journey begins with faith — the road itself becomes part of devotion.",
+      hi: "हर यात्रा विश्वास से शुरू होती है — मार्ग भी भक्ति बन जाता है।",
+    },
   },
 ];
 
 export const FOOTER_LINKS = {
   quick: [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Book Puja", href: "/book-puja" },
-    { label: "Live Darshan", href: "/live-darshan" },
-    { label: "Donate", href: "/donate" },
+    { navKey: "home", href: "/" },
+    { navKey: "about", href: "/about" },
+    { navKey: "bookPuja", href: "/book-puja" },
+    { navKey: "liveDarshan", href: "/live-darshan" },
+    { navKey: "donate", href: "/donate" },
   ],
   pilgrimage: [
-    { label: "How to Reach", href: "/#reach" },
-    { label: "Accommodation", href: "/#stay" },
-    { label: "Festivals", href: "/festivals" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Contact", href: "/contact" },
+    { tKey: "footer.linkReach", href: "/#reach" },
+    { tKey: "footer.linkStay", href: "/#stay" },
+    { tKey: "footer.linkFestivals", href: "/festivals" },
+    { tKey: "footer.linkGallery", href: "/gallery" },
+    { tKey: "footer.linkContact", href: "/contact" },
   ],
 };
+

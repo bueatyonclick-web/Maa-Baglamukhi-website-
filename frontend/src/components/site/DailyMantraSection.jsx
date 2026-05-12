@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, Volume2 } from "lucide-react";
-import { MANTRA } from "../../data/content";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 export default function DailyMantraSection() {
+  const { t } = useLanguage();
   const [playing, setPlaying] = useState(false);
 
   const toggle = () => {
@@ -11,7 +12,11 @@ export default function DailyMantraSection() {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 mandala-bg overflow-hidden" data-testid="daily-mantra-section">
+    <section
+      id="daily-mantra"
+      className="relative scroll-mt-28 overflow-hidden py-24 mandala-bg lg:scroll-mt-32 lg:py-32"
+      data-testid="daily-mantra-section"
+    >
       <div className="absolute inset-0">
         <div className="absolute -left-32 top-12 w-[500px] h-[500px] rounded-full bg-saffron-500/8 blur-3xl" />
         <div className="absolute -right-20 bottom-12 w-[400px] h-[400px] rounded-full bg-crimson-700/10 blur-3xl" />
@@ -24,7 +29,7 @@ export default function DailyMantraSection() {
           viewport={{ once: true }}
           className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-5"
         >
-          ✦ DAILY MANTRA ✦
+          {t("mantra.label")}
         </motion.p>
 
         <motion.h2
@@ -35,7 +40,7 @@ export default function DailyMantraSection() {
           className="font-deva text-2xl sm:text-3xl lg:text-5xl text-saffron-100 leading-[1.5] max-w-4xl mx-auto"
           data-testid="mantra-sanskrit"
         >
-          {MANTRA.sanskrit}
+          {t("mantra.sanskrit")}
         </motion.h2>
 
         <motion.p
@@ -45,7 +50,7 @@ export default function DailyMantraSection() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-8 text-white/70 italic max-w-2xl mx-auto text-base lg:text-lg"
         >
-          "{MANTRA.meaning}"
+          &ldquo;{t("mantra.meaning")}&rdquo;
         </motion.p>
 
         <motion.button
@@ -56,7 +61,7 @@ export default function DailyMantraSection() {
           data-testid="mantra-play-button"
         >
           {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
-          <span className="font-serif text-lg">{playing ? "Pause Chant" : "Play Sacred Chant"}</span>
+          <span className="font-serif text-lg">{playing ? t("mantra.pause") : t("mantra.play")}</span>
           <Volume2 className="w-4 h-4 opacity-60" />
         </motion.button>
 

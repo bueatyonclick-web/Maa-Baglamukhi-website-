@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap");
+
 @layer base {
   :root {
     --background: 8 40% 4%;
@@ -57,6 +59,38 @@
     color: #FDF8F5;
     font-family: "Tenor Sans", sans-serif;
   }
+  html.lang-hi body {
+    font-family: "Noto Sans Devanagari", "Tenor Sans", system-ui, sans-serif;
+    line-height: 1.65;
+  }
+  /* Devanagari needs extra vertical room for matras / shirorekha — tight line-height clips glyphs */
+  html.lang-hi h1,
+  html.lang-hi h2,
+  html.lang-hi h3,
+  html.lang-hi h4,
+  html.lang-hi h5 {
+    font-family: "Noto Sans Devanagari", "Cormorant Garamond", serif;
+    line-height: 1.42;
+  }
+
+  /* background-clip:text clips conjuncts and vowel signs in Hindi */
+  html.lang-hi .text-gold-shimmer {
+    background: none;
+    background-size: auto;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: #fde68a;
+    -webkit-text-fill-color: #fde68a;
+    animation: none;
+    text-shadow: 0 0 26px rgba(245, 158, 11, 0.35), 0 1px 0 rgba(180, 83, 9, 0.45);
+  }
+
+html.lang-hi .btn-ghost-sacred {
+  font-family: "Noto Sans Devanagari", "Tenor Sans", system-ui, sans-serif;
+  line-height: 1.45;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
   h1, h2, h3, h4, h5 { font-family: "Cormorant Garamond", serif; letter-spacing: -0.01em; }
   ::selection { background: rgba(245, 158, 11, 0.35); color: #fff; }
 }

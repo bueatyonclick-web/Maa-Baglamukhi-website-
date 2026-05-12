@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Flame } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "../../i18n/LanguageContext";
 
-const links = [
-  { label: "About", href: "/about" },
-  { label: "Book Puja", href: "/book-puja" },
-  { label: "Live Darshan", href: "/live-darshan" },
-  { label: "Festivals", href: "/festivals" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Donate", href: "/donate" },
-  { label: "Contact", href: "/contact" },
-];
+const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
 
 export default function Navbar() {
+  const { t, lang } = useLanguage();
+  const isHi = lang === "hi";
+  const { pathname } = useLocation();
+  const isBookPuja = pathname === "/book-puja";
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  /** Main nav (desktop center): Contact sits immediately after Donate. */
+  const mainNavLinks = [
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.about"), href: "/about" },
+    { label: t("nav.bookPuja"), href: "/book-puja" },
+    { label: t("nav.liveDarshan"), href: "/live-darshan" },
+    { label: t("nav.festivals"), href: "/festivals" },
+    { label: t("nav.gallery"), href: "/gallery" },
+    { label: t("nav.donate"), href: "/donate" },
+    { label: t("nav.contact"), href: "/contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -23,47 +34,94 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const headerSurface =
+    scrolled || open
+      ? "bg-ink-900/88 backdrop-blur-xl border-b border-saffron-500/20"
+      : isHome
+        ? "bg-black/30 backdrop-blur-[14px] border-b border-amber-400/15"
+        : isBookPuja
+          ? "bg-transparent border-b border-transparent"
+        : "bg-transparent";
+
+  const linkClass =
+    isBookPuja || isHome
+      ? `text-base lg:text-[17px] tracking-wide text-white/92 hover:text-amber-200 transition-colors relative group drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] ${isHi ? "font-deva leading-[1.45] pb-0.5" : "leading-snug"}`
+      : `text-base lg:text-[17px] tracking-wide text-white/85 hover:text-saffron-300 transition-colors relative group ${isHi ? "font-deva leading-[1.45] pb-0.5" : "leading-snug"}`;
+
   return (
     <motion.header
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-ink-900/85 backdrop-blur-xl border-b border-saffron-500/15" : "bg-transparent"
-      }`}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${headerSurface}`}
       data-testid="site-navbar"
     >
-      <div className="w-full px-4 md:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group" data-testid="nav-logo">
-          <div className="w-10 h-10 rounded-full grid place-items-center bg-gradient-to-br from-saffron-400 to-saffron-700 shadow-[0_0_20px_rgba(245,158,11,0.5)]">
-            <Flame className="w-5 h-5 text-ink-900" />
+      <div className="flex w-full items-center justify-between gap-3 px-4 py-4 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-4 md:px-6 lg:px-10">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center gap-3.5 md:gap-4 group justify-self-start"
+          data-testid="nav-logo"
+        >
+          <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_28px_rgba(245,158,11,0.32)] md:h-[4.25rem] md:w-[4.25rem] lg:h-[4.75rem] lg:w-[4.75rem]">
+            <img src={SITE_LOGO} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" />
           </div>
-          <div className="leading-tight">
-            <p className="font-cinzel text-saffron-300 text-[10px] tracking-[0.3em]">SHREE MAA</p>
-            <p className="font-serif text-white text-lg -mt-0.5">Baglamukhi Peeth</p>
+          <div className="min-w-0 leading-normal">
+            <p
+              className={`text-saffron-300 drop-shadow-sm ${
+                isHi
+                  ? "font-deva text-sm leading-snug tracking-wide md:text-base lg:text-lg"
+                  : "font-cinzel text-[10px] tracking-[0.32em] md:text-[11px]"
+              }`}
+            >
+              {t("brand.line1")}
+            </p>
+            <p
+              className={`text-white drop-shadow-md ${
+                isHi
+                  ? "font-deva text-xl leading-snug md:text-2xl lg:text-[1.75rem]"
+                  : "font-serif text-lg -mt-0.5 leading-tight md:text-xl"
+              }`}
+            >
+              {t("brand.line2")}
+            </p>
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-5 lg:gap-7">
-          {links.map((l) => (
-            <Link
-              key={l.label}
-              to={l.href}
-              className="text-base lg:text-[17px] tracking-wide text-white/85 hover:text-saffron-300 transition-colors relative group"
-              data-testid={`nav-link-${l.label.toLowerCase().replace(/\s/g, '-')}`}
-            >
-              {l.label}
-              <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-saffron-400 group-hover:w-full transition-all duration-300" />
-            </Link>
-          ))}
+        <nav className="hidden md:flex min-w-0 items-center justify-center gap-3 lg:gap-5 justify-self-center px-2">
+          {mainNavLinks.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                to={l.href}
+                className={`${linkClass} shrink-0 ${active ? "text-amber-100" : ""}`}
+                data-testid={
+                  l.href === "/contact"
+                    ? "nav-link-contact"
+                    : `nav-link-${l.label.toLowerCase().replace(/\s/g, "-")}`
+                }
+              >
+                {l.label}
+                <span
+                  className={`absolute -bottom-1.5 left-0 h-px bg-gradient-to-r from-amber-300 to-saffron-500 transition-all duration-300 ${
+                    active ? "w-full opacity-90" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Link to="/book-puja" className="hidden md:inline-flex btn-primary-sacred text-sm py-2.5 px-5" data-testid="nav-book-puja">
-            Book Puja
+        <div className="hidden md:flex min-w-0 shrink-0 items-center justify-end justify-self-end gap-3 lg:gap-4">
+          <LanguageToggle />
+          <Link to="/book-puja" className="inline-flex shrink-0 btn-primary-sacred text-sm py-2.5 px-5" data-testid="nav-book-puja">
+            {t("nav.bookPuja")}
           </Link>
+        </div>
+
+        <div className="flex items-center justify-end md:hidden">
           <button
-            className="md:hidden p-2 rounded-full bg-ink-700/60 border border-saffron-500/20 text-saffron-300"
+            className="p-2 rounded-full bg-ink-700/60 border border-saffron-500/20 text-saffron-300"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
             data-testid="nav-mobile-toggle"
@@ -81,18 +139,27 @@ export default function Navbar() {
           className="md:hidden bg-ink-900/95 backdrop-blur-xl border-t border-saffron-500/10"
         >
           <div className="px-6 py-5 grid gap-3">
-            {links.map((l) => (
+            {mainNavLinks.map((l) => (
               <Link
-                key={l.label}
+                key={l.href}
                 to={l.href}
                 onClick={() => setOpen(false)}
                 className="text-white/80 hover:text-saffron-300 py-1.5"
-                data-testid={`mobile-nav-${l.label.toLowerCase().replace(/\s/g, '-')}`}
+                data-testid={
+                  l.href === "/contact"
+                    ? "mobile-nav-contact"
+                    : `mobile-nav-${l.label.toLowerCase().replace(/\s/g, "-")}`
+                }
               >
                 {l.label}
               </Link>
             ))}
-            <Link to="/book-puja" onClick={() => setOpen(false)} className="btn-primary-sacred mt-2 justify-center">Book Puja</Link>
+            <div className="mt-2">
+              <LanguageToggle />
+            </div>
+            <Link to="/book-puja" onClick={() => setOpen(false)} className="btn-primary-sacred mt-2 justify-center">
+              {t("nav.bookPuja")}
+            </Link>
           </div>
         </motion.div>
       )}

@@ -1,18 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Flame } from "lucide-react";
+import { MessageCircle, X, Send } from "lucide-react";
 import { apiPost } from "../../lib/api";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const sessionId = `pandit-${Math.random().toString(36).slice(2, 10)}`;
 
 export default function AskPanditChat() {
+  const { t, lang } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState([
-    { role: "assistant", content: "🙏 Pranam, devotee. I am Pandit ji at Maa Baglamukhi Peeth. How may I guide you on your spiritual path today?" },
-  ]);
+  const [msgs, setMsgs] = useState([{ role: "assistant", content: t("askPandit.welcome") }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const endRef = useRef(null);
+
+  useEffect(() => {
+    setMsgs([{ role: "assistant", content: t("askPandit.welcome") }]);
+  }, [lang, t]);
+
+  useEffect(() => {
+    const open = () => setOpen(true);
+    window.addEventListener("mbp:open-pandit-chat", open);
+    return () => window.removeEventListener("mbp:open-pandit-chat", open);
+  }, []);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,7 +31,6 @@ export default function AskPanditChat() {
   useEffect(() => {
     if (!open) return;
     const originalOverflow = document.body.style.overflow;
-    // Lock background page scrolling while chat is open.
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = originalOverflow;
@@ -40,12 +49,13 @@ export default function AskPanditChat() {
       setMsgs((m) => [...m, { role: "assistant", content: res.reply }]);
     } catch (err) {
       const backendDetail = err?.response?.data?.detail;
-      setMsgs((m) => [...m, {
-        role: "assistant",
-        content: backendDetail
-          ? `🙏 ${backendDetail}`
-          : "🙏 Pandit ji is in dhyana. Please try again in a moment.",
-      }]);
+      setMsgs((m) => [
+        ...m,
+        {
+          role: "assistant",
+          content: backendDetail ? `🙏 ${backendDetail}` : t("askPandit.errorFallback"),
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -58,10 +68,11 @@ export default function AskPanditChat() {
         animate={{ scale: 1 }}
         transition={{ delay: 1.5, type: "spring" }}
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 left-6 z-40 w-16 h-16 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-glow-pulse"
+        className="fixed bottom-6 left-6 z-40 flex h-16 w-16 items-center justify-center gap-3 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-glow-pulse md:h-14 md:w-auto md:px-5"
         data-testid="ask-pandit-fab"
       >
-        <Flame className="w-7 h-7 text-ink-900" />
+        <MessageCircle className="h-7 w-7 text-ink-900" aria-hidden />
+        <span className="hidden font-cinzel text-xs tracking-[0.22em] text-ink-900 md:inline">{t("askPandit.fab")}</span>
       </motion.button>
 
       <AnimatePresence>
@@ -75,12 +86,12 @@ export default function AskPanditChat() {
           >
             <div className="flex items-center justify-between p-4 border-b border-saffron-500/15 bg-gradient-to-r from-saffron-700/15 to-transparent">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center">
-                  <Flame className="w-5 h-5 text-ink-900" />
+                <div className="grid h-10 w-10 place-items-center rounded-full border border-saffron-500/25 bg-gradient-to-br from-saffron-400/90 to-saffron-700/90 text-ink-900 shadow-[0_0_18px_rgba(245,158,11,0.25)]">
+                  <MessageCircle className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <p className="font-serif text-white text-lg leading-none">Ask Pandit ji</p>
-                  <p className="text-saffron-300/70 text-xs">Live · Spiritual Guidance</p>
+                  <p className="font-serif text-white text-lg leading-none">{t("askPandit.headerTitle")}</p>
+                  <p className="text-saffron-300/70 text-xs">{t("askPandit.headerSub")}</p>
                 </div>
               </div>
               <button onClick={() => setOpen(false)} className="text-white/60 hover:text-white" data-testid="close-pandit">
@@ -126,11 +137,13 @@ export default function AskPanditChat() {
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about mantras, pujas, pilgrimage..."
+                  placeholder={t("askPandit.placeholder")}
                   className="flex-1 bg-transparent text-white placeholder-white/40 text-sm focus:outline-none"
                   data-testid="pandit-input"
                 />
-                <button type="submit" disabled={loading || !input.trim()}
+                <button
+                  type="submit"
+                  disabled={loading || !input.trim()}
                   className="w-8 h-8 rounded-full bg-saffron-500 text-ink-900 grid place-items-center disabled:opacity-40"
                   data-testid="pandit-send"
                 >

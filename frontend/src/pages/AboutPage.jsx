@@ -1,12 +1,11 @@
 import React from "react";
 import SiteScaffold from "../components/site/SiteScaffold";
-import AboutTempleSection from "../components/site/AboutTempleSection";
+import AboutCinematicExperience from "../components/about/AboutCinematicExperience";
 
 export default function AboutPage() {
   return (
     <SiteScaffold>
-      <AboutTempleSection />
+      <AboutCinematicExperience />
     </SiteScaffold>
   );
 }
-
