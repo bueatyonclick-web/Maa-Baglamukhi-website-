@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { User, Flame, Check } from "lucide-react";
-import { apiGetCached, apiPost } from "../../lib/api";
+import { Calendar as CalendarIcon, User, Flame, Sparkles, Check } from "lucide-react";
+import { apiGet, apiPost } from "../../lib/api";
+import { fetchAdminJson, getAdminApiOrigin, postAdminJson } from "../../lib/adminApi";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -13,6 +14,8 @@ export default function PujaBookingSection() {
   const { t, lang } = useLanguage();
   const isHi = lang === "hi";
   const [pujas, setPujas] = useState([]);
+  /** When admin URL is set and CMS returned packages, bookings go to Next admin API. */
+  const [useAdminBookings, setUseAdminBookings] = useState(false);
   const [selected, setSelected] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -26,7 +29,41 @@ export default function PujaBookingSection() {
   });
 
   useEffect(() => {
-    apiGetCached("/pujas", 60000).then((d) => setPujas(d.pujas || [])).catch(() => {});
+    let cancelled = false;
+    (async () => {
+      if (getAdminApiOrigin()) {
+        const data = await fetchAdminJson("/api/packages?category=PUJA");
+        if (cancelled) return;
+        const raw = data?.items;
+        if (Array.isArray(raw) && raw.length > 0) {
+          setPujas(
+            raw.map((p) => ({
+              id: p.id,
+              name: p.title,
+              description: p.description,
+              priest: p.panditName,
+              duration: p.duration,
+              price: p.price,
+            })),
+          );
+          setUseAdminBookings(true);
+          return;
+        }
+      }
+      if (cancelled) return;
+      try {
+        const d = await apiGet("/pujas");
+        if (!cancelled) {
+          setPujas(d.pujas || []);
+          setUseAdminBookings(false);
+        }
+      } catch {
+        if (!cancelled) setPujas([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const openBook = (p) => {
@@ -40,7 +77,28 @@ export default function PujaBookingSection() {
     if (!selected) return;
     setSubmitting(true);
     try {
-      const res = await apiPost("/bookings", { ...form, puja_type: selected.name });
+      let res;
+      if (useAdminBookings && getAdminApiOrigin()) {
+        const extras = [];
+        if (form.gotra?.trim()) extras.push(`Gotra: ${form.gotra.trim()}`);
+        if (form.special_request?.trim()) extras.push(form.special_request.trim());
+        const address = extras.length ? extras.join("\n\n") : undefined;
+        const created = await postAdminJson("/api/bookings", {
+          userName: form.devotee_name,
+          email: form.email,
+          phone: form.phone,
+          packageId: selected.id,
+          bookingDate: form.booking_date,
+          address,
+        });
+        const bid = created?.booking?.id;
+        res = {
+          reference: bid ? `MBN-${String(bid).slice(-8).toUpperCase()}` : "",
+          booking_date: form.booking_date,
+        };
+      } else {
+        res = await apiPost("/bookings", { ...form, puja_type: selected.name });
+      }
       setSuccess(res);
       toast.success(t("booking.toastSuccess"));
     } catch (err) {
@@ -70,35 +128,15 @@ export default function PujaBookingSection() {
           </p>
         </div>
 
-        <div className="grid min-h-[280px] md:grid-cols-2 md:min-h-[320px] lg:grid-cols-3 lg:min-h-0 gap-6 md:gap-7">
-          {pujas.length === 0
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={`sk-${i}`}
-                  className="relative rounded-2xl border border-saffron-500/10 bg-ink-800/40 p-7 animate-pulse"
-                  aria-hidden
-                >
-                  <div className="mb-4 h-7 w-3/4 rounded-md bg-white/10" />
-                  <div className="mb-2 h-4 w-full rounded bg-white/5" />
-                  <div className="mb-2 h-4 w-5/6 rounded bg-white/5" />
-                  <div className="mt-8 flex justify-between">
-                    <div className="h-10 w-24 rounded bg-white/10" />
-                    <div className="h-10 w-28 rounded-full bg-saffron-500/20" />
-                  </div>
-                </div>
-              ))
-            : pujas.map((p, i) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {pujas.map((p, i) => (
             <motion.div
               key={p.id}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px 80px 0px", amount: 0.12 }}
-              transition={{
-                duration: 0.5,
-                delay: Math.min(i * 0.05, 0.25),
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group relative rounded-2xl p-7 glass-card border border-transparent shadow-none transition-[transform,box-shadow,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-saffron-400/50 hover:shadow-[0_24px_48px_-20px_rgba(245,158,11,0.18)] motion-reduce:transform-none motion-reduce:transition-none"
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="group relative rounded-2xl p-7 glass-card hover:border-saffron-400 hover:-translate-y-1 transition-all duration-500"
               data-testid={`puja-card-${p.id}`}
             >
               <div className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center shadow-[0_0_25px_rgba(245,158,11,0.6)]">
@@ -140,14 +178,12 @@ export default function PujaBookingSection() {
             </DialogTitle>
           </DialogHeader>
 
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="wait">
             {success ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-6"
               >
                 <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center animate-glow-pulse mb-5">
@@ -168,16 +204,7 @@ export default function PujaBookingSection() {
                 </button>
               </motion.div>
             ) : (
-              <motion.form
-                key="form"
-                onSubmit={submit}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-                className="space-y-4 mt-2"
-                data-testid="booking-form"
-              >
+              <motion.form key="form" onSubmit={submit} className="space-y-4 mt-2" data-testid="booking-form">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label htmlFor="dname" className="text-white/70 text-xs">{t("booking.devoteeName")}</Label>

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #050302;
+  --foreground: #fdf8f5;
+  --gold: #f59e0b;
+  --gold-dim: rgba(245, 158, 11, 0.15);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.sacred-card {
+  @apply rounded-2xl border border-amber-500/20 bg-zinc-900/80 backdrop-blur-sm shadow-[0_0_40px_-12px_rgba(245,158,11,0.25)];
+}
+
+.sacred-input {
+  @apply w-full rounded-lg border border-amber-500/20 bg-zinc-950 px-4 py-3 text-base text-zinc-100 outline-none ring-amber-500/30 placeholder:text-zinc-500 focus:ring-2;
+}
+
+.sacred-btn {
+  @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3 text-base font-medium text-zinc-950 shadow-[0_8px_30px_rgba(245,158,11,0.35)] transition hover:from-amber-400 hover:to-amber-500 disabled:opacity-50;
+}
+
+.sacred-btn-ghost {
+  @apply inline-flex items-center justify-center rounded-full border border-amber-500/40 bg-transparent px-5 py-2.5 text-base text-amber-200 transition hover:bg-amber-500/10;
+}

@@ -1,12 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { GALLERY } from "../../data/content";
+import { fetchAdminJson, getAdminApiOrigin, resolveAdminAssetUrl } from "../../lib/adminApi";
 import { useLanguage } from "../../i18n/LanguageContext";
+
+function mapCmsGallery(items) {
+  return items.map((row) => {
+    const src = resolveAdminAssetUrl(row.fileUrl);
+    const isVideo = row.type === "VIDEO";
+    return {
+      id: row.id,
+      src,
+      isVideo,
+      title: { en: row.title, hi: row.title },
+      description: { en: "", hi: "" },
+    };
+  });
+}
 
 export default function GallerySection() {
   const { lang, t } = useLanguage();
   const [open, setOpen] = useState(null);
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    if (!getAdminApiOrigin()) {
+      setItems(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const data = await fetchAdminJson("/api/gallery");
+      if (cancelled || !data?.items?.length) {
+        if (!cancelled) setItems(null);
+        return;
+      }
+      setItems(mapCmsGallery(data.items));
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [lang]);
+
+  const display = items && items.length > 0 ? items : GALLERY.map((item, i) => ({ ...item, id: `static-${i}`, isVideo: false }));
 
   return (
     <section id="gallery" className="py-24 lg:py-32" data-testid="gallery-section">
@@ -22,9 +59,10 @@ export default function GallerySection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {GALLERY.map((item, i) => (
+          {display.map((item, i) => (
             <motion.button
-              key={i}
+              key={item.id || i}
+              type="button"
               onClick={() => setOpen(item)}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -35,13 +73,23 @@ export default function GallerySection() {
               }`}
               data-testid={`gallery-item-${i}`}
             >
-              <img
-                src={item.src}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              {item.isVideo ? (
+                <video
+                  src={item.src}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              ) : (
+                <img
+                  src={item.src}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              )}
               <div className="absolute inset-0 bg-ink-900/40 group-hover:bg-ink-900/10 transition-colors" />
               <div className="absolute inset-0 ring-1 ring-saffron-500/20 group-hover:ring-saffron-400/60 transition-all" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 sm:p-4">
@@ -64,17 +112,30 @@ export default function GallerySection() {
             onClick={() => setOpen(null)}
           >
             <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="w-full max-w-5xl">
-              <img
-                src={open.src}
-                alt=""
-                className="w-full max-h-[76vh] object-contain rounded-2xl border border-saffron-500/30 bg-black/25"
-              />
+              {open.isVideo ? (
+                <video
+                  src={open.src}
+                  controls
+                  className="w-full max-h-[76vh] rounded-2xl border border-saffron-500/30 bg-black/25"
+                />
+              ) : (
+                <img
+                  src={open.src}
+                  alt=""
+                  className="w-full max-h-[76vh] object-contain rounded-2xl border border-saffron-500/30 bg-black/25"
+                />
+              )}
               <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm">
                 <p className="font-serif text-xl text-white">{open.title?.[lang] || open.title?.en}</p>
                 <p className="mt-2 text-sm text-white/70 leading-relaxed">{open.description?.[lang] || open.description?.en}</p>
               </div>
             </motion.div>
-            <button onClick={() => setOpen(null)} className="absolute top-6 right-6 w-12 h-12 rounded-full glass-card grid place-items-center text-saffron-300 hover:text-white" data-testid="close-lightbox">
+            <button
+              type="button"
+              onClick={() => setOpen(null)}
+              className="absolute top-6 right-6 w-12 h-12 rounded-full glass-card grid place-items-center text-saffron-300 hover:text-white"
+              data-testid="close-lightbox"
+            >
               <X className="w-5 h-5" />
             </button>
           </motion.div>

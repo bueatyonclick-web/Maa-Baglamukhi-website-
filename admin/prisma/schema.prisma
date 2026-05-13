@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite: use String + app validation (Zod) instead of native enums
+
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model PujaPackage {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  price       Float
+  duration    String
+  panditName  String
+  image       String?
+  category    String   @default("PUJA") // PUJA | HAVAN
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  bookings    Booking[]
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  userName      String
+  email         String
+  phone         String
+  address       String?
+  packageId     String
+  package       PujaPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  bookingDate   DateTime
+  status        String   @default("PENDING") // PENDING | CONFIRMED | COMPLETED | CANCELLED
+  paymentStatus String   @default("PENDING") // PENDING | PAID | REFUNDED
+  createdAt     DateTime @default(now())
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+  type      String   @default("IMAGE") // IMAGE | VIDEO
+  title     String
+  fileUrl   String
+  createdAt DateTime @default(now())
+}
+
+model ContactSettings {
+  id            String @id @default(cuid())
+  templeName    String
+  address       String
+  phone1        String
+  phone2        String?
+  whatsapp      String?
+  email         String
+  googleMapLink String?
+}
+
+model SocialLinks {
+  id         String @id @default(cuid())
+  instagram  String?
+  facebook   String?
+  youtube    String?
+  whatsapp   String?
+  twitter    String?
+}
+
+model Donation {
+  id         String   @id @default(cuid())
+  donorName  String
+  amount     Float
+  paymentId  String?
+  createdAt  DateTime @default(now())
+}
+
+model WebsiteSettings {
+  id           String @id @default(cuid())
+  heroTitle    String
+  heroSubtitle String
+  footerText   String
+  logo         String?
+}
