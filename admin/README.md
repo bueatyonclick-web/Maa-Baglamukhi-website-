@@ -33,6 +33,8 @@ NEXT_PUBLIC_APP_URL="http://localhost:3001"
 ```
 
 - **ALLOW_ORIGIN**: your CRA / Vite marketing site origin (for CORS on public APIs).  
+- **NEXT_PUBLIC_APP_URL**: public URL of this admin app (used to decide whether auth cookies are `Secure` in production). Use `https://…` when TLS is enabled.  
+- **AUTH_COOKIE_SECURE** (optional): set to `false` if you run production over **HTTP** (e.g. `http://43.x.x.x:3001`); otherwise the browser may refuse the login cookie. Set to `true` to force `Secure` cookies behind HTTPS.  
 - Dev server runs on **port 3001** (see `package.json` scripts) so it can run beside the existing `frontend` on **3000**.
 
 ## Install & database

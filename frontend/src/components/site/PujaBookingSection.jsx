@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { Calendar as CalendarIcon, User, Flame, Sparkles, Check } from "lucide-react";
+import { User, Flame, Check } from "lucide-react";
 import { apiGet, apiPost } from "../../lib/api";
 import { fetchAdminJson, getAdminApiOrigin, postAdminJson } from "../../lib/adminApi";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
@@ -111,24 +111,24 @@ export default function PujaBookingSection() {
   return (
     <section
       id="booking"
-      className="relative scroll-mt-28 py-20 lg:scroll-mt-32 lg:py-28"
+      className="relative scroll-mt-24 py-16 sm:scroll-mt-28 sm:py-20 md:py-24 lg:scroll-mt-32 lg:py-28"
       data-testid="booking-section"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mb-14 text-center">
-          <p className={`mb-3 text-saffron-300/90 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-xs tracking-[0.5em]"}`}>
+      <div className="mx-auto max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="mb-10 text-center sm:mb-12 md:mb-14">
+          <p className={`mb-2 text-saffron-300/90 sm:mb-3 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-[10px] tracking-[0.45em] sm:text-xs sm:tracking-[0.5em]"}`}>
             {t("booking.label")}
           </p>
-          <h2 className={`text-3xl text-white sm:text-4xl lg:text-5xl ${isHi ? "font-deva leading-snug" : "font-serif leading-tight"}`}>
+          <h2 className={`text-3xl text-white sm:text-4xl md:text-[2.35rem] lg:text-5xl ${isHi ? "font-deva leading-snug" : "font-serif leading-tight"}`}>
             {t("booking.headingLine1")}{" "}
             <span className="text-gold-shimmer italic">{t("booking.headingAccent")}</span>
           </h2>
-          <p className={`mx-auto mt-4 max-w-2xl text-base text-white/65 lg:text-lg ${isHi ? "font-deva leading-relaxed" : ""}`}>
+          <p className={`mx-auto mt-3 max-w-2xl text-sm text-white/65 sm:mt-4 sm:text-base md:text-lg ${isHi ? "font-deva leading-relaxed" : ""}`}>
             {t("booking.sub")}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-3">
           {pujas.map((p, i) => (
             <motion.div
               key={p.id}
@@ -136,7 +136,7 @@ export default function PujaBookingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group relative rounded-2xl p-7 glass-card hover:border-saffron-400 hover:-translate-y-1 transition-all duration-500"
+              className="group relative rounded-2xl p-5 glass-card transition-transform duration-300 hover:border-saffron-400 sm:p-6 md:p-7 md:duration-500 md:hover:-translate-y-1"
               data-testid={`puja-card-${p.id}`}
             >
               <div className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 grid place-items-center shadow-[0_0_25px_rgba(245,158,11,0.6)]">

@@ -22,7 +22,11 @@ export default function AdminLoginPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.error || "Login failed");
+        const msg =
+          typeof data.error === "string"
+            ? data.error
+            : data.error?.message || data.error?.formErrors?.join?.(", ") || "Login failed";
+        toast.error(msg);
         return;
       }
       toast.success("Welcome, " + data.admin.name);
@@ -69,7 +73,11 @@ export default function AdminLoginPage() {
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-zinc-500">
-          Default: admin@baglamukhi.com — change password after first login.
+          Default email: <span className="text-zinc-300">admin@baglamukhi.com</span>
+          <br />
+          Default password: <span className="text-zinc-300">Admin@123</span>
+          <br />
+          <span className="text-xs text-zinc-600">Change both from Admin profile after first login.</span>
         </p>
       </div>
     </div>

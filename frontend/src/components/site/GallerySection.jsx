@@ -46,19 +46,21 @@ export default function GallerySection() {
   const display = items && items.length > 0 ? items : GALLERY.map((item, i) => ({ ...item, id: `static-${i}`, isVideo: false }));
 
   return (
-    <section id="gallery" className="py-24 lg:py-32" data-testid="gallery-section">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 gap-6">
-          <div>
-            <p className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-5">{t("gallery.label")}</p>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">
+    <section id="gallery" className="py-16 sm:py-20 md:py-24 lg:py-32" data-testid="gallery-section">
+      <div className="mx-auto max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
+          <div className="min-w-0">
+            <p className="mb-4 font-cinzel text-[10px] tracking-[0.45em] text-saffron-300 sm:mb-5 sm:text-xs sm:tracking-[0.5em]">
+              {t("gallery.label")}
+            </p>
+            <h2 className="font-serif text-3xl leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               {t("gallery.titleBefore")} <span className="text-gold-shimmer italic">{t("gallery.titleAccent")}</span>
             </h2>
           </div>
-          <p className="text-white/65 max-w-md">{t("gallery.subtitle")}</p>
+          <p className="max-w-md text-sm leading-relaxed text-white/65 sm:text-base md:text-lg">{t("gallery.subtitle")}</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {display.map((item, i) => (
             <motion.button
               key={item.id || i}
@@ -67,9 +69,9 @@ export default function GallerySection() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "0px 0px 120px 0px", amount: 0.15 }}
-              transition={{ duration: 0.45, delay: Math.min(i * 0.03, 0.24), ease: [0.22, 1, 0.36, 1] }}
-              className={`relative rounded-xl overflow-hidden group ${
-                i === 0 || i === 5 ? "md:row-span-2 md:col-span-2 aspect-square md:aspect-auto" : "aspect-square"
+              transition={{ duration: 0.32, delay: Math.min(i * 0.03, 0.2), ease: [0.22, 1, 0.36, 1] }}
+              className={`group relative overflow-hidden rounded-xl ${
+                i === 0 || i === 5 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"
               }`}
               data-testid={`gallery-item-${i}`}
             >
@@ -79,7 +81,7 @@ export default function GallerySection() {
                   muted
                   playsInline
                   preload="metadata"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] md:duration-700 md:group-hover:scale-110"
                 />
               ) : (
                 <img
@@ -87,7 +89,7 @@ export default function GallerySection() {
                   alt=""
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] md:duration-700 md:group-hover:scale-110"
                 />
               )}
               <div className="absolute inset-0 bg-ink-900/40 group-hover:bg-ink-900/10 transition-colors" />
@@ -108,7 +110,7 @@ export default function GallerySection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[80] bg-ink-900/95 backdrop-blur-md grid place-items-center p-6"
+            className="fixed inset-0 z-[80] grid place-items-center bg-ink-900/95 p-4 backdrop-blur-sm sm:p-6 md:backdrop-blur-md"
             onClick={() => setOpen(null)}
           >
             <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="w-full max-w-5xl">

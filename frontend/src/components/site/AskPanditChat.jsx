@@ -64,11 +64,12 @@ export default function AskPanditChat() {
   return (
     <>
       <motion.button
+        type="button"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1.5, type: "spring" }}
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 left-6 z-40 flex h-16 w-16 items-center justify-center gap-3 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-glow-pulse md:h-14 md:w-auto md:px-5"
+        className="fixed bottom-28 left-4 z-40 flex h-14 w-14 touch-manipulation items-center justify-center gap-3 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 shadow-[0_8px_26px_rgba(245,158,11,0.55)] animate-none md:bottom-6 md:left-6 md:h-14 md:w-auto md:animate-glow-pulse md:px-5 md:shadow-[0_0_30px_rgba(245,158,11,0.6)]"
         data-testid="ask-pandit-fab"
       >
         <MessageCircle className="h-7 w-7 text-ink-900" aria-hidden />
@@ -81,7 +82,7 @@ export default function AskPanditChat() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 left-6 z-50 w-[92vw] max-w-md h-[600px] max-h-[80vh] rounded-2xl bg-ink-800 border border-saffron-500/30 shadow-2xl flex flex-col overflow-hidden"
+            className="fixed inset-x-4 bottom-28 z-50 mx-auto flex h-[min(560px,calc(100dvh-9rem))] max-h-[85dvh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-saffron-500/30 bg-ink-800 shadow-2xl md:inset-x-auto md:bottom-6 md:left-6 md:right-auto md:mx-0 md:h-[600px] md:max-h-[80vh] md:w-[min(92vw,28rem)]"
             data-testid="pandit-chat"
           >
             <div className="flex items-center justify-between p-4 border-b border-saffron-500/15 bg-gradient-to-r from-saffron-700/15 to-transparent">
@@ -94,7 +95,12 @@ export default function AskPanditChat() {
                   <p className="text-saffron-300/70 text-xs">{t("askPandit.headerSub")}</p>
                 </div>
               </div>
-              <button onClick={() => setOpen(false)} className="text-white/60 hover:text-white" data-testid="close-pandit">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="grid min-h-[44px] min-w-[44px] place-items-center rounded-lg text-white/60 hover:bg-white/5 hover:text-white"
+                data-testid="close-pandit"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -133,18 +139,18 @@ export default function AskPanditChat() {
             </div>
 
             <form onSubmit={send} className="p-3 border-t border-saffron-500/15 bg-ink-900/50">
-              <div className="flex items-center gap-2 bg-ink-700 rounded-full px-4 py-2 border border-saffron-500/20 focus-within:border-saffron-400">
+              <div className="flex min-h-[48px] items-center gap-2 rounded-full border border-saffron-500/20 bg-ink-700 px-4 py-2 focus-within:border-saffron-400">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={t("askPandit.placeholder")}
-                  className="flex-1 bg-transparent text-white placeholder-white/40 text-sm focus:outline-none"
+                  className="min-w-0 flex-1 bg-transparent py-1 text-base text-white placeholder:text-white/40 focus:outline-none sm:text-sm"
                   data-testid="pandit-input"
                 />
                 <button
                   type="submit"
                   disabled={loading || !input.trim()}
-                  className="w-8 h-8 rounded-full bg-saffron-500 text-ink-900 grid place-items-center disabled:opacity-40"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-saffron-500 text-ink-900 touch-manipulation disabled:opacity-40"
                   data-testid="pandit-send"
                 >
                   <Send className="w-4 h-4" />

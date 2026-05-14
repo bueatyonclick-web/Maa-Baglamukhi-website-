@@ -14,7 +14,7 @@ import { useLanguage } from "../../i18n/LanguageContext";
 
 const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
 
-export default function Footer() {
+function Footer() {
   const { t } = useLanguage();
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [contactEmail, setContactEmail] = useState("");
@@ -122,27 +122,29 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="relative overflow-x-hidden pt-24 pb-12 border-t border-saffron-500/15 bg-ink-900 lg:pt-32"
+      className="relative overflow-x-hidden border-t border-saffron-500/15 bg-ink-900 pt-20 pb-28 sm:pt-24 md:pb-24 lg:pb-16 lg:pt-32"
       data-testid="footer"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 min-w-0">
-        <div className="grid lg:grid-cols-2 gap-12 pb-16">
+      <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="grid gap-8 pb-12 sm:gap-10 sm:pb-14 md:gap-12 md:pb-16 lg:grid-cols-2">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-4">{t("footer.reachTemple")}</p>
-            <h2 className="font-serif text-4xl lg:text-5xl text-white leading-tight">
+            <p className="mb-3 font-cinzel text-[10px] tracking-[0.35em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.45em]">
+              {t("footer.reachTemple")}
+            </p>
+            <h2 className="font-serif text-3xl leading-tight text-white sm:text-4xl md:text-[2.35rem] lg:text-5xl">
               {t("footer.sendPrayerBefore")}{" "}
               <span className="text-gold-shimmer italic">{t("footer.sendPrayerAccent")}</span>
             </h2>
-            <p className="mt-4 text-white/70">{t("footer.respondNote")}</p>
+            <p className="mt-3 text-sm leading-relaxed text-white/70 sm:mt-4 sm:text-base">{t("footer.respondNote")}</p>
 
-            <form onSubmit={contact} className="mt-7 space-y-3" data-testid="contact-form">
-              <div className="grid grid-cols-2 gap-3">
+            <form onSubmit={contact} className="mt-6 space-y-3 sm:mt-7 sm:space-y-4" data-testid="contact-form">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <input
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t("footer.name")}
-                  className="bg-ink-800 border border-saffron-500/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-saffron-400"
+                  className="min-h-[48px] w-full rounded-lg border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
                   data-testid="contact-name"
                 />
                 <input
@@ -151,7 +153,7 @@ export default function Footer() {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder={t("footer.email")}
-                  className="bg-ink-800 border border-saffron-500/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-saffron-400"
+                  className="min-h-[48px] w-full rounded-lg border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
                   data-testid="contact-email"
                 />
               </div>
@@ -159,7 +161,7 @@ export default function Footer() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t("footer.phoneOptional")}
-                className="w-full bg-ink-800 border border-saffron-500/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-saffron-400"
+                className="min-h-[48px] w-full rounded-lg border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
                 data-testid="contact-phone"
               />
               <textarea
@@ -168,10 +170,15 @@ export default function Footer() {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={t("footer.messagePlaceholder")}
                 rows={4}
-                className="w-full bg-ink-800 border border-saffron-500/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-saffron-400 resize-none"
+                className="min-h-[8.5rem] w-full resize-y rounded-lg border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
                 data-testid="contact-message"
               />
-              <button type="submit" disabled={submittingC} className="btn-primary-sacred" data-testid="contact-submit">
+              <button
+                type="submit"
+                disabled={submittingC}
+                className="btn-primary-sacred w-full sm:w-auto sm:min-w-[12rem]"
+                data-testid="contact-submit"
+              >
                 {submittingC ? t("footer.sending") : t("footer.sendMessage")}
               </button>
             </form>
@@ -181,18 +188,20 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:pl-10"
+            className="min-w-0 lg:pl-6 xl:pl-10"
           >
-            <div className="rounded-2xl glass-card p-7">
-              <p className="font-cinzel text-saffron-300 text-xs tracking-[0.4em]">{t("footer.office")}</p>
+            <div className="glass-card rounded-2xl p-5 sm:p-6 md:p-7">
+              <p className="font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:text-xs sm:tracking-[0.4em]">
+                {t("footer.office")}
+              </p>
               {cmsContact?.templeName ? (
-                <p className="mt-2 text-lg font-serif text-amber-100/95">{cmsContact.templeName}</p>
+                <p className="mt-2 font-serif text-base text-amber-100/95 sm:text-lg">{cmsContact.templeName}</p>
               ) : null}
-              <div className="mt-5 space-y-4 text-white/80">
+              <div className="mt-4 space-y-4 text-white/80 sm:mt-5">
                 <div className="flex gap-3">
-                  <MapPin className="w-5 h-5 text-saffron-400 mt-0.5 shrink-0" />
-                  <div className="text-sm leading-relaxed">
-                    <p>
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-saffron-400" />
+                  <div className="min-w-0 text-sm leading-relaxed sm:text-base">
+                    <p className="break-words">
                       {addressLines.map((line, i) => (
                         <React.Fragment key={i}>
                           {line}
@@ -205,7 +214,7 @@ export default function Footer() {
                         href={cmsContact.googleMapLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-block text-saffron-400 hover:text-amber-200 text-xs"
+                        className="mt-2 inline-block text-xs text-saffron-400 hover:text-amber-200 sm:text-sm"
                       >
                         Google Maps →
                       </a>
@@ -213,44 +222,58 @@ export default function Footer() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <Phone className="w-5 h-5 text-saffron-400 mt-0.5 shrink-0" />
-                  <div className="text-sm space-y-1">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-saffron-400" />
+                  <div className="min-w-0 space-y-1 text-sm sm:text-base">
                     {cmsContact?.phone1 ? (
-                      <p className="text-white/90">{cmsContact.phone1}</p>
+                      <p className="break-words text-white/90">{cmsContact.phone1}</p>
                     ) : (
                       <p>{t("footer.phoneTrust")}</p>
                     )}
-                    {cmsContact?.phone2 ? <p className="text-white/75">{cmsContact.phone2}</p> : null}
+                    {cmsContact?.phone2 ? <p className="break-words text-white/75">{cmsContact.phone2}</p> : null}
                     {cmsContact?.whatsapp ? (
-                      <p className="text-white/75">WhatsApp: {cmsContact.whatsapp}</p>
+                      <p className="break-words text-white/75">WhatsApp: {cmsContact.whatsapp}</p>
                     ) : cmsContact ? null : (
                       <p className="text-white/55">{t("footer.phoneWhatsapp")}</p>
                     )}
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <Mail className="w-5 h-5 text-saffron-400 mt-0.5 shrink-0" />
-                  <a href={`mailto:${displayEmail}`} className="text-sm text-amber-200/90 hover:text-amber-100 break-all">
+                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-saffron-400" />
+                  <a
+                    href={`mailto:${displayEmail}`}
+                    className="min-w-0 break-words text-sm text-amber-200/90 hover:text-amber-100 sm:text-base"
+                  >
                     {displayEmail}
                   </a>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-2xl glass-card p-7 mt-5">
-              <p className="font-cinzel text-saffron-300 text-xs tracking-[0.4em]">{t("footer.blessings")}</p>
-              <p className="mt-2 text-white/70 text-sm">{t("footer.blessingsNote")}</p>
-              <form onSubmit={subscribe} className="mt-4 flex gap-2" data-testid="newsletter-form">
+            <div className="glass-card mt-5 rounded-2xl p-5 sm:mt-6 sm:p-6 md:p-7">
+              <p className="font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:text-xs sm:tracking-[0.4em]">
+                {t("footer.blessings")}
+              </p>
+              <p className="mt-2 text-sm text-white/70 sm:text-base">{t("footer.blessingsNote")}</p>
+              <form
+                onSubmit={subscribe}
+                className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-stretch"
+                data-testid="newsletter-form"
+              >
                 <input
                   type="email"
                   required
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder={t("footer.newsletterPlaceholder")}
-                  className="flex-1 bg-ink-800 border border-saffron-500/20 rounded-full px-4 py-2.5 text-sm text-white focus:outline-none focus:border-saffron-400"
+                  className="min-h-[48px] w-full flex-1 rounded-full border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
                   data-testid="newsletter-email"
                 />
-                <button type="submit" disabled={submittingN} className="btn-primary-sacred text-sm px-5 py-2.5" data-testid="newsletter-submit">
+                <button
+                  type="submit"
+                  disabled={submittingN}
+                  className="btn-primary-sacred w-full shrink-0 px-6 text-sm sm:w-auto sm:min-w-[9.5rem]"
+                  data-testid="newsletter-submit"
+                >
                   {t("footer.subscribe")}
                 </button>
               </form>
@@ -260,19 +283,19 @@ export default function Footer() {
 
         <div className="divider-sacred" />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-12 min-w-0">
-          <div className="col-span-2 md:col-span-1 min-w-0">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_22px_rgba(245,158,11,0.25)]">
+        <div className="grid min-w-0 grid-cols-2 gap-8 py-10 sm:gap-10 md:grid-cols-4 md:gap-10 md:py-12 lg:gap-12">
+          <div className="col-span-2 min-w-0 md:col-span-1">
+            <div className="mb-4 flex items-center gap-3 sm:gap-4">
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_22px_rgba(245,158,11,0.25)] sm:h-12 sm:w-12 md:h-14 md:w-14">
                 <img src={logoSrc} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
               </div>
-              <div>
-                <p className="font-cinzel text-saffron-300 text-[10px] tracking-[0.3em]">{t("brand.line1")}</p>
-                <p className="font-serif text-white text-lg leading-none">{t("brand.line2")}</p>
+              <div className="min-w-0 leading-normal">
+                <p className="font-cinzel text-[10px] tracking-[0.28em] text-saffron-300 sm:tracking-[0.3em]">{t("brand.line1")}</p>
+                <p className="font-serif text-base leading-tight text-white sm:text-lg md:text-xl">{t("brand.line2")}</p>
               </div>
             </div>
-            <p className="text-white/55 text-sm leading-relaxed">{t("footer.blurb")}</p>
-            <div className="flex gap-3 mt-5">
+            <p className="text-sm leading-relaxed text-white/55 sm:text-base">{t("footer.blurb")}</p>
+            <div className="mt-5 flex flex-wrap gap-3">
               {socialPairs.map(({ Icon, href, label }, i) => (
                 <a
                   key={i}
@@ -281,21 +304,26 @@ export default function Footer() {
                   aria-label={`Connect on ${label}`}
                   target={href && href !== "#" ? "_blank" : undefined}
                   rel={href && href !== "#" ? "noopener noreferrer" : undefined}
-                  className="w-9 h-9 rounded-full grid place-items-center glass-card text-saffron-300 hover:text-white hover:border-saffron-400 transition-all"
+                  className="grid h-11 w-11 place-items-center rounded-full glass-card text-saffron-300 transition-all hover:border-saffron-400 hover:text-white sm:h-12 sm:w-12"
                   data-testid={`social-${i}`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
           </div>
 
           <div className="min-w-0">
-            <p className="font-cinzel text-saffron-300 text-[10px] tracking-[0.4em] mb-4">{t("footer.quickLinks")}</p>
-            <ul className="space-y-2.5">
+            <p className="mb-3 font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.4em]">
+              {t("footer.quickLinks")}
+            </p>
+            <ul className="space-y-2.5 sm:space-y-3">
               {FOOTER_LINKS.quick.map((l) => (
                 <li key={l.navKey}>
-                  <a href={l.href} className="text-white/65 hover:text-saffron-300 text-sm break-words">
+                  <a
+                    href={l.href}
+                    className="inline-block py-1 text-sm text-white/65 hover:text-saffron-300 sm:text-base break-words"
+                  >
                     {t(`nav.${l.navKey}`)}
                   </a>
                 </li>
@@ -303,20 +331,27 @@ export default function Footer() {
             </ul>
           </div>
           <div className="min-w-0">
-            <p className="font-cinzel text-saffron-300 text-[10px] tracking-[0.4em] mb-4">{t("footer.pilgrimage")}</p>
-            <ul className="space-y-2.5">
+            <p className="mb-3 font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.4em]">
+              {t("footer.pilgrimage")}
+            </p>
+            <ul className="space-y-2.5 sm:space-y-3">
               {FOOTER_LINKS.pilgrimage.map((l) => (
                 <li key={l.tKey}>
-                  <a href={l.href} className="text-white/65 hover:text-saffron-300 text-sm break-words">
+                  <a
+                    href={l.href}
+                    className="inline-block py-1 text-sm text-white/65 hover:text-saffron-300 sm:text-base break-words"
+                  >
                     {t(l.tKey)}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="col-span-2 md:col-span-1 min-w-0">
-            <p className="font-cinzel text-saffron-300 text-[10px] tracking-[0.4em] mb-4">{t("footer.timings")}</p>
-            <ul className="space-y-2 text-sm text-white/65">
+          <div className="col-span-2 min-w-0 md:col-span-1">
+            <p className="mb-3 font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.4em]">
+              {t("footer.timings")}
+            </p>
+            <ul className="space-y-2 text-sm text-white/65 sm:text-base">
               <li>{t("footer.timing1")}</li>
               <li>{t("footer.timing2")}</li>
               <li>{t("footer.timing3")}</li>
@@ -327,7 +362,7 @@ export default function Footer() {
 
         <div className="divider-sacred" />
 
-        <div className="pt-6 flex flex-col md:flex-row justify-between gap-3 text-xs text-white/45">
+        <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/45 sm:text-sm md:flex-row">
           <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("footer.mantraLine")}</p>
         </div>
@@ -335,3 +370,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default React.memo(Footer);

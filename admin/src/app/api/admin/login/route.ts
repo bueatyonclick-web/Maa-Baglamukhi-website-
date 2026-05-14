@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/lib/validations";
 import { verifyPassword } from "@/lib/password";
 import { signAdminToken } from "@/lib/jwt";
+import { adminAuthCookieBase } from "@/lib/authCookie";
 import { withCors } from "@/lib/cors";
 import type { NextRequest } from "next/server";
 
@@ -30,10 +31,7 @@ export async function POST(request: NextRequest) {
       admin: { id: admin.id, name: admin.name, email: admin.email },
     });
     res.cookies.set("admin_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
+      ...adminAuthCookieBase(),
       maxAge: 60 * 60 * 24 * 7,
     });
     return withCors(request, res);

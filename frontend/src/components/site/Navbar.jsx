@@ -7,7 +7,7 @@ import { useLanguage } from "../../i18n/LanguageContext";
 
 const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
 
-export default function Navbar() {
+function Navbar() {
   const { t, lang } = useLanguage();
   const isHi = lang === "hi";
   const { pathname } = useLocation();
@@ -62,16 +62,16 @@ export default function Navbar() {
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${headerSurface}`}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${headerSurface}`}
       data-testid="site-navbar"
     >
-      <div className="flex w-full items-center justify-between gap-3 px-4 py-4 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-6 md:px-6 lg:gap-8 lg:px-10">
+      <div className="flex w-full min-w-0 items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4 sm:py-3.5 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-6 md:px-6 lg:gap-8 lg:px-10">
         <Link
           to="/"
-          className="flex shrink-0 items-center gap-3.5 md:gap-4 group justify-self-start"
+          className="group flex min-w-0 shrink-0 items-center gap-2.5 justify-self-start sm:gap-3.5 md:gap-4"
           data-testid="nav-logo"
         >
-          <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_28px_rgba(245,158,11,0.32)] md:h-[4.25rem] md:w-[4.25rem] lg:h-[4.75rem] lg:w-[4.75rem]">
+          <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_28px_rgba(245,158,11,0.32)] sm:h-12 sm:w-12 md:h-[4.25rem] md:w-[4.25rem] lg:h-[4.75rem] lg:w-[4.75rem]">
             <img src={SITE_LOGO} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" />
           </div>
           <div className="min-w-0 leading-normal">
@@ -87,8 +87,8 @@ export default function Navbar() {
             <p
               className={`text-white drop-shadow-md ${
                 isHi
-                  ? "font-deva text-xl leading-snug md:text-2xl lg:text-[1.75rem]"
-                  : "font-serif text-lg -mt-0.5 leading-tight md:text-xl"
+                  ? "font-deva text-lg leading-snug sm:text-xl md:text-2xl lg:text-[1.75rem]"
+                  : "font-serif text-base leading-tight sm:text-lg md:text-xl"
               }`}
             >
               {t("brand.line2")}
@@ -127,8 +127,10 @@ export default function Navbar() {
 
         <div className="flex items-center justify-end md:hidden">
           <button
-            className="p-2 rounded-full bg-ink-700/60 border border-saffron-500/20 text-saffron-300"
+            type="button"
+            className="grid min-h-[44px] min-w-[44px] place-items-center rounded-full border border-saffron-500/20 bg-ink-700/60 p-2 text-saffron-300 touch-manipulation"
             onClick={() => setOpen(!open)}
+            aria-expanded={open}
             aria-label="Toggle menu"
             data-testid="nav-mobile-toggle"
           >
@@ -144,13 +146,13 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-ink-900/95 backdrop-blur-xl border-t border-saffron-500/10"
         >
-          <div className="px-6 py-5 grid gap-3">
+          <div className="grid gap-2 px-4 py-4 sm:px-6 sm:py-5">
             {mainNavLinks.map((l) => (
               <Link
                 key={l.href}
                 to={l.href}
                 onClick={() => setOpen(false)}
-                className="text-white/80 hover:text-saffron-300 py-1.5"
+                className="min-h-[44px] rounded-lg py-2.5 text-base text-white/80 hover:bg-white/5 hover:text-saffron-300"
                 data-testid={
                   l.href === "/contact"
                     ? "mobile-nav-contact"
@@ -169,3 +171,5 @@ export default function Navbar() {
     </motion.header>
   );
 }
+
+export default React.memo(Navbar);

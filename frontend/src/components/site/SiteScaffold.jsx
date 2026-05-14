@@ -5,9 +5,9 @@ import AskPanditChat from "./AskPanditChat";
 
 export default function SiteScaffold({ children, showFooter = true }) {
   return (
-    <div className="dark bg-ink-900 text-white min-h-screen">
+    <div className="dark min-h-screen overflow-x-hidden bg-ink-900 text-white">
       <Navbar />
-      <main>{children}</main>
+      <main className="min-w-0 touch-pan-y">{children}</main>
       {showFooter && <Footer />}
       <AskPanditChat />
     </div>

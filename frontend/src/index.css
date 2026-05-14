@@ -113,11 +113,24 @@ html.lang-hi .btn-ghost-sacred {
   animation: shimmer 6s linear infinite;
 }
 
+@media (max-width: 768px) {
+  .text-gold-shimmer {
+    animation-duration: 10s;
+  }
+}
+
 .glass-card {
   background: rgba(20, 8, 9, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .golden-border-glow {
@@ -144,19 +157,25 @@ html.lang-hi .btn-ghost-sacred {
 }
 
 .btn-primary-sacred {
-  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium tracking-wide;
+  @apply inline-flex min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-full px-7 py-3.5 font-medium tracking-wide;
   background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
   color: #1a0b0c;
   box-shadow: 0 8px 30px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255,255,255,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 .btn-primary-sacred:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(245, 158, 11, 0.55), inset 0 1px 0 rgba(255,255,255,0.5);
 }
 
+@media (max-width: 768px) {
+  .btn-primary-sacred:hover {
+    transform: none;
+  }
+}
+
 .btn-ghost-sacred {
-  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium tracking-wide;
+  @apply inline-flex min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-full px-7 py-3.5 font-medium tracking-wide;
   background: rgba(20, 8, 9, 0.5);
   color: #FCD34D;
   border: 1px solid rgba(245, 158, 11, 0.4);
