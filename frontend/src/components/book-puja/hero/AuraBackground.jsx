@@ -19,7 +19,7 @@ export function AuraBackground({ raysRef }) {
       />
 
       <div
-        className="pointer-events-none absolute left-1/2 top-[28%] z-[7] h-[140vh] w-[140vh] -translate-x-1/2 -translate-y-1/2 opacity-[0.14]"
+        className="pointer-events-none absolute left-1/2 top-[28%] z-[7] h-[140svh] w-[140svh] -translate-x-1/2 -translate-y-1/2 opacity-[0.14]"
         aria-hidden
       >
         <div

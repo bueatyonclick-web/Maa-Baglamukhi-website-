@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BOOK_PUJA_THALI_IMAGE } from "./constants";
 
@@ -10,8 +10,21 @@ const ORBIT_R = 30;
 
 /**
  * Puja thali PNG — slow circular path (aarti-style), thali stays upright.
+ * Orbit animation is desktop-only to reduce compositor load while scrolling on phones.
  */
 export default function FloatingPujaThali() {
+  const [orbit, setOrbit] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => setOrbit(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   return (
     <div
       className="pointer-events-none absolute inset-x-0 bottom-[10%] z-[30] flex justify-center md:bottom-[12%]"
@@ -29,16 +42,17 @@ export default function FloatingPujaThali() {
 
         <motion.div
           className="relative z-[1] w-[min(50vw,240px)] max-w-[min(90vw,320px)] will-change-transform sm:w-[min(44vw,280px)] md:w-[min(32vw,300px)]"
-          initial={{ x: ORBIT_R, y: 0 }}
-          animate={{
-            x: circleX(ORBIT_R),
-            y: circleY(ORBIT_R),
-          }}
-          transition={{
-            duration: 11,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          initial={{ x: orbit ? ORBIT_R : 0, y: 0 }}
+          animate={
+            orbit
+              ? { x: circleX(ORBIT_R), y: circleY(ORBIT_R) }
+              : { x: 0, y: 0 }
+          }
+          transition={
+            orbit
+              ? { duration: 11, repeat: Infinity, ease: "linear" }
+              : { duration: 0.4, ease: "easeOut" }
+          }
         >
           <img
             src={BOOK_PUJA_THALI_IMAGE}

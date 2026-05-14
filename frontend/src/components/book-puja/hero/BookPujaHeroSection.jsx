@@ -16,11 +16,15 @@ export default function BookPujaHeroSection() {
   const lensRef = useRef(null);
   const [maaSrc, setMaaSrc] = useState(BOOK_PUJA_HERO_IMAGE);
   const [lightParticles, setLightParticles] = useState(false);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 28, damping: 22 });
-  const smoothY = useSpring(mouseY, { stiffness: 28, damping: 22 });
+  const [finePointer, setFinePointer] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches
+  );
+  const [reduceMotion, setReduceMotion] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const [narrowViewport, setNarrowViewport] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
+  );
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 640px)");
@@ -29,6 +33,31 @@ export default function BookPujaHeroSection() {
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, []);
+
+  useEffect(() => {
+    const mqFine = window.matchMedia("(pointer: fine)");
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqNarrow = window.matchMedia("(max-width: 768px)");
+    const apply = () => {
+      setFinePointer(mqFine.matches);
+      setReduceMotion(mqReduce.matches);
+      setNarrowViewport(mqNarrow.matches);
+    };
+    apply();
+    mqFine.addEventListener("change", apply);
+    mqReduce.addEventListener("change", apply);
+    mqNarrow.addEventListener("change", apply);
+    return () => {
+      mqFine.removeEventListener("change", apply);
+      mqReduce.removeEventListener("change", apply);
+      mqNarrow.removeEventListener("change", apply);
+    };
+  }, []);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 28, damping: 22 });
+  const smoothY = useSpring(mouseY, { stiffness: 28, damping: 22 });
 
   const onPointerMove = (e) => {
     const el = sectionRef.current;
@@ -50,6 +79,8 @@ export default function BookPujaHeroSection() {
   useLayoutEffect(() => {
     const root = sectionRef.current;
     if (!root) return;
+    if (reduceMotion || narrowViewport) return;
+
     const ctx = gsap.context(() => {
       if (raysRef.current) {
         gsap.to(raysRef.current, {
@@ -74,22 +105,25 @@ export default function BookPujaHeroSection() {
       }
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [narrowViewport, reduceMotion]);
+
+  const heroMinH =
+    "relative min-h-[max(100svh,100dvh)] touch-pan-y overscroll-y-none overflow-hidden bg-black";
 
   return (
     <section
       ref={sectionRef}
       id="book-puja-hero"
-      className="relative min-h-[100dvh] overflow-hidden bg-black"
-      onPointerMove={onPointerMove}
-      onPointerLeave={onPointerLeave}
+      className={heroMinH}
+      onPointerMove={finePointer ? onPointerMove : undefined}
+      onPointerLeave={finePointer ? onPointerLeave : undefined}
     >
       {/* Full-bleed goddess — static (no rotation / no parallax on image) */}
       <div className="absolute inset-0 z-[1]">
         <img
           src={maaSrc}
           alt="Śrī Maa Bagalamukhī — sacred puja"
-          className="h-full min-h-[100dvh] w-full object-cover object-[center_26%] md:object-center"
+          className="h-full min-h-[max(100svh,100dvh)] w-full object-cover object-[center_26%] md:object-center"
           loading="eager"
           decoding="async"
           fetchPriority="high"
@@ -108,15 +142,17 @@ export default function BookPujaHeroSection() {
         aria-hidden
       />
 
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-[18] bg-[length:200%_100%] bg-gradient-to-r from-transparent via-amber-200/25 to-transparent opacity-[0.08] mix-blend-overlay animate-shimmer"
-        aria-hidden
-      />
+      {!narrowViewport && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-[18] bg-[length:200%_100%] bg-gradient-to-r from-transparent via-amber-200/25 to-transparent opacity-[0.08] mix-blend-overlay animate-shimmer"
+          aria-hidden
+        />
+      )}
 
       <AuraBackground raysRef={raysRef} />
       <TempleSmoke />
       <DivineLens lensRef={lensRef} />
-      <CursorDivineGlow smoothX={smoothX} smoothY={smoothY} />
+      {finePointer && <CursorDivineGlow smoothX={smoothX} smoothY={smoothY} />}
       <FloatingParticles light={lightParticles} />
 
       <FloatingPujaThali />

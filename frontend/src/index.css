@@ -53,7 +53,8 @@
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
-    overscroll-behavior-y: contain;
+    /* `contain` can make section boundaries feel “stuck” on mobile; allow normal chaining */
+    overscroll-behavior-y: auto;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -61,6 +62,9 @@
     color: #FDF8F5;
     font-family: "Tenor Sans", sans-serif;
     overflow-x: clip;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: auto;
   }
   html.lang-hi body {
     font-family: "Noto Sans Devanagari", "Tenor Sans", system-ui, sans-serif;

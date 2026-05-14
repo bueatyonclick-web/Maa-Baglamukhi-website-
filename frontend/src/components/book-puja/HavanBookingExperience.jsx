@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   CalendarClock,
@@ -20,11 +20,11 @@ import { useLanguage } from "../../i18n/LanguageContext";
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-8%" },
+  viewport: { once: true, margin: "0px 0px -48px 0px", amount: 0.12 },
   transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
 };
 
-function AmbientField() {
+function AmbientField({ compact }) {
   const orbs = useMemo(
     () =>
       Array.from({ length: 14 }, (_, i) => ({
@@ -37,16 +37,17 @@ function AmbientField() {
       })),
     []
   );
+  const visible = compact ? orbs.filter((_, i) => i % 2 === 0) : orbs;
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 bg-[#070403]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(212,160,23,0.14),transparent_55%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_100%_60%,rgba(244,208,111,0.06),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_35%_at_0%_80%,rgba(180,83,9,0.08),transparent_45%)]" />
-      {orbs.map((o) => (
+      {visible.map((o) => (
         <motion.div
           key={o.id}
-          className="absolute rounded-full bg-[#D4A017]/[0.04] blur-3xl"
+          className="absolute rounded-full bg-[#D4A017]/[0.04] blur-2xl md:blur-3xl"
           style={{ left: o.left, top: o.top, width: o.size, height: o.size, marginLeft: -o.size / 2, marginTop: -o.size / 2 }}
           animate={{ opacity: [0.25, 0.55, 0.3], scale: [1, 1.08, 1] }}
           transition={{ duration: o.dur, repeat: Infinity, ease: "easeInOut", delay: o.delay }}
@@ -100,6 +101,17 @@ export default function HavanBookingExperience() {
   const { t, lang } = useLanguage();
   const isHi = lang === "hi";
   const [mode, setMode] = useState("online");
+  const [compactAmbient, setCompactAmbient] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setCompactAmbient(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   const steps = useMemo(
     () =>
@@ -147,7 +159,7 @@ export default function HavanBookingExperience() {
       className="relative overflow-hidden border-y border-[#D4A017]/15 bg-[#070403] py-20 md:py-28 lg:py-32"
       data-testid="havan-booking-experience"
     >
-      <AmbientField />
+      <AmbientField compact={compactAmbient} />
       <FloatingEmbers />
       <DiyaGlow />
 
@@ -196,7 +208,7 @@ export default function HavanBookingExperience() {
                 animation: "havan-border-shine 4s linear infinite",
               }}
             />
-            <div className="relative flex h-[52px] items-stretch rounded-full border border-[#D4A017]/35 bg-[#120905]/90 p-1.5 shadow-[inset_0_1px_0_rgba(255,246,229,0.06)] backdrop-blur-xl md:h-[56px]">
+            <div className="relative flex h-[52px] items-stretch rounded-full border border-[#D4A017]/35 bg-[#120905]/90 p-1.5 shadow-[inset_0_1px_0_rgba(255,246,229,0.06)] backdrop-blur-none md:backdrop-blur-xl md:h-[56px]">
               <motion.div
                 className="absolute top-1.5 bottom-1.5 w-[calc(50%-10px)] rounded-full bg-gradient-to-br from-[#F4D06F] via-[#D4A017] to-[#B45309] shadow-[0_0_28px_rgba(212,160,23,0.4)]"
                 initial={false}
@@ -259,7 +271,7 @@ export default function HavanBookingExperience() {
                       <motion.div
                         whileHover={{ scale: 1.015, y: -2 }}
                         transition={{ type: "spring", stiffness: 400, damping: 28 }}
-                        className="group flex-1 rounded-2xl border border-[#D4A017]/20 bg-[#120905]/55 p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,246,229,0.06)] backdrop-blur-xl md:p-8"
+                        className="group flex-1 rounded-2xl border border-[#D4A017]/20 bg-[#120905]/55 p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,246,229,0.06)] backdrop-blur-none md:backdrop-blur-xl md:p-8"
                       >
                         <div
                           className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -284,10 +296,10 @@ export default function HavanBookingExperience() {
                       key={label}
                       initial={{ opacity: 0, y: 16 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-5%" }}
+                      viewport={{ once: true, margin: "0px 0px -32px 0px", amount: 0.12 }}
                       transition={{ delay: i * 0.04, duration: 0.45 }}
                       whileHover={{ y: -4, scale: 1.02 }}
-                      className="group relative overflow-hidden rounded-2xl border border-[#D4A017]/20 bg-[#120905]/70 p-5 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.9)] backdrop-blur-md"
+                      className="group relative overflow-hidden rounded-2xl border border-[#D4A017]/20 bg-[#120905]/70 p-5 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.9)] backdrop-blur-none md:backdrop-blur-md"
                     >
                       <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#D4A017]/10 blur-2xl transition-all duration-500 group-hover:bg-[#D4A017]/18" />
                       <div className="flex items-start gap-3">
@@ -323,10 +335,10 @@ export default function HavanBookingExperience() {
                     key={title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-6%" }}
+                    viewport={{ once: true, margin: "0px 0px -40px 0px", amount: 0.12 }}
                     transition={{ delay: i * 0.07, duration: 0.5 }}
                     whileHover={{ y: -6, scale: 1.02 }}
-                    className="group relative overflow-hidden rounded-2xl border border-[#D4A017]/25 bg-gradient-to-b from-[#120905]/95 to-[#070403]/95 p-7 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.95),inset_0_0_0_1px_rgba(244,208,111,0.06)] backdrop-blur-xl"
+                    className="group relative overflow-hidden rounded-2xl border border-[#D4A017]/25 bg-gradient-to-b from-[#120905]/95 to-[#070403]/95 p-7 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.95),inset_0_0_0_1px_rgba(244,208,111,0.06)] backdrop-blur-none md:backdrop-blur-xl"
                   >
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#F4D06F]/50 to-transparent opacity-60" />
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[#D4A017]/30 bg-[#070403]/80 text-[#F4D06F] shadow-[0_0_24px_rgba(212,160,23,0.2)]">
@@ -352,7 +364,7 @@ export default function HavanBookingExperience() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="relative overflow-hidden rounded-2xl border border-[#D4A017]/20 bg-[#120905]/80 p-6 text-center shadow-[inset_0_1px_0_rgba(255,246,229,0.05)] backdrop-blur-md"
+                className="relative overflow-hidden rounded-2xl border border-[#D4A017]/20 bg-[#120905]/80 p-6 text-center shadow-[inset_0_1px_0_rgba(255,246,229,0.05)] backdrop-blur-none md:backdrop-blur-md"
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(244,208,111,0.12),transparent_55%)]" />
                 <p className="font-playfair text-2xl font-semibold text-[#F4D06F] md:text-3xl">{row.n}</p>
@@ -375,7 +387,7 @@ export default function HavanBookingExperience() {
           <div className="absolute -right-16 bottom-0 h-48 w-48 rounded-full bg-[#F4D06F]/10 blur-3xl" />
           <div className="absolute inset-0 rounded-3xl border border-[#D4A017]/30 shadow-[0_0_0_1px_rgba(244,208,111,0.08),0_32px_100px_-24px_rgba(212,160,23,0.25)]" />
           <motion.div
-            className="pointer-events-none absolute inset-0 opacity-[0.15]"
+            className="pointer-events-none absolute inset-0 hidden opacity-[0.15] md:block"
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
             style={{
@@ -386,13 +398,25 @@ export default function HavanBookingExperience() {
 
           <div className="relative z-10 px-6 py-12 text-center md:px-12 md:py-14">
             <div className="mx-auto mb-4 flex justify-center">
-              <motion.span
-                className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A017]/40 bg-[#070403]/80 text-[#F4D06F] shadow-[0_0_32px_rgba(212,160,23,0.35)]"
-                animate={{ boxShadow: ["0 0 24px rgba(212,160,23,0.25)", "0 0 48px rgba(244,208,111,0.45)", "0 0 24px rgba(212,160,23,0.25)"] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Flame className="h-7 w-7" />
-              </motion.span>
+              {compactAmbient ? (
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A017]/40 bg-[#070403]/80 text-[#F4D06F] shadow-[0_0_28px_rgba(212,160,23,0.3)]">
+                  <Flame className="h-7 w-7" />
+                </span>
+              ) : (
+                <motion.span
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A017]/40 bg-[#070403]/80 text-[#F4D06F] shadow-[0_0_32px_rgba(212,160,23,0.35)]"
+                  animate={{
+                    boxShadow: [
+                      "0 0 24px rgba(212,160,23,0.25)",
+                      "0 0 48px rgba(244,208,111,0.45)",
+                      "0 0 24px rgba(212,160,23,0.25)",
+                    ],
+                  }}
+                  transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Flame className="h-7 w-7" />
+                </motion.span>
+              )}
             </div>
             <h3 className={`font-playfair text-2xl text-[#FFF6E5] sm:text-3xl md:text-4xl ${isHi ? "font-deva" : ""}`}>{t("bookHavan.ctaHead")}</h3>
             <p className={`mx-auto mt-3 max-w-xl font-inter text-sm text-[#FFF6E5]/65 md:text-base ${isHi ? "font-deva" : ""}`}>{t("bookHavan.ctaSub")}</p>
@@ -408,7 +432,7 @@ export default function HavanBookingExperience() {
               <button
                 type="button"
                 onClick={openPanditChat}
-                className={`inline-flex items-center justify-center gap-2 rounded-full border border-[#D4A017]/50 bg-[#070403]/60 px-8 py-3.5 text-sm font-semibold text-[#FFF6E5] shadow-[inset_0_0_0_1px_rgba(244,208,111,0.12)] backdrop-blur-sm transition-all hover:border-[#F4D06F]/70 hover:bg-[#120905]/80 md:text-[15px] ${isHi ? "font-deva" : "font-inter"}`}
+                className={`inline-flex items-center justify-center gap-2 rounded-full border border-[#D4A017]/50 bg-[#070403]/60 px-8 py-3.5 text-sm font-semibold text-[#FFF6E5] shadow-[inset_0_0_0_1px_rgba(244,208,111,0.12)] backdrop-blur-none transition-all hover:border-[#F4D06F]/70 hover:bg-[#120905]/80 md:backdrop-blur-sm md:text-[15px] ${isHi ? "font-deva" : "font-inter"}`}
               >
                 <MessageCircle className="h-4 w-4 text-[#F4D06F]" />
                 {t("bookHavan.ctaPandit")}
