@@ -53,6 +53,8 @@
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
+    /* Keep vertical scrolling on the viewport; avoid odd overflow-y:auto promotion on body. */
+    overflow-y: scroll;
     /* `contain` can make section boundaries feel “stuck” on mobile; allow normal chaining */
     overscroll-behavior-y: auto;
   }
@@ -62,6 +64,7 @@
     color: #FDF8F5;
     font-family: "Tenor Sans", sans-serif;
     overflow-x: clip;
+    overflow-y: visible;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: auto;

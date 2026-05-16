@@ -107,8 +107,10 @@ export default function BookPujaHeroSection() {
     return () => ctx.revert();
   }, [narrowViewport, reduceMotion]);
 
+  /* `overflow-hidden` can promote this block to a scroll container (with wheel traps on some
+   * browsers when combined with min-height viewport). `overflow-clip` clips paint without that. */
   const heroMinH =
-    "relative min-h-[max(100svh,100dvh)] touch-pan-y overscroll-y-none overflow-hidden bg-black";
+    "relative min-h-[max(100svh,100dvh)] touch-pan-y overflow-clip bg-black";
 
   return (
     <section

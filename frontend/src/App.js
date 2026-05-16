@@ -34,6 +34,10 @@ function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Lenis (home) / chat overlay may leave inline overflow on the root; clear on every route.
+    document.body.style.removeProperty("overflow");
+    document.documentElement.style.removeProperty("overflow");
+    document.documentElement.style.removeProperty("height");
   }, [pathname]);
   return null;
 }

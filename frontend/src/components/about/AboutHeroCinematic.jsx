@@ -173,7 +173,7 @@ export default function AboutHeroCinematic() {
             transition={{ delay: 0.7, duration: 1 }}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
-            <a href="#about-legend" className="btn-primary-sacred inline-flex gap-2 px-8 py-3 text-sm md:text-base">
+            <a href="#about-story-0" className="btn-primary-sacred inline-flex gap-2 px-8 py-3 text-sm md:text-base">
               <Sparkles className="h-4 w-4" />
               {t("aboutHero.exploreHistory")}
             </a>

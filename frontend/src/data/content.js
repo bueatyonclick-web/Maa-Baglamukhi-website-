@@ -10,6 +10,17 @@ export const BOOK_PUJA_MAA_FALLBACK = HERO_IMAGE;
 /** About page — Maa Baglamukhi illustration (`frontend/public/about-maa-baglamukhi-peeth.png`). */
 export const ABOUT_PAGE_MAA_IMAGE = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.png`;
 
+const PUB = process.env.PUBLIC_URL || "";
+
+/** Cinematic story sections on `/about` — portrait-friendly, lazy-loaded. */
+export const ABOUT_STORY_IMAGES = [
+  `${PUB}/about-maa-baglamukhi-peeth.png`,
+  `${PUB}/about-sacred-legend-mandir.jpg`,
+  "https://images.unsplash.com/photo-1605649487212-47bdab064df7?crop=entropy&cs=srgb&fm=jpg&q=80&w=1200",
+  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?crop=entropy&cs=srgb&fm=jpg&q=80&w=1200",
+  `${PUB}/about-sacred-legend-shrine.jpg`,
+];
+
 export const ABOUT_IMAGE =
   "https://images.unsplash.com/photo-1774020039814-c5bdab09e1cf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
 
