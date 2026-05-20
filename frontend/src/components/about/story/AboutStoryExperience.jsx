@@ -4,6 +4,7 @@ import AboutFinalConnection from "../AboutFinalConnection";
 import StorySection from "./StorySection";
 import TimelineSection from "./TimelineSection";
 import ExperienceDivineEnergy from "./ExperienceDivineEnergy";
+import MeetPanditJiSection from "./MeetPanditJiSection";
 import FAQSection from "./FAQSection";
 import { ABOUT_STORY_IMAGES } from "../../../data/content";
 import { useLanguage } from "../../../i18n/LanguageContext";
@@ -41,6 +42,7 @@ function AboutStoryExperience() {
 
       <TimelineSection />
       <ExperienceDivineEnergy />
+      <MeetPanditJiSection />
       <FAQSection />
       <AboutFinalConnection />
     </article>

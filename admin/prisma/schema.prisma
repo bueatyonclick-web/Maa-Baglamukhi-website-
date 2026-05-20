@@ -93,9 +93,10 @@ model Donation {
 }
 
 model WebsiteSettings {
-  id           String @id @default(cuid())
-  heroTitle    String
-  heroSubtitle String
-  footerText   String
-  logo         String?
+  id                  String @id @default(cuid())
+  heroTitle           String
+  heroSubtitle        String
+  footerText          String
+  logo                String?
+  panditProfileImage  String?
 }

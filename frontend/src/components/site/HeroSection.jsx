@@ -5,7 +5,7 @@ import {
   Calendar,
   Check,
   ChevronDown,
-  PlayCircle,
+  BookOpen,
 } from "lucide-react";
 import FloatingPujaThali from "../book-puja/hero/FloatingPujaThali";
 import { HERO_IMAGE, HOME_HERO_IMAGE } from "../../data/content";
@@ -170,12 +170,12 @@ export default function HeroSection() {
               {t("hero.ctaBook")}
             </Link>
             <Link
-              to="/live-darshan"
+              to="/about"
               className="group inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-black/40 px-8 py-3.5 text-sm text-amber-50 backdrop-blur-sm transition-all hover:border-amber-300/80 hover:bg-black/55 hover:shadow-[inset_0_0_0_1px_rgba(251,191,36,0.35)]"
-              data-testid="hero-live-darshan"
+              data-testid="hero-about"
             >
-              <PlayCircle className="h-4 w-4 text-amber-300/90" />
-              {t("hero.ctaDarshan")}
+              <BookOpen className="h-4 w-4 text-amber-300/90" />
+              {t("hero.ctaAbout")}
             </Link>
           </motion.div>
 

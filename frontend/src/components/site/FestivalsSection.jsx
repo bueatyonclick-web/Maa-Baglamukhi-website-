@@ -84,7 +84,7 @@ export default function FestivalsSection() {
   }, []);
 
   return (
-    <section id="festivals" className="py-24 lg:py-32" data-testid="festivals-section">
+    <section id="festivals" className="pt-24 pb-10 lg:pt-32 lg:pb-12" data-testid="festivals-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-14">
           <p className={`mb-5 text-saffron-300 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-xs tracking-[0.5em]"}`}>

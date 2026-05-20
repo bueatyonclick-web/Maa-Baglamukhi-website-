@@ -3,72 +3,111 @@ import { motion } from "framer-motion";
 import { Plane, Train, Bus, MapPin, Clock, Car } from "lucide-react";
 import { MOUNTAIN_IMAGE } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { TRANSLATIONS } from "../../i18n/translations";
 
-const ICONS = [Plane, Train, Bus, Car];
+const ROUTE_CONFIG = [
+  { key: 0, icon: Plane, type: "simple" },
+  { key: 1, icon: Train, type: "train" },
+  { key: 2, icon: Bus, type: "simple" },
+  { key: 3, icon: Car, type: "simple" },
+];
 
-export default function HowToReachSection() {
-  const { t } = useLanguage();
-  const routes = useMemo(
-    () =>
-      [0, 1, 2, 3].map((i) => ({
-        icon: ICONS[i],
-        mode: t(`reach.r${i}m`),
-        primary: t(`reach.r${i}p`),
-        details: t(`reach.r${i}d`),
-      })),
-    [t],
-  );
+function RouteCard({ route, index, isHi }) {
+  const { icon: Icon, mode, type, stations, primary, details } = route;
 
   return (
-    <section id="reach" className="relative py-24 lg:py-32 overflow-hidden" data-testid="reach-section">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="rounded-2xl glass-card p-7 transition-all hover:border-saffron-400"
+      data-testid={`route-${index}`}
+    >
+      <div className="mb-5 grid h-14 w-14 place-items-center rounded-full border border-saffron-500/30 bg-saffron-500/15 text-saffron-300">
+        <Icon className="h-6 w-6" />
+      </div>
+      <p className="font-cinzel text-[10px] tracking-[0.3em] text-saffron-300/80">{mode}</p>
+
+      {type === "train" && stations?.length > 0 ? (
+        <div className="mt-3 space-y-4">
+          {stations.map((station, si) => (
+            <div
+              key={station.title}
+              className={`${si > 0 ? "border-t border-saffron-500/15 pt-4" : ""}`}
+            >
+              <h3 className={`text-lg text-white sm:text-xl ${isHi ? "font-deva leading-snug" : "font-serif"}`}>
+                {station.title}
+              </h3>
+              {station.detail?.trim() ? (
+                <p className={`mt-2 text-sm leading-relaxed text-white/65 sm:text-[15px] ${isHi ? "font-deva" : ""}`}>
+                  {station.detail}
+                </p>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <h3 className={`mt-2 text-xl text-white ${isHi ? "font-deva" : "font-serif"}`}>{primary}</h3>
+          <p className={`mt-3 text-sm leading-relaxed text-white/65 ${isHi ? "font-deva" : ""}`}>{details}</p>
+        </>
+      )}
+    </motion.div>
+  );
+}
+
+export default function HowToReachSection() {
+  const { t, lang } = useLanguage();
+  const isHi = lang === "hi";
+
+  const routes = useMemo(() => {
+    const reach = TRANSLATIONS[lang]?.reach || TRANSLATIONS.en.reach;
+    return ROUTE_CONFIG.map(({ key, icon, type }) => ({
+      icon,
+      type,
+      mode: t(`reach.r${key}m`),
+      primary: type === "simple" ? t(`reach.r${key}p`) : undefined,
+      details: type === "simple" ? t(`reach.r${key}d`) : undefined,
+      stations: type === "train" && Array.isArray(reach.r1stations) ? reach.r1stations : [],
+    }));
+  }, [lang, t]);
+
+  return (
+    <section id="reach" className="relative overflow-hidden pt-10 pb-24 lg:pt-12 lg:pb-32" data-testid="reach-section">
       <div className="absolute inset-0">
-        <img src={MOUNTAIN_IMAGE} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+        <img src={MOUNTAIN_IMAGE} alt="" className="absolute inset-0 h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-900 via-ink-900/85 to-ink-900" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="text-center mb-14">
-          <p className="font-cinzel text-saffron-300 text-xs tracking-[0.5em] mb-5">{t("reach.label")}</p>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="mb-10 text-center lg:mb-12">
+          <p className="mb-5 font-cinzel text-xs tracking-[0.5em] text-saffron-300">{t("reach.label")}</p>
+          <h2 className="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
             {t("reach.titleBefore")} <span className="text-gold-shimmer italic">{t("reach.titleAccent")}</span>
             {t("reach.titlePlace") ? ` ${t("reach.titlePlace")}` : ""}
           </h2>
-          <p className="mt-4 text-white/70 max-w-2xl mx-auto flex items-center justify-center gap-2">
-            <MapPin className="w-4 h-4 text-saffron-300" /> {t("reach.address")}
+          <p className="mx-auto mt-4 flex max-w-2xl items-center justify-center gap-2 text-white/70">
+            <MapPin className="h-4 w-4 text-saffron-300" /> {t("reach.address")}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {routes.map((r, i) => (
-            <motion.div
-              key={r.mode}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="rounded-2xl glass-card p-7 hover:border-saffron-400 transition-all"
-              data-testid={`route-${i}`}
-            >
-              <div className="w-14 h-14 rounded-full grid place-items-center bg-saffron-500/15 border border-saffron-500/30 text-saffron-300 mb-5">
-                <r.icon className="w-6 h-6" />
-              </div>
-              <p className="font-cinzel text-saffron-300/80 text-[10px] tracking-[0.3em]">{r.mode}</p>
-              <h3 className="font-serif text-xl text-white mt-2">{r.primary}</h3>
-              <p className="text-white/65 text-sm mt-3 leading-relaxed">{r.details}</p>
-            </motion.div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {routes.map((route, i) => (
+            <RouteCard key={route.mode} route={route} index={i} isHi={isHi} />
           ))}
         </div>
 
-        <div className="mt-14 rounded-2xl overflow-hidden border border-saffron-500/20" data-testid="map-embed">
+        <div className="mt-14 overflow-hidden rounded-2xl border border-saffron-500/20" data-testid="map-embed">
           <iframe
             title={t("reach.mapTitle")}
             src="https://www.google.com/maps?q=Nalkheda+Baglamukhi+Temple&output=embed"
-            className="w-full h-80 grayscale"
+            className="h-80 w-full grayscale"
             loading="lazy"
           />
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-white/65 text-sm">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-white/65">
           <Badge icon={Clock} label={t("reach.badge1")} />
           <Badge icon={Car} label={t("reach.badge2")} />
           <Badge icon={MapPin} label={t("reach.badge3")} />
@@ -79,7 +118,7 @@ export default function HowToReachSection() {
 }
 
 const Badge = ({ icon: Icon, label }) => (
-  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card">
-    <Icon className="w-4 h-4 text-saffron-300" /> {label}
+  <div className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-2">
+    <Icon className="h-4 w-4 text-saffron-300" /> {label}
   </div>
 );

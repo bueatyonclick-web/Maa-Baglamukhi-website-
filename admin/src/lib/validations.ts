@@ -81,4 +81,5 @@ export const websiteSettingsSchema = z.object({
   heroSubtitle: z.string().min(1),
   footerText: z.string().min(1),
   logo: z.string().optional().nullable(),
+  panditProfileImage: z.string().optional().nullable(),
 });

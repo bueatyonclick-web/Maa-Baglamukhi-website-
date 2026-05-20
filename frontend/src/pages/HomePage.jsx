@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Lenis from "lenis";
 import HeroSection from "../components/site/HeroSection";
 import DailyMantraSection from "../components/site/DailyMantraSection";
+import BaglamukhiHavanSection from "../components/site/BaglamukhiHavanSection";
 import FestivalsSection from "../components/site/FestivalsSection";
 import GallerySection from "../components/site/GallerySection";
 import HowToReachSection from "../components/site/HowToReachSection";
@@ -38,9 +39,10 @@ export default function HomePage() {
       <HeroSection />
       <div className="divider-sacred mx-auto max-w-5xl" aria-hidden />
       <DailyMantraSection />
+      <BaglamukhiHavanSection />
       <FestivalsSection />
-      <GallerySection />
       <HowToReachSection />
+      <GallerySection />
       <FAQSection />
     </SiteScaffold>
   );

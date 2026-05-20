@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Sparkles } from "lucide-react";
 import { ABOUT_IMAGE, BOKEH_IMAGE } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
 
@@ -162,28 +160,12 @@ export default function AboutHeroCinematic() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1.1 }}
-            className={`mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/75 md:text-lg ${isHi ? "font-deva" : ""}`}
+            className={`mx-auto mt-8 max-w-3xl text-lg leading-relaxed text-white/82 sm:text-xl md:text-2xl md:leading-loose ${
+              isHi ? "font-deva" : "font-serif"
+            }`}
           >
             {t("aboutHero.body")}
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <a href="#about-story-0" className="btn-primary-sacred inline-flex gap-2 px-8 py-3 text-sm md:text-base">
-              <Sparkles className="h-4 w-4" />
-              {t("aboutHero.exploreHistory")}
-            </a>
-            <Link
-              to="/live-darshan"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-saffron-500/35 bg-ink-900/40 px-8 py-3 text-sm text-white/90 backdrop-blur-md transition-all hover:border-saffron-400/60 hover:bg-ink-800/60 md:text-base"
-            >
-              {t("aboutHero.watchDarshan")}
-            </Link>
-          </motion.div>
         </motion.div>
       </div>
     </section>

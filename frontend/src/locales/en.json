@@ -19,6 +19,7 @@
     "titleLine2": "बगलामुखी पूजा",
     "subtitle": "Experience divine blessings through sacred rituals and spiritual offerings.",
     "ctaBook": "Book Puja",
+    "ctaAbout": "Read More About Maa Baglamukhi",
     "ctaDarshan": "Watch Live Darshan",
     "trust1": "Authentic Temple Rituals",
     "trust2": "Live Darshan Streaming",
@@ -307,6 +308,43 @@
     "ctaBook": "Book Sacred Puja",
     "ctaDarshan": "Live Darshan"
   },
+  "aboutPandit": {
+    "badge": "🕉 Meet Our Acharya",
+    "heading": "Our Respected Pandit Ji",
+    "subheading": "Specialist in Maa Baglamukhi Puja & Havan",
+    "name": "Pandit Ankit Sharma Ji",
+    "description": "Pandit Ankit Sharma Ji has been conducting Maa Baglamukhi puja, havan, and special rituals in the traditional manner for many years. He has successfully completed havan and puja for numerous devotees both online and offline. Devotees may receive guidance, sankalp, and puja services according to their needs.",
+    "imageAlt": "Pandit Ankit Sharma Ji performing havan ritual",
+    "expertiseLabel": "Havan Expertise",
+    "trustCards": [
+      {
+        "title": "Online & Offline Havan",
+        "desc": "Full ritual observance for devotees near and far."
+      },
+      {
+        "title": "Vedic & Tantric Methods",
+        "desc": "Traditional mantras, sankalp, and scriptural rites."
+      },
+      {
+        "title": "Personal Sankalp",
+        "desc": "Dedicated rituals in your name, gotra, and intention."
+      },
+      {
+        "title": "Devotee Guidance",
+        "desc": "Clear, respectful counsel for puja, sankalp, and pilgrimage."
+      }
+    ],
+    "chips": [
+      "Turmeric Havan",
+      "Red Chilli Havan",
+      "Enemy Obstacle Removal",
+      "Victory Havan",
+      "Court Case Havan",
+      "Special Rituals"
+    ],
+    "ctaContact": "Contact Pandit Ji",
+    "ctaBook": "Book Havan"
+  },
   "aboutFaq": {
     "label": "✦ GUIDANCE ✦",
     "headingBefore": "Questions",
@@ -478,6 +516,51 @@
     "play": "Play Sacred Chant",
     "pause": "Pause Chant"
   },
+  "havanInfo": {
+    "badge": "✦ SACRED HAVAN ✦",
+    "title": "Maa Baglamukhi Havan & Special Rituals",
+    "subtitle": "Traditional Vedic and tantric havans according to diverse spiritual purposes",
+    "visualCaption": "Sacred fire — the living heart of every havan",
+    "noteTitle": "Please note",
+    "noteBody": "Various traditions exist regarding ‘red chilli havan’ and certain other tantric havans. Method and purpose may differ according to temple, lineage and acharya.",
+    "items": [
+      {
+        "title": "Haldi Havan (Yellow Havan)",
+        "summary": "The most common and auspicious havan.",
+        "body": "Materials: turmeric, ghee, yellow mustard, chana dal, etc.\n\nPurpose: protection, success, obstacle removal, general wishes."
+      },
+      {
+        "title": "Lal Mirch Havan (Chilli Havan)",
+        "summary": "Among the most renowned and powerful tantric havans.",
+        "body": "Materials: dried red chillies with special mantras and other offerings.\n\nBelief: performed to calm or remove negative energy, enemy obstacles, tantric interference or heavy opposition.\n\nNote: This is not considered an ordinary havan and is generally conducted under the supervision of an experienced acharya."
+      },
+      {
+        "title": "Shatru Stambhan Havan",
+        "summary": "Linked to Maa Baglamukhi’s stambhana shakti.",
+        "body": "Purpose: prayer to stop opposition, false accusations, court cases, disputes or persistent obstacles."
+      },
+      {
+        "title": "Vidya-Vani / Victory Havan",
+        "summary": "For speech, intellect and triumph.",
+        "body": "Purpose: success in exams, interviews, control of speech, debate, politics or competition."
+      },
+      {
+        "title": "Business Growth / Wealth Havan",
+        "summary": "For prosperity and progress.",
+        "body": "Purpose: business obstacles, financial difficulties, career progress and abundance."
+      },
+      {
+        "title": "Graha Shanti & Obstacle Removal Havan",
+        "summary": "Often combined with Baglamukhi worship.",
+        "body": "Sometimes graha shanti or dosha nivaran havan is added with Baglamukhi puja.\n\nPurpose: prayer to reduce mental unrest, family obstacles and negative influences."
+      },
+      {
+        "title": "Maha Yajna / Special Ritual Havan",
+        "summary": "Large-scale sacred ceremonies.",
+        "body": "Conducted on a grand scale, such as:\n\n• 11,000 mantra japa havan\n• 1.25 lakh (sava lakh) japa poornahuti\n• Gupt Navratri special havan\n• Community yajna"
+      }
+    ]
+  },
   "aboutTemple": {
     "label": "✦ INTRODUCTION & MEANING ✦",
     "titleBefore": "Maa Baglamukhi:",
@@ -607,8 +690,15 @@
     "r0p": "Indore (IDR) — 165 km",
     "r0d": "Daily flights from Delhi, Mumbai, Bengaluru. Taxi to temple ~3.5 hours.",
     "r1m": "By Train",
-    "r1p": "Shujalpur Jn — 38 km",
-    "r1d": "Express trains stop at Shujalpur. Local taxi/auto to Nalkheda in 50 min.",
+    "r1stations": [
+      {
+        "title": "Ujjain Jn — ~100 km",
+        "detail": "Major rail junction with trains from across India. Taxi or bus to Nalkheda ~2–2.5 hours."
+      },
+      {
+        "title": "Shujalpur Jn — 38 km"
+      }
+    ],
     "r2m": "By Road",
     "r2p": "Agar Malwa — 27 km",
     "r2d": "Excellent NH bus connectivity from Indore, Ujjain, Bhopal & Kota.",

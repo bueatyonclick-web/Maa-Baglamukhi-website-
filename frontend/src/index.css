@@ -216,6 +216,124 @@ html.lang-hi .btn-ghost-sacred {
   transform-origin: bottom center;
 }
 
+/* ── Cinematic Havan Kund ── */
+.havan-stage {
+  --havan-pit-x: 50%;
+  --havan-pit-y: 42%;
+  --havan-pit-w: 36%;
+  --havan-pit-h: 30%;
+}
+
+.havan-flame-tongue {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+  background: linear-gradient(
+    to top,
+    rgba(127, 29, 29, 0.95) 0%,
+    #c2410c 12%,
+    #ea580c 28%,
+    #f97316 45%,
+    #fbbf24 62%,
+    #fde68a 78%,
+    rgba(255, 251, 235, 0.92) 90%,
+    transparent 100%
+  );
+  clip-path: polygon(50% 0%, 68% 32%, 58% 58%, 72% 100%, 28% 100%, 42% 58%, 32% 32%);
+  filter: blur(0.4px) drop-shadow(0 0 8px rgba(251, 146, 60, 0.6));
+  animation: havan-flame-flicker var(--flame-dur, 1.1s) ease-in-out infinite;
+  animation-delay: var(--flame-delay, 0s);
+}
+
+.havan-flame-tongue--inner {
+  clip-path: polygon(50% 0%, 62% 28%, 55% 52%, 65% 100%, 35% 100%, 45% 52%, 38% 28%);
+  filter: blur(0.2px);
+}
+
+.havan-ember-rise {
+  animation: havan-ember-rise var(--ember-dur, 5s) ease-out infinite;
+  animation-delay: var(--ember-delay, 0s);
+}
+
+.havan-smoke-wisp {
+  animation: havan-smoke-rise var(--smoke-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--smoke-delay, 0s);
+}
+
+@keyframes havan-flame-flicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1) skewX(-1deg);
+    opacity: 0.92;
+  }
+  20% {
+    transform: scaleY(1.14) scaleX(0.94) skewX(2deg);
+    opacity: 1;
+  }
+  45% {
+    transform: scaleY(0.96) scaleX(1.06) skewX(-2deg);
+    opacity: 0.88;
+  }
+  70% {
+    transform: scaleY(1.08) scaleX(0.98) skewX(1deg);
+    opacity: 0.96;
+  }
+}
+
+@keyframes havan-ember-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(var(--ember-drift, 12px), -140px, 0) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes havan-smoke-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.85);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(var(--smoke-drift, -8px), -90px, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes havan-glow-breathe {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes havan-light-flicker {
+  0%, 100% { opacity: 0.45; }
+  30% { opacity: 0.75; }
+  55% { opacity: 0.52; }
+  80% { opacity: 0.68; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .havan-flame-tongue,
+  .havan-ember-rise,
+  .havan-smoke-wisp {
+    animation: none !important;
+  }
+}
+
 @layer base {
   [data-debug-wrapper="true"] { display: contents !important; }
   [data-debug-wrapper="true"] > * {
