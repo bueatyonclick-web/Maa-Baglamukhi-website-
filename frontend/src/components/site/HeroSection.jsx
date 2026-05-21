@@ -210,7 +210,7 @@ export default function HeroSection() {
             <motion.img
               src={heroSrc}
               alt="Śrī Maa Bagalamukhī — Siddha Peeth"
-              className="h-full w-full min-h-full min-w-full object-cover object-center contrast-[1.12] saturate-[1.02] brightness-[0.92] sm:object-[center_22%] lg:object-[center_18%]"
+              className="h-full w-full min-h-full min-w-full object-cover object-[center_22%] contrast-[1.12] saturate-[1.02] brightness-[0.92] lg:object-[center_18%]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
@@ -268,7 +268,7 @@ export default function HeroSection() {
             <GoldSparkles />
             <TempleBellsCorner />
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[42%] z-[25]">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[38%] z-[25] sm:top-[40%] lg:top-[42%]">
               <FloatingPujaThali />
             </div>
 

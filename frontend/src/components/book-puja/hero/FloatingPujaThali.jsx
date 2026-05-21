@@ -5,21 +5,19 @@ import { BOOK_PUJA_THALI_IMAGE } from "./constants";
 const circleX = (r) => [r, r * 0.707, 0, -r * 0.707, -r, -r * 0.707, 0, r * 0.707, r];
 const circleY = (r) => [0, r * 0.707, r, r * 0.707, 0, -r * 0.707, -r, -r * 0.707, 0];
 
-/** Orbit radius (px) — gentle aarti-sized circle on all breakpoints */
-const ORBIT_R = 30;
+/** Orbit radius (px) — gentle aarti-style circle; slightly smaller on phones */
+const ORBIT_R_MOBILE = 22;
+const ORBIT_R_DESKTOP = 30;
 
 /**
- * Puja thali PNG — slow circular path (aarti-style), thali stays upright.
- * Orbit animation is desktop-only to reduce compositor load while scrolling on phones.
+ * Puja thali PNG — slow circular path (aarti-style), thali stays upright on all screen sizes.
  */
 export default function FloatingPujaThali() {
-  const [orbit, setOrbit] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
-  );
+  const [orbitR, setOrbitR] = useState(ORBIT_R_MOBILE);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
-    const apply = () => setOrbit(mq.matches);
+    const apply = () => setOrbitR(mq.matches ? ORBIT_R_DESKTOP : ORBIT_R_MOBILE);
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
@@ -42,17 +40,9 @@ export default function FloatingPujaThali() {
 
         <motion.div
           className="relative z-[1] w-[min(50vw,240px)] max-w-[min(90vw,320px)] will-change-transform sm:w-[min(44vw,280px)] md:w-[min(32vw,300px)]"
-          initial={{ x: orbit ? ORBIT_R : 0, y: 0 }}
-          animate={
-            orbit
-              ? { x: circleX(ORBIT_R), y: circleY(ORBIT_R) }
-              : { x: 0, y: 0 }
-          }
-          transition={
-            orbit
-              ? { duration: 11, repeat: Infinity, ease: "linear" }
-              : { duration: 0.4, ease: "easeOut" }
-          }
+          initial={{ x: orbitR, y: 0 }}
+          animate={{ x: circleX(orbitR), y: circleY(orbitR) }}
+          transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
         >
           <img
             src={BOOK_PUJA_THALI_IMAGE}
