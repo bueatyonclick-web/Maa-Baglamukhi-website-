@@ -13,6 +13,12 @@
     "line1": "SHREE MAA",
     "line2": "Baglamukhi Peeth"
   },
+  "welcomeMantra": {
+    "toolbarAria": "Mantra sound controls",
+    "mute": "Mute mantra",
+    "unmute": "Unmute mantra",
+    "playAgain": "Play again"
+  },
   "hero": {
     "tagline": "॥ जय माँ बगलामुखी ॥",
     "titleLine1": "श्री माँ",
@@ -558,6 +564,36 @@
         "title": "Maha Yajna / Special Ritual Havan",
         "summary": "Large-scale sacred ceremonies.",
         "body": "Conducted on a grand scale, such as:\n\n• 11,000 mantra japa havan\n• 1.25 lakh (sava lakh) japa poornahuti\n• Gupt Navratri special havan\n• Community yajna"
+      }
+    ]
+  },
+  "maaKnowledge": {
+    "badge": "✦ SACRED KNOWLEDGE ✦",
+    "title": "Maa Baglamukhi — Mystery, Power & Practice",
+    "subtitle": "After havan and special rituals — seven key points and three deeper themes, in clear devotional language.",
+    "sevenPointsLabel": "7 key points — introduction to Maa Baglamukhi",
+    "practicesLabel": "✦ Deeper themes — with living animation ✦",
+    "practices": [
+      {
+        "id": "samohan",
+        "visual": "samohan",
+        "title": "Spiritual meaning of Samohan shakti",
+        "summary": "Not mere “hypnosis” — one-pointed mind and calm influence.",
+        "body": "In traditional language, “samohan” is sometimes linked to attraction or influence, but in Baglamukhi tradition it often means focusing the mind, quieting delusion, and steadying speech and thought.\n\n• Prayer to calm hostility or distraction in disputes\n• Bringing a restless mind into dhyana\n• Never for harming others without guru guidance\n\nThis is not entertainment — it is approached with faith, ethics, and a qualified acharya."
+      },
+      {
+        "id": "stambhan",
+        "visual": "stambhan",
+        "title": "Stambhana shakti — her chief gift",
+        "summary": "Still negativity, fear, and uncontrolled speech.",
+        "body": "Baglamukhi is revered as the Mahavidya of stambhana. Seizing the tongue in her images is not only outer foe-destruction — it also symbolizes victory over harmful speech, delusion, and inner enemies.\n\n• Stilling fear\n• Cooling anger\n• Steadying mental turmoil\n• Seeking clarity in righteous disputes"
+      },
+      {
+        "id": "dhyana",
+        "visual": "dhyana",
+        "title": "Dhyana & mantra under guru guidance",
+        "summary": "Focused japa — complex rites only with proper initiation.",
+        "body": "Tantric tradition holds her practice as very potent. Japa, dhyana, and havan bear fruit when sankalp is pure and the acharya guides the rite correctly.\n\n• One-pointed mind through regular japa\n• Initiation and pure sankalp from the guru\n• Aim is self-restraint and protection, not outward show\n\n॥ Om Hleem Baglamukhi Sarva Dushtanam… ॥"
       }
     ]
   },

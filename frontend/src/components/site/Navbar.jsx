@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import LanguageToggle from "./LanguageToggle";
+import MantraMuteButton from "./MantraMuteButton";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
@@ -121,11 +122,13 @@ function Navbar() {
           })}
         </nav>
 
-        <div className="hidden shrink-0 items-center justify-end justify-self-end md:flex">
+        <div className="hidden shrink-0 items-center justify-end gap-2 justify-self-end md:flex">
+          <MantraMuteButton />
           <LanguageToggle />
         </div>
 
-        <div className="flex items-center justify-end md:hidden">
+        <div className="flex items-center justify-end gap-2 md:hidden">
+          <MantraMuteButton />
           <button
             type="button"
             className="grid min-h-[44px] min-w-[44px] place-items-center rounded-full border border-saffron-500/20 bg-ink-700/60 p-2 text-saffron-300 touch-manipulation"
