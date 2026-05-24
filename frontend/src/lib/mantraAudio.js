@@ -1,3 +1,15 @@
+/**
+ * Welcome mantra — plays automatically when the user opens the website.
+ *
+ * FLOW:
+ * 1. App loads → WelcomeMantraAudio calls initWelcomeMantra()
+ * 2. MP3 loads from /public/ytmp3free.cc_800k-views-baglamukhimantra-youtubemp3free.org.mp3
+ * 3. We try audio.play() immediately (and retry a few times)
+ * 4. If the browser blocks autoplay, the FIRST tap/click anywhere starts the mantra
+ * 5. When one play finishes → starts again until 3 full plays (unless user muted)
+ * 6. Navbar speaker icon = mute (stop) / unmute (restart 3 plays)
+ */
+
 const MANTRA_FILE = "ytmp3free.cc_800k-views-baglamukhimantra-youtubemp3free.org.mp3";
 const PLAY_COUNT = 3;
 
@@ -13,7 +25,6 @@ const state = {
   playIndex: 0,
   playsCompleted: 0,
   sequenceActive: false,
-  initialAutoDone: false,
   autoPlayTried: false,
   gestureHooked: false,
   listeners: new Set(),
@@ -92,8 +103,13 @@ function waitForReady(audio) {
     };
     audio.addEventListener("canplaythrough", onReady);
     audio.addEventListener("error", onErr);
-    audio.load();
+    if (audio.readyState === 0) audio.load();
   });
+}
+
+function isSequenceRunning() {
+  const audio = state.audio;
+  return state.sequenceActive && audio && !audio.paused && !audio.ended;
 }
 
 async function playOnce() {
@@ -128,13 +144,14 @@ export async function restartMantraPlayback() {
   return playOnce();
 }
 
-export async function startMantraSequence() {
-  if (state.muted || state.initialAutoDone) return false;
-  if (state.sequenceActive && state.playing) return true;
+/** Auto-play on website open — does not run if user already muted or already playing. */
+export async function autoPlayOnWebsiteOpen() {
+  if (state.muted || isSequenceRunning()) return true;
+  if (state.sequenceActive && state.playsCompleted > 0 && state.playsCompleted < PLAY_COUNT) {
+    return true;
+  }
 
-  const ok = await restartMantraPlayback();
-  if (ok) state.initialAutoDone = true;
-  return ok;
+  return restartMantraPlayback();
 }
 
 export function stopMantraPlayback() {
@@ -168,33 +185,45 @@ export function toggleMantraMute() {
   return false;
 }
 
-export function hookSilentGestureStart() {
+function hookSilentGestureStart() {
   if (state.gestureHooked) return;
   state.gestureHooked = true;
 
   const onInteract = () => {
-    document.removeEventListener("pointerdown", onInteract, true);
-    document.removeEventListener("keydown", onInteract, true);
-    if (!state.muted && !state.initialAutoDone) void startMantraSequence();
+    if (state.muted) return;
+    if (isSequenceRunning()) return;
+    void restartMantraPlayback();
   };
 
   document.addEventListener("pointerdown", onInteract, { capture: true, passive: true });
   document.addEventListener("keydown", onInteract, { capture: true });
+  document.addEventListener("touchstart", onInteract, { capture: true, passive: true });
 }
 
 export function initWelcomeMantra() {
   if (state.autoPlayTried) return;
   state.autoPlayTried = true;
 
-  getAudio().load();
+  const audio = getAudio();
+  audio.load();
 
-  const attempt = () =>
-    startMantraSequence().then((ok) => {
-      if (!ok) hookSilentGestureStart();
+  const tryAuto = () =>
+    autoPlayOnWebsiteOpen().then((ok) => {
+      if (!ok && !state.muted) hookSilentGestureStart();
     });
 
-  void attempt();
-  window.setTimeout(attempt, 600);
-  window.addEventListener("load", attempt, { once: true });
   hookSilentGestureStart();
+
+  void tryAuto();
+  const delays = [400, 900, 1800, 3000];
+  delays.forEach((ms) => window.setTimeout(tryAuto, ms));
+  window.addEventListener("load", tryAuto, { once: true });
+
+  audio.addEventListener(
+    "canplaythrough",
+    () => {
+      if (!state.muted && !isSequenceRunning()) void tryAuto();
+    },
+    { once: true },
+  );
 }

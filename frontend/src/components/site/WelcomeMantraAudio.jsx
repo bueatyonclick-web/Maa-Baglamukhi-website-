@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { initWelcomeMantra } from "../../lib/mantraAudio";
 
-/** Boots 3× mantra playback on site open; mute control lives in Navbar. */
+/** Starts mantra automatically when the website opens (see lib/mantraAudio.js). */
 export default function WelcomeMantraAudio() {
   useEffect(() => {
     initWelcomeMantra();
