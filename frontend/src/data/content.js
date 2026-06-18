@@ -4,6 +4,9 @@ export const HERO_IMAGE =
 /** Home page hero — Maa Baglamukhi (`frontend/public/home-hero-maa-baglamukhi.png`). */
 export const HOME_HERO_IMAGE = `${process.env.PUBLIC_URL || ""}/home-hero-maa-baglamukhi.webp`;
 
+/** Smaller hero variant served to phones to speed up mobile LCP. */
+export const HOME_HERO_IMAGE_MOBILE = `${process.env.PUBLIC_URL || ""}/home-hero-maa-baglamukhi-mobile.webp`;
+
 /** Used if `frontend/public/maa-baglamukhi-hero.png` is missing or fails to load. */
 export const BOOK_PUJA_MAA_FALLBACK = HERO_IMAGE;
 

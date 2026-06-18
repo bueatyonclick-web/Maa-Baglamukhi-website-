@@ -120,6 +120,18 @@ html.lang-hi .btn-ghost-sacred {
   ::selection { background: rgba(245, 158, 11, 0.35); color: #fff; }
 }
 
+/* Hero image subtle zoom — CSS only so it never blocks LCP paint */
+@keyframes hero-zoom {
+  from { transform: scale(1.03); }
+  to { transform: scale(1); }
+}
+.animate-hero-zoom {
+  animation: hero-zoom 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-zoom { animation: none; }
+}
+
 /* Horizontal scroll regions — native momentum on touch devices */
 .scroll-touch-x {
   -webkit-overflow-scrolling: touch;

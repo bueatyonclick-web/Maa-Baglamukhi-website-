@@ -7,7 +7,8 @@ import WelcomeMantraAudio from "@/components/site/WelcomeMantraAudio";
 import { scrollToTop } from "@/lib/smoothScroll";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
-const HomePage = React.lazy(() => import("@/pages/HomePage"));
+import HomePage from "@/pages/HomePage";
+
 const AboutPage = React.lazy(() => import("@/pages/AboutPage"));
 const BookPujaPage = React.lazy(() => import("@/pages/BookPujaPage"));
 const FestivalsPage = React.lazy(() => import("@/pages/FestivalsPage"));

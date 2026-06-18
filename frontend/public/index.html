@@ -5,8 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0A0505" />
 
-        <!-- Preload the LCP hero image so it downloads in parallel with the JS bundle -->
-        <link rel="preload" as="image" href="%PUBLIC_URL%/home-hero-maa-baglamukhi.webp" fetchpriority="high" />
+        <!-- Preload the LCP hero image so it downloads in parallel with the JS bundle.
+             Responsive: phones fetch the smaller mobile variant. -->
+        <link
+            rel="preload"
+            as="image"
+            href="%PUBLIC_URL%/home-hero-maa-baglamukhi.webp"
+            imagesrcset="%PUBLIC_URL%/home-hero-maa-baglamukhi-mobile.webp 820w, %PUBLIC_URL%/home-hero-maa-baglamukhi.webp 1400w"
+            imagesizes="(max-width: 1023px) 100vw, 58vw"
+            fetchpriority="high"
+        />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

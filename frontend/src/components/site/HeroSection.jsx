@@ -8,7 +8,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import FloatingPujaThali from "../book-puja/hero/FloatingPujaThali";
-import { HERO_IMAGE, HOME_HERO_IMAGE } from "../../data/content";
+import { HERO_IMAGE, HOME_HERO_IMAGE, HOME_HERO_IMAGE_MOBILE } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 const fadeUp = {
@@ -207,16 +207,19 @@ export default function HeroSection() {
         {/* ——— RIGHT: goddess — sharp focal, golden drama (no full-screen yellow fog) ——— */}
         <div className="relative order-1 min-h-[min(50vh,520px)] w-full min-w-0 flex-1 md:min-h-[min(46vh,480px)] lg:order-2 lg:min-h-[100dvh] lg:flex-1">
           <div className="absolute inset-0 overflow-hidden bg-[#080604]">
-            <motion.img
+            <img
               src={heroSrc}
+              srcSet={
+                heroSrc === HOME_HERO_IMAGE
+                  ? `${HOME_HERO_IMAGE_MOBILE} 820w, ${HOME_HERO_IMAGE} 1400w`
+                  : undefined
+              }
+              sizes="(max-width: 1023px) 100vw, 58vw"
               alt="Maa Bagalamukhī — Siddha Peeth"
-              className="h-full w-full min-h-full min-w-full object-cover object-[center_22%] contrast-[1.12] saturate-[1.02] brightness-[0.92] lg:object-[center_18%]"
+              className="h-full w-full min-h-full min-w-full animate-hero-zoom object-cover object-[center_22%] contrast-[1.12] saturate-[1.02] brightness-[0.92] lg:object-[center_18%]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              initial={{ scale: 1.02 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
               onError={() => {
                 if (heroSrc !== HERO_IMAGE) setHeroSrc(HERO_IMAGE);
               }}
