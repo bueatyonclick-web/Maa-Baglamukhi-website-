@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
 
-const SAMOHAN_IMAGE = `${process.env.PUBLIC_URL || ""}/samohan-dhyana.png`;
+const SAMOHAN_IMAGE = `${process.env.PUBLIC_URL || ""}/samohan-dhyana.webp`;
 
 const RINGS = [
   { size: "100%", delay: 0, duration: 4 },

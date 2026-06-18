@@ -7,7 +7,7 @@ import { openWhatsApp } from "../../../lib/whatsapp";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import { TRANSLATIONS } from "../../../i18n/translations";
 
-const DEFAULT_PANDIT_IMAGE = `${process.env.PUBLIC_URL || ""}/pandit-ankit-sharma.png`;
+const DEFAULT_PANDIT_IMAGE = `${process.env.PUBLIC_URL || ""}/pandit-ankit-sharma.webp`;
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },

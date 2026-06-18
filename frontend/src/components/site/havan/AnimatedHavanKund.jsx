@@ -1,6 +1,6 @@
 import React from "react";
 
-const KUND_IMAGE = `${process.env.PUBLIC_URL || ""}/havan-kund.png`;
+const KUND_IMAGE = `${process.env.PUBLIC_URL || ""}/havan-kund.webp`;
 
 export default function AnimatedHavanKund() {
   return (

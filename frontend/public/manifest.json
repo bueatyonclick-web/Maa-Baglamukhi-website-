@@ -1,0 +1,17 @@
+{
+  "short_name": "Baglamukhi Peeth",
+  "name": "Maa Baglamukhi Siddha Peeth — Nalkheda",
+  "description": "Maa Baglamukhi Siddha Peeth, Nalkheda — book pujas, havan, and plan your pilgrimage.",
+  "icons": [
+    {
+      "src": "site-logo-mark.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0A0505",
+  "background_color": "#0A0505"
+}

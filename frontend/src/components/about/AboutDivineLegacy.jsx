@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext";
 
-const IMG = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.png`;
+const IMG = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.webp`;
 
 const fadeUp = {
   initial: { opacity: 0, y: 32 },

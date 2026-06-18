@@ -2,23 +2,23 @@ export const HERO_IMAGE =
   "https://images.unsplash.com/photo-1698153210197-5a1027c6c5e8?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400";
 
 /** Home page hero — Maa Baglamukhi (`frontend/public/home-hero-maa-baglamukhi.png`). */
-export const HOME_HERO_IMAGE = `${process.env.PUBLIC_URL || ""}/home-hero-maa-baglamukhi.png`;
+export const HOME_HERO_IMAGE = `${process.env.PUBLIC_URL || ""}/home-hero-maa-baglamukhi.webp`;
 
 /** Used if `frontend/public/maa-baglamukhi-hero.png` is missing or fails to load. */
 export const BOOK_PUJA_MAA_FALLBACK = HERO_IMAGE;
 
 /** About page — Maa Baglamukhi illustration (`frontend/public/about-maa-baglamukhi-peeth.png`). */
-export const ABOUT_PAGE_MAA_IMAGE = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.png`;
+export const ABOUT_PAGE_MAA_IMAGE = `${process.env.PUBLIC_URL || ""}/about-maa-baglamukhi-peeth.webp`;
 
 const PUB = process.env.PUBLIC_URL || "";
 
 /** Cinematic story sections on `/about` — portrait-friendly, lazy-loaded. */
 export const ABOUT_STORY_IMAGES = [
-  `${PUB}/about-maa-baglamukhi-peeth.png`,
+  `${PUB}/about-maa-baglamukhi-peeth.webp`,
   `${PUB}/about-sacred-legend-mandir.jpg`,
-  `${PUB}/about-temple-deity-trishakti.png`,
-  `${PUB}/about-temple-deity-shringar.png`,
-  `${PUB}/about-sacred-legend-shrine.jpg`,
+  `${PUB}/about-temple-deity-trishakti.webp`,
+  `${PUB}/about-temple-deity-shringar.webp`,
+  `${PUB}/about-sacred-legend-shrine.webp`,
 ];
 
 export const ABOUT_IMAGE =
@@ -44,7 +44,7 @@ export const TEMPLE_MAP_EMBED_URL = `https://www.google.com/maps?q=${TEMPLE_LOCA
 
 export const GALLERY = [
   {
-    src: `${PUB}/gallery/havan-ritual-priest.png`,
+    src: `${PUB}/gallery/havan-ritual-priest.webp`,
     title: { en: "Sacred Havan at the Peeth", hi: "पीठ पर पवित्र हवन" },
     description: {
       en: "A priest performing havan before Maa Baglamukhi — flames, mantra and devotion united in ritual.",
@@ -52,7 +52,7 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/havan-samagri-offerings.png`,
+    src: `${PUB}/gallery/havan-samagri-offerings.webp`,
     title: { en: "Havan Samagri & Offerings", hi: "हवन सामग्री और अर्पण" },
     description: {
       en: "Ritual ingredients arranged with care — turmeric, flowers and sacred herbs for the yajna.",
@@ -60,7 +60,7 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/mass-havan-ceremony.png`,
+    src: `${PUB}/gallery/mass-havan-ceremony.webp`,
     title: { en: "Mass Havan Ceremony", hi: "सामूहिक हवन अनुष्ठान" },
     description: {
       en: "Hundreds of devotees seated around havan kunds — a powerful collective sankalp at Nalkheda.",
@@ -68,7 +68,7 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/havan-by-the-river.png`,
+    src: `${PUB}/gallery/havan-by-the-river.webp`,
     title: { en: "Havan by the Sacred Waters", hi: "पवित्र जल के तट पर हवन" },
     description: {
       en: "Anushthan beside the river — where nature and devotion meet in serene ritual.",
@@ -76,7 +76,7 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/temple-havan-kund.png`,
+    src: `${PUB}/gallery/temple-havan-kund.webp`,
     title: { en: "Temple Havan Kund", hi: "मंदिर हवन कुंड" },
     description: {
       en: "Devotees gathered around the sacred fire pit within the temple pavilion.",
@@ -84,7 +84,7 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/havan-with-devotees.png`,
+    src: `${PUB}/gallery/havan-with-devotees.webp`,
     title: { en: "Devotees Offering in Havan", hi: "हवन में भक्तों का अर्पण" },
     description: {
       en: "Families offering ahuti together — the golden glow of turmeric and sacred flame.",
@@ -92,11 +92,27 @@ export const GALLERY = [
     },
   },
   {
-    src: `${PUB}/gallery/devotees-at-peeth.png`,
+    src: `${PUB}/gallery/devotees-at-peeth.webp`,
     title: { en: "Devotees at the Peeth", hi: "पीठ पर भक्तगण" },
     description: {
       en: "Pilgrims at Maa Baglamukhi Siddha Peeth — faith dressed in devotion.",
       hi: "माँ बगलामुखी सिद्ध पीठ पर तीर्थयात्री — श्रद्धा और भक्ति में सजे भक्त।",
+    },
+  },
+  {
+    src: `${PUB}/gallery/pandit-reading-scripture.webp`,
+    title: { en: "Pandit Ji in Scripture Study", hi: "पंडित जी का शास्त्र अध्ययन" },
+    description: {
+      en: "Pandit Ankit Sharma immersed in sacred scripture — the discipline behind every ritual.",
+      hi: "पवित्र शास्त्रों में लीन पंडित अंकित शर्मा — प्रत्येक अनुष्ठान के पीछे की साधना।",
+    },
+  },
+  {
+    src: `${PUB}/gallery/sankalp-ceremony.webp`,
+    title: { en: "Sankalp with Devotees", hi: "भक्तों के साथ संकल्प" },
+    description: {
+      en: "A devotee couple seated for sankalp with Pandit Ji — puja thali and offerings prepared.",
+      hi: "पंडित जी के साथ संकल्प हेतु बैठे श्रद्धालु दंपति — पूजा थाली और अर्पण सज्जित।",
     },
   },
 ];
