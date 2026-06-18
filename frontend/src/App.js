@@ -1,16 +1,17 @@
 import React, { Suspense, useEffect } from "react";
 import "@/App.css";
+import "lenis/dist/lenis.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 import WelcomeMantraAudio from "@/components/site/WelcomeMantraAudio";
+import { scrollToTop } from "@/lib/smoothScroll";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const HomePage = React.lazy(() => import("@/pages/HomePage"));
 const AboutPage = React.lazy(() => import("@/pages/AboutPage"));
 const BookPujaPage = React.lazy(() => import("@/pages/BookPujaPage"));
-const LiveDarshanPage = React.lazy(() => import("@/pages/LiveDarshanPage"));
 const FestivalsPage = React.lazy(() => import("@/pages/FestivalsPage"));
 const GalleryPage = React.lazy(() => import("@/pages/GalleryPage"));
-const DonatePage = React.lazy(() => import("@/pages/DonatePage"));
 const ContactPage = React.lazy(() => import("@/pages/ContactPage"));
 
 function RouteFallback() {
@@ -34,8 +35,7 @@ function RouteFallback() {
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // Lenis (home) / chat overlay may leave inline overflow on the root; clear on every route.
+    scrollToTop({ immediate: true });
     document.body.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("height");
@@ -44,6 +44,8 @@ function ScrollToTop() {
 }
 
 function App() {
+  useSmoothScroll();
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -54,10 +56,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/book-puja" element={<BookPujaPage />} />
-            <Route path="/live-darshan" element={<LiveDarshanPage />} />
             <Route path="/festivals" element={<FestivalsPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/donate" element={<DonatePage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </Suspense>

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Compass, Flame, Globe2, Sparkles, UserCheck } from "lucide-react";
 import { fetchAdminJson, getAdminApiOrigin, resolveAdminAssetUrl } from "../../../lib/adminApi";
+import { openWhatsApp } from "../../../lib/whatsapp";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import { TRANSLATIONS } from "../../../i18n/translations";
 
@@ -45,8 +46,8 @@ function GoldenParticles() {
   );
 }
 
-function openPanditChat() {
-  window.dispatchEvent(new CustomEvent("mbp:open-pandit-chat"));
+function openPanditChat(message) {
+  openWhatsApp(message);
 }
 
 function MeetPanditJiSection() {
@@ -213,7 +214,7 @@ function MeetPanditJiSection() {
             >
               <button
                 type="button"
-                onClick={openPanditChat}
+                onClick={() => openPanditChat(t("whatsapp.messagePandit"))}
                 className="btn-primary-sacred w-full px-8 py-3.5 text-sm sm:w-auto sm:min-w-[220px] md:text-base"
               >
                 {t("aboutPandit.ctaContact")}

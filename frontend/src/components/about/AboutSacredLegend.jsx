@@ -73,7 +73,7 @@ export default function AboutSacredLegend() {
 
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-white/72">
               <p>
-                On the banks of the Lakhundar River in Nalkheda, Madhya Pradesh, Shree Maa Baglamukhi Siddha Peeth is
+                On the banks of the Lakhundar River in Nalkheda, Madhya Pradesh, Maa Baglamukhi Siddha Peeth is
                 honoured as one of the deeply revered centres of Baglamukhi worship in India — a place where prayer,
                 discipline, and devotion meet in quiet strength.
               </p>

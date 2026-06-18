@@ -9,6 +9,7 @@ import { TempleSmoke } from "./TempleSmoke";
 import { DivineLens, CursorDivineGlow } from "./DivineGlow";
 import { ScrollIndicator } from "./ScrollIndicator";
 import FloatingPujaThali from "./FloatingPujaThali";
+import { scrollToElement } from "../../../lib/smoothScroll";
 
 export default function BookPujaHeroSection() {
   const sectionRef = useRef(null);
@@ -73,7 +74,7 @@ export default function BookPujaHeroSection() {
 
   const scrollToBooking = useCallback((e) => {
     e.preventDefault();
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+    scrollToElement("booking");
   }, []);
 
   useLayoutEffect(() => {
@@ -124,7 +125,7 @@ export default function BookPujaHeroSection() {
       <div className="absolute inset-0 z-[1]">
         <img
           src={maaSrc}
-          alt="Śrī Maa Bagalamukhī — sacred puja"
+          alt="Maa Bagalamukhī — sacred puja"
           className="h-full min-h-[max(100svh,100dvh)] w-full object-cover object-[center_26%] md:object-center"
           loading="eager"
           decoding="async"

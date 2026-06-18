@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { subscribeMantra, toggleMantraMute } from "../../lib/mantraAudio";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { cn } from "../../lib/utils";
 
 /** Mute / unmute — shown in navbar (left of menu on mobile). */
 export default function MantraMuteButton({ className = "" }) {
@@ -20,7 +21,10 @@ export default function MantraMuteButton({ className = "" }) {
     <button
       type="button"
       onClick={handleClick}
-      className={`grid min-h-[44px] min-w-[44px] shrink-0 place-items-center rounded-full border border-saffron-500/25 bg-ink-700/60 text-saffron-300 transition touch-manipulation hover:border-amber-400/45 hover:bg-ink-700/90 hover:text-amber-100 ${className}`}
+      className={cn(
+        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-saffron-500/20 bg-ink-700/60 p-2 text-saffron-300 transition touch-manipulation hover:border-amber-400/45 hover:bg-ink-700/90 hover:text-amber-100",
+        className,
+      )}
       aria-pressed={muted}
       aria-label={muted ? t("welcomeMantra.unmute") : t("welcomeMantra.mute")}
       data-testid="nav-mantra-mute"

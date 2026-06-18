@@ -101,12 +101,6 @@ function ExperienceDivineEnergy() {
             <Link to="/book-puja" className="btn-primary-sacred px-8 py-3 text-sm md:text-base">
               {t("aboutExperience.ctaBook")}
             </Link>
-            <Link
-              to="/live-darshan"
-              className="inline-flex items-center justify-center rounded-full border border-amber-500/35 bg-black/40 px-8 py-3 text-sm text-white/90 backdrop-blur-md transition-all hover:border-amber-400/55 md:text-base"
-            >
-              {t("aboutExperience.ctaDarshan")}
-            </Link>
           </div>
         </motion.div>
       </div>

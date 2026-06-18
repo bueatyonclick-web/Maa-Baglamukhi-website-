@@ -3,15 +3,15 @@
     "home": "Home",
     "about": "About",
     "bookPuja": "Book Puja",
-    "liveDarshan": "Live Darshan",
     "festivals": "Festivals",
     "gallery": "Gallery",
-    "donate": "Donate",
-    "contact": "Contact"
+    "contact": "Contact",
+    "ctaBook": "Book Puja"
   },
   "brand": {
-    "line1": "SHREE MAA",
-    "line2": "Baglamukhi Peeth"
+    "line1": "MAA",
+    "line2": "Baglamukhi Peeth",
+    "name": "Maa Baglamukhi Peeth"
   },
   "welcomeMantra": {
     "toolbarAria": "Mantra sound controls",
@@ -21,7 +21,7 @@
   },
   "hero": {
     "tagline": "॥ जय माँ बगलामुखी ॥",
-    "titleLine1": "श्री माँ",
+    "titleLine1": "माँ",
     "titleLine2": "बगलामुखी पूजा",
     "subtitle": "Experience divine blessings through sacred rituals and spiritual offerings.",
     "ctaBook": "Book Puja",
@@ -122,8 +122,8 @@
   },
   "aboutMain": {
     "aboutUs": "ABOUT US",
-    "heading": "About Maa Baglamukhi Shree Peeth",
-    "p1": "On the banks of the Lakhundar River in Nalkheda, Madhya Pradesh, Śrī Maa Baglamukhi Siddha Peeth stands as one of India’s deeply honoured centres of Baglamukhi worship — where seekers come for protection, righteous victory, and inner stillness.",
+    "heading": "About Maa Baglamukhi Peeth",
+    "p1": "On the banks of the Lakhundar River in Nalkheda, Madhya Pradesh, Maa Baglamukhi Siddha Peeth stands as one of India’s deeply honoured centres of Baglamukhi worship — where seekers come for protection, righteous victory, and inner stillness.",
     "p2": "Maa Baglamukhi is adored as the lightning power of speech and mind: she quiets harm, confusion, and hostile forces so that dharma and devotion may shine. Here, pujas and havans are offered with Vedic care, sankalp in your name, and the timeless aura of the goddess who grants shelter to every sincere heart.",
     "statDevotees": "Devotees",
     "statPujas": "Pujas Performed",
@@ -148,13 +148,8 @@
     "sending": "Sending...",
     "sendMessage": "Send Message",
     "office": "✦ TEMPLE OFFICE ✦",
-    "blessings": "✦ DAILY BLESSINGS ✦",
-    "blessingsNote": "Receive Pandit ji's mantra of the day in your inbox.",
-    "subscribe": "Subscribe",
-    "newsletterPlaceholder": "your@email.com",
-    "address": "Shree Maa Baglamukhi Mandir, Nalkheda\nAgar Malwa District, Madhya Pradesh — 465445",
-    "phoneTrust": "+91 99999 11111 · Trust Office",
-    "phoneWhatsapp": "+91 88888 22222 · WhatsApp Help",
+    "address": "Maa Baglamukhi Mandir, Nalkheda\nAgar Malwa District, Madhya Pradesh — 465445",
+    "phone": "+91 93996 08793",
     "blurb": "An ancient Siddha Peeth of the 8th Mahavidya — Nalkheda, Madhya Pradesh.",
     "quickLinks": "QUICK LINKS",
     "pilgrimage": "PILGRIMAGE",
@@ -163,15 +158,11 @@
     "timing2": "Morning Darshan — 5:00 AM to 12:30 PM",
     "timing3": "Evening Darshan — 4:00 PM to 10:00 PM",
     "timing4": "Shayan Aarti — 9:30 PM",
-    "copyright": "© {{year}} Shree Maa Baglamukhi Trust, Nalkheda. All rights reserved.",
+    "copyright": "© {{year}} Maa Baglamukhi Trust, Nalkheda. All rights reserved.",
     "mantraLine": "|| ॐ ह्लीं बगलामुखी नमः ||",
-    "toastSubscribeSuccess": "🙏 You'll receive daily blessings.",
-    "toastSubscribeError": "Subscription failed.",
     "toastContactSuccess": "Your message has reached the temple 🙏",
     "toastContactError": "Could not send message.",
     "linkReach": "How to Reach",
-    "linkStay": "Accommodation",
-    "linkFestivals": "Festivals",
     "linkGallery": "Gallery",
     "linkContact": "Contact"
   },
@@ -180,7 +171,7 @@
     "titleBefore": "Where Silence Becomes",
     "titleAccent": "Power.",
     "subline": "Ancient · Divine · Eternal",
-    "body": "Shree Maa Baglamukhi Siddha Peeth Nalkheda is one of the most sacred centers of Shakti worship in India, where devotees seek protection, victory, and inner transformation — in continuity with ages of reverence and sadhana.",
+    "body": "Maa Baglamukhi Siddha Peeth Nalkheda is one of the most sacred centers of Shakti worship in India, where devotees seek protection, victory, and inner transformation — in continuity with ages of reverence and sadhana.",
     "exploreHistory": "Begin the Journey",
     "watchDarshan": "Watch Live Darshan"
   },
@@ -211,7 +202,7 @@
         "subtitle": "॥ NALKHEDA SIDDHA PEETH ॥",
         "heading": "Why Nalkheda Is Among India’s Most Revered Shakti Seats",
         "paragraphs": [
-          "On the banks of the **Lakhundar River** in Nalkheda, Madhya Pradesh, **Shree Maa Baglamukhi Siddha Peeth** has drawn seekers for protection, righteous victory, and inner peace across generations.",
+          "On the banks of the **Lakhundar River** in Nalkheda, Madhya Pradesh, **Maa Baglamukhi Siddha Peeth** has drawn seekers for protection, righteous victory, and inner peace across generations.",
           "The sacred idol is worshipped in a rare **Trishakti Swaroop**: Maa Baglamukhi at the centre — stambhana and divine protection — with the grace of **Lakshmi** (prosperity) and **Saraswati** (wisdom) held in devotional tradition alongside her energy.",
           "The **Swayambhu** murti is considered among the rarest spiritual manifestations at Baglamukhi Siddha Peeths in India. For centuries, sages and householders have performed **mantra siddhi**, **Vedic havan**, and disciplined sadhana on this land."
         ],
@@ -367,7 +358,7 @@
       },
       {
         "q": "Why is Nalkheda famous?",
-        "a": "Nalkheda is renowned as Shree Maa Baglamukhi Siddha Peeth — with a rare Trishakti Swayambhu form, ancient tantric-Vedic tradition, Mahabharata-associated devotional memory, and continuous worship on the banks of the Lakhundar River."
+        "a": "Nalkheda is renowned as Maa Baglamukhi Siddha Peeth — with a rare Trishakti Swayambhu form, ancient tantric-Vedic tradition, Mahabharata-associated devotional memory, and continuous worship on the banks of the Lakhundar River."
       },
       {
         "q": "How does online puja work?",
@@ -518,9 +509,7 @@
   "mantra": {
     "label": "✦ DAILY MANTRA ✦",
     "sanskrit": "ॐ ह्लीं बगलामुखी सर्व दुष्टानां वाचं मुखं पदं स्तंम्भय जिव्हां कीलय बुद्धिं विनाशय ह्लीं ॐ स्वाहा ॥",
-    "meaning": "O Maa Baglamukhi, still the speech, face, and feet of all who wish harm; bind their tongue and dispel their harmful intent. Hleem—Om Svaha.",
-    "play": "Play Sacred Chant",
-    "pause": "Pause Chant"
+    "meaning": "O Maa Baglamukhi, still the speech, face, and feet of all who wish harm; bind their tongue and dispel their harmful intent. Hleem—Om Svaha."
   },
   "havanInfo": {
     "badge": "✦ SACRED HAVAN ✦",
@@ -626,32 +615,13 @@
       },
       {
         "heading": "Famous Baglamukhi shrines (India)",
-        "body": "India has many renowned temples. Among them, Nalkheda in Madhya Pradesh — Shree Maa Baglamukhi Siddha Peeth — and the Kangra region of Himachal Pradesh are especially important centres of devotion."
+        "body": "India has many renowned temples. Among them, Nalkheda in Madhya Pradesh — Maa Baglamukhi Siddha Peeth — and the Kangra region of Himachal Pradesh are especially important centres of devotion."
       },
       {
         "heading": "A widely used mantra",
         "body": "Devotees often chant:\n\nॐ ह्लीं बगलामुखी सर्व दुष्टानां वाचं मुखं पदं स्तंभय जिह्वां कीलय बुद्धिं विनाशय ह्लीं ॐ स्वाहा ॥\n\nTraditionally this is understood as a prayer to quiet harmful influences and to steady speech and mind."
       }
     ]
-  },
-  "liveDarshan": {
-    "liveBadge": "LIVE NOW",
-    "titleAccent": "Live Darshan",
-    "titleAfter": "from the Garbhagriha",
-    "subtitle": "Connect with the divine in real-time. Join thousands of devotees in worship from anywhere in the world.",
-    "iframeTitle": "Live Darshan",
-    "statViewers": "Live Viewers",
-    "statDevotees": "Devotees Today",
-    "statDiyas": "Diyas Lit",
-    "virtualLabel": "✦ VIRTUAL OFFERING ✦",
-    "lightTitle": "Light a Diya",
-    "lightTitle2": "for Maa",
-    "namePh": "Your name (optional)",
-    "wishPh": "Your sankalp / wish",
-    "lightBtn": "🪔 Light Diya",
-    "anonymous": "Anonymous Devotee",
-    "toastOk": "🪔 Your diya glows at Maa's feet.",
-    "toastErr": "Could not light diya. Try again."
   },
   "festivals": {
     "label": "✦ FESTIVAL CALENDAR ✦",
@@ -684,37 +654,6 @@
     "n3": "Ramesh Kothari",
     "c3": "Ahmedabad"
   },
-  "donate": {
-    "label": "✦ DAAN ✦",
-    "titleBefore": "Your offering,",
-    "titleAccent": "infinite",
-    "titleAfter": "blessings.",
-    "sub": "Every rupee is used transparently for seva, daily prasad, gau seva and temple restoration.",
-    "from": "FROM",
-    "causeAnna": "Anna Daan",
-    "causeAnnaDesc": "Feed 1,000 pilgrims daily at the temple kitchen.",
-    "causeGau": "Gau Seva",
-    "causeGauDesc": "Care for 80+ rescued cows in our goshala.",
-    "causeTemple": "Temple Development",
-    "causeTempleDesc": "Restore ancient stone carvings & sanctum.",
-    "causeGeneral": "General Donation",
-    "causeGeneralDesc": "Support the trust's spiritual mission.",
-    "thankTitle": "Thank you, devotee",
-    "donatePrefix": "Donate —",
-    "successLine": "Your daan has reached Maa's feet",
-    "receipt": "Receipt:",
-    "amount": "Amount:",
-    "omShanti": "Om Shanti",
-    "selectAmount": "Select amount",
-    "name": "Name",
-    "email": "Email",
-    "anonymous": "Donate anonymously",
-    "offering": "Offering...",
-    "donateBtn": "Donate ₹{{amount}}",
-    "taxNote": "80G tax exemption certificate emailed instantly",
-    "toastOk": "🙏 Maa accepts your offering with grace.",
-    "toastErr": "Donation failed. Please retry."
-  },
   "reach": {
     "label": "✦ PILGRIMAGE GUIDE ✦",
     "titleBefore": "How to",
@@ -740,16 +679,13 @@
     "r2d": "Excellent NH bus connectivity from Indore, Ujjain, Bhopal & Kota.",
     "r3m": "Self-Drive",
     "r3p": "Indore → Nalkheda",
-    "r3d": "AB Road via Dewas-Maksi. Smooth 3-hour drive. Free temple parking available.",
-    "badge1": "Open: 5:00 AM – 10:00 PM",
-    "badge2": "Free Parking Available",
-    "badge3": "Wheelchair Accessible"
+    "r3d": "AB Road via Dewas-Maksi. Smooth 3-hour drive. Free temple parking available."
   },
   "faq": {
     "label": "✦ QUESTIONS ✦",
     "titleBefore": "Pilgrim's",
     "titleAccent": "guide",
-    "q0": "Where is Shree Maa Baglamukhi Siddha Peeth located?",
+    "q0": "Where is Maa Baglamukhi Siddha Peeth located?",
     "a0": "The temple is located in Nalkheda, Agar Malwa district, Madhya Pradesh, India — one of only three ancient Baglamukhi shrines in the country.",
     "q1": "Can puja be performed on my behalf if I cannot visit?",
     "a1": "Yes. Online puja with sankalp in your name and gotra is performed by our priests. You receive a video recording and prasad by courier.",
@@ -766,16 +702,15 @@
     "titleAccent": "sacred.",
     "subtitle": "Captured during morning aartis, mahotsavs and silent midnights — moments where the divine becomes visible."
   },
-  "askPandit": {
-    "fab": "Ask Pandit ji",
-    "headerTitle": "Ask Pandit ji",
-    "headerSub": "Live · Spiritual Guidance",
-    "welcome": "🙏 Pranam, devotee. I am Pandit ji at Maa Baglamukhi Peeth. How may I guide you on your spiritual path today?",
-    "placeholder": "Ask about mantras, pujas, pilgrimage...",
-    "errorFallback": "🙏 Pandit ji is in dhyana. Please try again in a moment."
+  "whatsapp": {
+    "fab": "WhatsApp",
+    "ariaLabel": "Chat on WhatsApp",
+    "defaultMessage": "Namaste. I would like to know more about Maa Baglamukhi Peeth, Nalkheda.",
+    "messagePandit": "Namaste. I would like guidance from Pandit ji regarding puja or havan.",
+    "messageHavan": "Namaste. I would like to book a havan at Maa Baglamukhi Peeth, Nalkheda."
   },
   "seo": {
-    "title": "Shree Maa Baglamukhi Peeth — Nalkheda",
-    "description": "Book puja, live darshan, and pilgrimage to Shree Maa Baglamukhi Siddha Peeth, Nalkheda."
+    "title": "Maa Baglamukhi Peeth — Nalkheda",
+    "description": "Book puja and pilgrimage to Maa Baglamukhi Siddha Peeth, Nalkheda."
   }
 }

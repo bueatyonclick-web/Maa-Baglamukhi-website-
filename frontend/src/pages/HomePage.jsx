@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import Lenis from "lenis";
+import React from "react";
 import HeroSection from "../components/site/HeroSection";
 import DailyMantraSection from "../components/site/DailyMantraSection";
 import BaglamukhiHavanSection from "../components/site/BaglamukhiHavanSection";
@@ -11,30 +10,6 @@ import FAQSection from "../components/site/FAQSection";
 import SiteScaffold from "../components/site/SiteScaffold";
 
 export default function HomePage() {
-  useEffect(() => {
-    const reduceMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return undefined;
-
-    const lenis = new Lenis({
-      duration: 0.82,
-      smoothWheel: true,
-      wheelMultiplier: 0.92,
-      touchMultiplier: 1.15,
-    });
-    let rafId = 0;
-    function raf(time) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
   return (
     <SiteScaffold>
       <HeroSection />

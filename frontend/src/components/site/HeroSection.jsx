@@ -107,7 +107,7 @@ export default function HeroSection() {
     >
       <div className="flex min-h-[100dvh] flex-col lg:flex-row">
         {/* ——— LEFT: copy + CTAs (premium contrast, no yellow wash) ——— */}
-        <div className="relative z-30 order-2 flex w-full flex-col justify-center px-5 pb-14 pt-8 sm:px-8 lg:order-1 lg:flex-[0_0_42%] lg:max-w-[560px] lg:px-10 lg:pb-24 lg:pl-12 lg:pt-32 xl:pl-16 xl:pr-8 xl:max-w-[600px]">
+        <div className="relative z-30 order-2 flex w-full flex-col justify-center px-5 pb-14 pt-20 sm:px-8 md:px-10 md:pb-20 md:pt-24 lg:order-1 lg:flex-[0_0_42%] lg:max-w-[560px] lg:px-10 lg:pb-24 lg:pl-12 lg:pt-32 xl:pl-16 xl:pr-8 xl:max-w-[600px]">
           <div
             className="absolute inset-0 -z-10"
             style={{
@@ -171,10 +171,10 @@ export default function HeroSection() {
             </Link>
             <Link
               to="/about"
-              className="group inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-black/40 px-8 py-3.5 text-sm text-amber-50 backdrop-blur-sm transition-all hover:border-amber-300/80 hover:bg-black/55 hover:shadow-[inset_0_0_0_1px_rgba(251,191,36,0.35)]"
+              className="btn-highlight-sacred text-sm"
               data-testid="hero-about"
             >
-              <BookOpen className="h-4 w-4 text-amber-300/90" />
+              <BookOpen className="h-4 w-4 text-amber-200" />
               {t("hero.ctaAbout")}
             </Link>
           </motion.div>
@@ -184,7 +184,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="mt-12"
           >
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 md:gap-4">
               {trustBadgeKeys.map((k) => (
                 <div
                   key={k}
@@ -205,11 +205,11 @@ export default function HeroSection() {
         </div>
 
         {/* ——— RIGHT: goddess — sharp focal, golden drama (no full-screen yellow fog) ——— */}
-        <div className="relative order-1 min-h-[min(52vh,560px)] w-full min-w-0 flex-1 lg:order-2 lg:min-h-[100dvh] lg:flex-1">
+        <div className="relative order-1 min-h-[min(50vh,520px)] w-full min-w-0 flex-1 md:min-h-[min(46vh,480px)] lg:order-2 lg:min-h-[100dvh] lg:flex-1">
           <div className="absolute inset-0 overflow-hidden bg-[#080604]">
             <motion.img
               src={heroSrc}
-              alt="Śrī Maa Bagalamukhī — Siddha Peeth"
+              alt="Maa Bagalamukhī — Siddha Peeth"
               className="h-full w-full min-h-full min-w-full object-cover object-[center_22%] contrast-[1.12] saturate-[1.02] brightness-[0.92] lg:object-[center_18%]"
               loading="eager"
               decoding="async"
@@ -283,7 +283,7 @@ export default function HeroSection() {
       {/* Scroll — reference: circular cue on right */}
       <motion.a
         href="#daily-mantra"
-        className="absolute bottom-8 right-6 z-40 hidden h-12 w-12 items-center justify-center rounded-full border border-amber-500/35 bg-black/50 text-amber-300/90 shadow-[0_0_24px_rgba(245,158,11,0.25)] backdrop-blur-md transition-colors hover:border-amber-400/60 hover:text-amber-100 lg:flex"
+        className="absolute bottom-8 right-6 z-40 hidden h-12 w-12 items-center justify-center rounded-full border border-amber-500/35 bg-black/50 text-amber-300/90 shadow-[0_0_24px_rgba(245,158,11,0.25)] backdrop-blur-md transition-colors hover:border-amber-400/60 hover:text-amber-100 md:flex"
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
         aria-label="Scroll to next section"
@@ -292,7 +292,7 @@ export default function HeroSection() {
       </motion.a>
       <motion.a
         href="#daily-mantra"
-        className="absolute bottom-8 left-1/2 z-40 flex -translate-x-1/2 flex-col items-center gap-1 text-amber-400/75 lg:hidden"
+        className="absolute bottom-8 left-1/2 z-40 flex -translate-x-1/2 flex-col items-center gap-1 text-amber-400/75 md:hidden"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       >

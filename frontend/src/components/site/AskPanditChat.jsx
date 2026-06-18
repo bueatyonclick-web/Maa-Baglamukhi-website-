@@ -1,165 +1,34 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send } from "lucide-react";
-import { apiPost } from "../../lib/api";
+import React from "react";
+import { motion } from "framer-motion";
+import { buildWhatsAppUrl } from "../../lib/whatsapp";
 import { useLanguage } from "../../i18n/LanguageContext";
 
-const sessionId = `pandit-${Math.random().toString(36).slice(2, 10)}`;
+function WhatsAppIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
 
 export default function AskPanditChat() {
-  const { t, lang } = useLanguage();
-  const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState([{ role: "assistant", content: t("askPandit.welcome") }]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const endRef = useRef(null);
-
-  useEffect(() => {
-    setMsgs([{ role: "assistant", content: t("askPandit.welcome") }]);
-  }, [lang, t]);
-
-  useEffect(() => {
-    const open = () => setOpen(true);
-    window.addEventListener("mbp:open-pandit-chat", open);
-    return () => window.removeEventListener("mbp:open-pandit-chat", open);
-  }, []);
-
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [msgs, open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [open]);
-
-  const send = async (e) => {
-    e?.preventDefault();
-    if (!input.trim() || loading) return;
-    const userMsg = input.trim();
-    setMsgs((m) => [...m, { role: "user", content: userMsg }]);
-    setInput("");
-    setLoading(true);
-    try {
-      const res = await apiPost("/chat", { session_id: sessionId, message: userMsg });
-      setMsgs((m) => [...m, { role: "assistant", content: res.reply }]);
-    } catch (err) {
-      const backendDetail = err?.response?.data?.detail;
-      setMsgs((m) => [
-        ...m,
-        {
-          role: "assistant",
-          content: backendDetail ? `🙏 ${backendDetail}` : t("askPandit.errorFallback"),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { t } = useLanguage();
+  const href = buildWhatsAppUrl(t("whatsapp.defaultMessage"));
 
   return (
-    <>
-      <motion.button
-        type="button"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1.5, type: "spring" }}
-        onClick={() => setOpen(true)}
-        className="fixed bottom-28 left-4 z-40 flex h-14 w-14 touch-manipulation items-center justify-center gap-3 rounded-full bg-gradient-to-br from-saffron-400 to-saffron-700 shadow-[0_8px_26px_rgba(245,158,11,0.55)] animate-none md:bottom-6 md:left-6 md:h-14 md:w-auto md:animate-glow-pulse md:px-5 md:shadow-[0_0_30px_rgba(245,158,11,0.6)]"
-        data-testid="ask-pandit-fab"
-      >
-        <MessageCircle className="h-7 w-7 text-ink-900" aria-hidden />
-        <span className="hidden font-cinzel text-xs tracking-[0.22em] text-ink-900 md:inline">{t("askPandit.fab")}</span>
-      </motion.button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed inset-x-4 bottom-28 z-50 mx-auto flex h-[min(560px,calc(100dvh-9rem))] max-h-[85dvh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-saffron-500/30 bg-ink-800 shadow-2xl md:inset-x-auto md:bottom-6 md:left-6 md:right-auto md:mx-0 md:h-[600px] md:max-h-[80vh] md:w-[min(92vw,28rem)]"
-            data-testid="pandit-chat"
-          >
-            <div className="flex items-center justify-between p-4 border-b border-saffron-500/15 bg-gradient-to-r from-saffron-700/15 to-transparent">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-full border border-saffron-500/25 bg-gradient-to-br from-saffron-400/90 to-saffron-700/90 text-ink-900 shadow-[0_0_18px_rgba(245,158,11,0.25)]">
-                  <MessageCircle className="h-5 w-5" aria-hidden />
-                </div>
-                <div>
-                  <p className="font-serif text-white text-lg leading-none">{t("askPandit.headerTitle")}</p>
-                  <p className="text-saffron-300/70 text-xs">{t("askPandit.headerSub")}</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="grid min-h-[44px] min-w-[44px] place-items-center rounded-lg text-white/60 hover:bg-white/5 hover:text-white"
-                data-testid="close-pandit"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div
-              className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3"
-              onWheelCapture={(e) => e.stopPropagation()}
-              onTouchMoveCapture={(e) => e.stopPropagation()}
-            >
-              {msgs.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div
-                    className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
-                      m.role === "user"
-                        ? "bg-saffron-500 text-ink-900 rounded-br-sm"
-                        : "bg-ink-700 text-white/90 border border-saffron-500/15 rounded-bl-sm"
-                    }`}
-                    data-testid={`chat-msg-${i}`}
-                  >
-                    {m.content}
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start">
-                  <div className="bg-ink-700 border border-saffron-500/15 rounded-2xl rounded-bl-sm px-4 py-2.5 text-saffron-300 text-sm">
-                    <span className="inline-flex gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-saffron-400 animate-bounce" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-saffron-400 animate-bounce [animation-delay:0.15s]" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-saffron-400 animate-bounce [animation-delay:0.3s]" />
-                    </span>
-                  </div>
-                </div>
-              )}
-              <div ref={endRef} />
-            </div>
-
-            <form onSubmit={send} className="p-3 border-t border-saffron-500/15 bg-ink-900/50">
-              <div className="flex min-h-[48px] items-center gap-2 rounded-full border border-saffron-500/20 bg-ink-700 px-4 py-2 focus-within:border-saffron-400">
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder={t("askPandit.placeholder")}
-                  className="min-w-0 flex-1 bg-transparent py-1 text-base text-white placeholder:text-white/40 focus:outline-none sm:text-sm"
-                  data-testid="pandit-input"
-                />
-                <button
-                  type="submit"
-                  disabled={loading || !input.trim()}
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-saffron-500 text-ink-900 touch-manipulation disabled:opacity-40"
-                  data-testid="pandit-send"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ delay: 1.5, type: "spring" }}
+      className="fixed bottom-6 right-4 z-40 flex h-14 w-14 touch-manipulation items-center justify-center gap-3 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-[0_8px_26px_rgba(37,211,102,0.45)] animate-none md:bottom-6 md:right-6 md:h-14 md:w-auto md:animate-glow-pulse md:px-5 md:shadow-[0_0_30px_rgba(37,211,102,0.5)]"
+      aria-label={t("whatsapp.ariaLabel")}
+      data-testid="whatsapp-fab"
+    >
+      <WhatsAppIcon className="h-7 w-7 text-white" />
+      <span className="hidden font-cinzel text-xs tracking-[0.22em] text-white md:inline">{t("whatsapp.fab")}</span>
+    </motion.a>
   );
 }

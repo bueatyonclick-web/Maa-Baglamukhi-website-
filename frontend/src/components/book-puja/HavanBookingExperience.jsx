@@ -16,6 +16,8 @@ import {
   Wifi,
 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { openWhatsApp } from "../../lib/whatsapp";
+import { scrollToElement } from "../../lib/smoothScroll";
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
@@ -146,11 +148,11 @@ export default function HavanBookingExperience() {
   );
 
   const openPanditChat = () => {
-    window.dispatchEvent(new CustomEvent("mbp:open-pandit-chat"));
+    openWhatsApp(t("whatsapp.messageHavan"));
   };
 
   const scrollBooking = () => {
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+    scrollToElement("booking");
   };
 
   return (

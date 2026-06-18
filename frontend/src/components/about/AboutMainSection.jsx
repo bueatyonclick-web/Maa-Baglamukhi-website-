@@ -96,7 +96,7 @@ export default function AboutMainSection() {
               <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-b from-saffron-500/10 via-transparent to-transparent opacity-60" />
               <img
                 src={imgSrc}
-                alt="Śrī Maa Bagalamukhī — divine presence at the Peeth"
+                alt="Maa Bagalamukhī — divine presence at the Peeth"
                 className="h-full w-full object-cover object-[center_15%]"
                 loading="lazy"
                 decoding="async"

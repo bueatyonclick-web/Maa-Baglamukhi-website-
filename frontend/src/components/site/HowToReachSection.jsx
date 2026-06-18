@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Plane, Train, Bus, MapPin, Clock, Car } from "lucide-react";
-import { MOUNTAIN_IMAGE } from "../../data/content";
+import { Plane, Train, Bus, Car, MapPin } from "lucide-react";
+import { MOUNTAIN_IMAGE, TEMPLE_MAP_EMBED_URL } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { TRANSLATIONS } from "../../i18n/translations";
 
@@ -101,24 +101,14 @@ export default function HowToReachSection() {
         <div className="mt-14 overflow-hidden rounded-2xl border border-saffron-500/20" data-testid="map-embed">
           <iframe
             title={t("reach.mapTitle")}
-            src="https://www.google.com/maps?q=Nalkheda+Baglamukhi+Temple&output=embed"
-            className="h-80 w-full grayscale"
+            src={TEMPLE_MAP_EMBED_URL}
+            className="h-80 w-full"
             loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
           />
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-white/65">
-          <Badge icon={Clock} label={t("reach.badge1")} />
-          <Badge icon={Car} label={t("reach.badge2")} />
-          <Badge icon={MapPin} label={t("reach.badge3")} />
         </div>
       </div>
     </section>
   );
 }
-
-const Badge = ({ icon: Icon, label }) => (
-  <div className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-2">
-    <Icon className="h-4 w-4 text-saffron-300" /> {label}
-  </div>
-);

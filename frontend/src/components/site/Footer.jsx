@@ -16,13 +16,11 @@ const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
 
 function Footer() {
   const { t } = useLanguage();
-  const [newsletterEmail, setNewsletterEmail] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
   const [submittingC, setSubmittingC] = useState(false);
-  const [submittingN, setSubmittingN] = useState(false);
   const [cmsContact, setCmsContact] = useState(null);
   const [cmsSocial, setCmsSocial] = useState(null);
   const [cmsLogo, setCmsLogo] = useState(null);
@@ -59,7 +57,7 @@ function Footer() {
     return t("footer.address").split("\n");
   }, [cmsContact, t]);
 
-  const displayEmail = cmsContact?.email || "darshan@maabaglamukhi-nalkheda.com";
+  const displayEmail = cmsContact?.email || "panditankitsharma93@gmail.com";
 
   const logoSrc = cmsLogo ? resolveAdminAssetUrl(cmsLogo) : SITE_LOGO;
 
@@ -77,21 +75,6 @@ function Footer() {
       { Icon: Facebook, href: cmsSocial.facebook || "#", label: "Facebook" },
     ];
   }, [cmsSocial]);
-
-  const subscribe = async (e) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    setSubmittingN(true);
-    try {
-      await apiPost("/newsletter", { email: newsletterEmail });
-      toast.success(t("footer.toastSubscribeSuccess"));
-      setNewsletterEmail("");
-    } catch {
-      toast.error(t("footer.toastSubscribeError"));
-    } finally {
-      setSubmittingN(false);
-    }
-  };
 
   const contact = async (e) => {
     e.preventDefault();
@@ -126,7 +109,7 @@ function Footer() {
       data-testid="footer"
     >
       <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-10">
-        <div className="grid gap-8 pb-12 sm:gap-10 sm:pb-14 md:gap-12 md:pb-16 lg:grid-cols-2">
+        <div className="grid gap-8 pb-12 sm:gap-10 sm:pb-14 md:grid-cols-2 md:gap-10 md:pb-16 md:items-start">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="mb-3 font-cinzel text-[10px] tracking-[0.35em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.45em]">
               {t("footer.reachTemple")}
@@ -223,18 +206,23 @@ function Footer() {
                 </div>
                 <div className="flex gap-3">
                   <Phone className="mt-0.5 h-5 w-5 shrink-0 text-saffron-400" />
-                  <div className="min-w-0 space-y-1 text-sm sm:text-base">
+                  <div className="min-w-0 text-sm sm:text-base">
                     {cmsContact?.phone1 ? (
                       <p className="break-words text-white/90">{cmsContact.phone1}</p>
                     ) : (
-                      <p>{t("footer.phoneTrust")}</p>
+                      <a
+                        href="tel:+919399608793"
+                        className="break-words text-white/90 hover:text-amber-200"
+                      >
+                        {t("footer.phone")}
+                      </a>
                     )}
-                    {cmsContact?.phone2 ? <p className="break-words text-white/75">{cmsContact.phone2}</p> : null}
+                    {cmsContact?.phone2 ? (
+                      <p className="mt-1 break-words text-white/75">{cmsContact.phone2}</p>
+                    ) : null}
                     {cmsContact?.whatsapp ? (
-                      <p className="break-words text-white/75">WhatsApp: {cmsContact.whatsapp}</p>
-                    ) : cmsContact ? null : (
-                      <p className="text-white/55">{t("footer.phoneWhatsapp")}</p>
-                    )}
+                      <p className="mt-1 break-words text-white/75">WhatsApp: {cmsContact.whatsapp}</p>
+                    ) : null}
                   </div>
                 </div>
                 <div className="flex gap-3">
@@ -248,43 +236,13 @@ function Footer() {
                 </div>
               </div>
             </div>
-
-            <div className="glass-card mt-5 rounded-2xl p-5 sm:mt-6 sm:p-6 md:p-7">
-              <p className="font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:text-xs sm:tracking-[0.4em]">
-                {t("footer.blessings")}
-              </p>
-              <p className="mt-2 text-sm text-white/70 sm:text-base">{t("footer.blessingsNote")}</p>
-              <form
-                onSubmit={subscribe}
-                className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-stretch"
-                data-testid="newsletter-form"
-              >
-                <input
-                  type="email"
-                  required
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder={t("footer.newsletterPlaceholder")}
-                  className="min-h-[48px] w-full flex-1 rounded-full border border-saffron-500/20 bg-ink-800 px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-saffron-400 focus:outline-none focus:ring-1 focus:ring-saffron-500/30 sm:text-sm"
-                  data-testid="newsletter-email"
-                />
-                <button
-                  type="submit"
-                  disabled={submittingN}
-                  className="btn-primary-sacred w-full shrink-0 px-6 text-sm sm:w-auto sm:min-w-[9.5rem]"
-                  data-testid="newsletter-submit"
-                >
-                  {t("footer.subscribe")}
-                </button>
-              </form>
-            </div>
           </motion.div>
         </div>
 
         <div className="divider-sacred" />
 
-        <div className="grid min-w-0 grid-cols-2 gap-8 py-10 sm:gap-10 md:grid-cols-4 md:gap-10 md:py-12 lg:gap-12">
-          <div className="col-span-2 min-w-0 md:col-span-1">
+        <div className="grid min-w-0 grid-cols-2 gap-8 py-10 sm:gap-10 md:grid-cols-2 md:gap-10 md:py-12 lg:grid-cols-4 lg:gap-12">
+          <div className="col-span-2 min-w-0 md:col-span-2 lg:col-span-1">
             <div className="mb-4 flex items-center gap-3 sm:gap-4">
               <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-saffron-500/25 bg-ink-900/40 shadow-[0_0_22px_rgba(245,158,11,0.25)] sm:h-12 sm:w-12 md:h-14 md:w-14">
                 <img src={logoSrc} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
@@ -347,7 +305,7 @@ function Footer() {
               ))}
             </ul>
           </div>
-          <div className="col-span-2 min-w-0 md:col-span-1">
+          <div className="col-span-2 min-w-0 md:col-span-2 lg:col-span-1">
             <p className="mb-3 font-cinzel text-[10px] tracking-[0.32em] text-saffron-300 sm:mb-4 sm:text-xs sm:tracking-[0.4em]">
               {t("footer.timings")}
             </p>

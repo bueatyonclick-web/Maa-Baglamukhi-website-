@@ -303,7 +303,7 @@ export default function AboutDivineLegacy() {
             <p className={`mx-auto mt-5 max-w-3xl text-center ${bodyClass}`}>{t("divineLegacy.rishiP1")}</p>
             <p className={`mt-4 text-center text-sm font-medium text-amber-400/85 ${isHi ? "font-deva text-base" : "font-cinzel tracking-[0.22em]"}`}>{t("divineLegacy.rishiP2")}</p>
 
-            <div className="mt-10 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
+            <div className="scroll-touch-x mt-10 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-5 md:overflow-visible md:pb-0" data-lenis-prevent>
               {rishiCards.map(({ title, desc }, i) => (
                 <motion.div
                   key={title}
@@ -367,7 +367,7 @@ export default function AboutDivineLegacy() {
             <div className="mx-auto mb-6 h-px w-16 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent" />
             <p className={`font-playfair text-xl italic leading-relaxed text-[#FFF8E7]/95 md:text-2xl lg:text-[1.65rem] ${isHi ? "font-deva not-italic" : ""}`}>&ldquo;{t("divineLegacy.quote")}&rdquo;</p>
             <div className="mx-auto mt-6 h-px w-16 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent" />
-            <figcaption className="mt-4 font-cinzel text-[10px] tracking-[0.35em] text-amber-500/60">॥ श्री माँ बगलामुखी नमः ॥</figcaption>
+            <figcaption className="mt-4 font-cinzel text-[10px] tracking-[0.35em] text-amber-500/60">॥ माँ बगलामुखी नमः ॥</figcaption>
           </blockquote>
         </motion.figure>
       </div>

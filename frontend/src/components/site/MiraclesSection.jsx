@@ -19,8 +19,8 @@ export default function MiraclesSection() {
   return (
     <section className="relative py-24 lg:py-32 mandala-bg" data-testid="miracles-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-1">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-12">
+          <div className="md:col-span-2 lg:col-span-1">
             <p className={`mb-5 text-saffron-300 ${isHi ? "font-deva text-sm tracking-[0.2em] md:text-base" : "font-cinzel text-xs tracking-[0.5em]"}`}>
               {t("miracles.label")}
             </p>
@@ -34,7 +34,7 @@ export default function MiraclesSection() {
             </a>
           </div>
 
-          <div className="lg:col-span-2 grid sm:grid-cols-2 gap-5">
+          <div className="md:col-span-2 lg:col-span-2 grid sm:grid-cols-2 gap-5">
             {stories.map((m, i) => (
               <motion.div
                 key={m.name}

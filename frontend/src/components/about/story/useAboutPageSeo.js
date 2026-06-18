@@ -30,7 +30,7 @@ export function useAboutPageSeo() {
     const placeSchema = {
       "@context": "https://schema.org",
       "@type": "PlaceOfWorship",
-      name: "Shree Maa Baglamukhi Siddha Peeth Nalkheda",
+      name: "Maa Baglamukhi Siddha Peeth Nalkheda",
       description,
       address: {
         "@type": "PostalAddress",

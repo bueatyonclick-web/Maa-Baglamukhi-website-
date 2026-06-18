@@ -1,6 +1,7 @@
 import { useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { onLenisScroll } from "../../lib/smoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,8 @@ export function useAboutGsap() {
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return undefined;
     }
+
+    const unsubLenis = onLenisScroll(() => ScrollTrigger.update());
 
     const ctx = gsap.context(() => {
       gsap.utils.toArray("[data-about-reveal]").forEach((el) => {
@@ -36,6 +39,7 @@ export function useAboutGsap() {
     });
 
     return () => {
+      unsubLenis?.();
       ctx.revert();
     };
   }, []);

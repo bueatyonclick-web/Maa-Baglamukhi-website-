@@ -54,7 +54,7 @@ async function main() {
         phone1: "+91 98765 43210",
         phone2: "+91 98765 43211",
         whatsapp: "+919876543210",
-        email: "info@baglamukhi.com",
+        email: "panditankitsharma93@gmail.com",
         googleMapLink: "https://maps.google.com",
       },
     });

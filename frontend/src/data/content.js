@@ -16,16 +16,13 @@ const PUB = process.env.PUBLIC_URL || "";
 export const ABOUT_STORY_IMAGES = [
   `${PUB}/about-maa-baglamukhi-peeth.png`,
   `${PUB}/about-sacred-legend-mandir.jpg`,
-  "https://images.unsplash.com/photo-1605649487212-47bdab064df7?crop=entropy&cs=srgb&fm=jpg&q=80&w=1200",
-  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?crop=entropy&cs=srgb&fm=jpg&q=80&w=1200",
+  `${PUB}/about-temple-deity-trishakti.png`,
+  `${PUB}/about-temple-deity-shringar.png`,
   `${PUB}/about-sacred-legend-shrine.jpg`,
 ];
 
 export const ABOUT_IMAGE =
   "https://images.unsplash.com/photo-1774020039814-c5bdab09e1cf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
-
-export const DIYA_IMAGE =
-  "https://images.unsplash.com/photo-1597122582304-97edf3b0ff69?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
 
 export const FLOWER_IMAGE =
   "https://images.unsplash.com/photo-1661142175513-a5f0871f1ad1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
@@ -36,101 +33,70 @@ export const BOKEH_IMAGE =
 export const MOUNTAIN_IMAGE =
   "https://images.unsplash.com/photo-1547992039-47e365bcaee7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600";
 
+/** Maa Baglamukhi Siddha Peeth, Nalkheda — map pin for How to Reach section. */
+export const TEMPLE_LOCATION = {
+  name: "Maa Baglamukhi Siddha Peeth",
+  lat: 23.84031,
+  lng: 76.23671,
+};
+
+export const TEMPLE_MAP_EMBED_URL = `https://www.google.com/maps?q=${TEMPLE_LOCATION.lat},${TEMPLE_LOCATION.lng}+(${encodeURIComponent(`${TEMPLE_LOCATION.name}, Nalkheda`)})&hl=en&z=16&output=embed`;
+
 export const GALLERY = [
   {
-    src: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Morning Aarti Glow", hi: "प्रातः आरती का प्रकाश" },
+    src: `${PUB}/gallery/havan-ritual-priest.png`,
+    title: { en: "Sacred Havan at the Peeth", hi: "पीठ पर पवित्र हवन" },
     description: {
-      en: "The first light of diyas — a quiet beginning before the chants fill the sanctum.",
-      hi: "दीपों की पहली लौ — मंत्रोच्चार से पहले का शांत, पवित्र क्षण।",
+      en: "A priest performing havan before Maa Baglamukhi — flames, mantra and devotion united in ritual.",
+      hi: "माँ बगलामुखी के समक्ष हवन — अग्नि, मंत्र और भक्ति का पवित्र संयोग।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Temple Courtyard Serenity", hi: "मंदिर प्रांगण की शांति" },
+    src: `${PUB}/gallery/havan-samagri-offerings.png`,
+    title: { en: "Havan Samagri & Offerings", hi: "हवन सामग्री और अर्पण" },
     description: {
-      en: "A sacred pause in the temple space — where devotion feels timeless.",
-      hi: "मंदिर की पवित्र शांति — जहाँ भक्ति समय से परे लगती है।",
+      en: "Ritual ingredients arranged with care — turmeric, flowers and sacred herbs for the yajna.",
+      hi: "हवन के लिए सजी पवित्र सामग्री — हल्दी, पुष्प और औषधियाँ।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1564507592333-c60657eea523?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Golden Mandir Details", hi: "स्वर्णिम मंदिर शिल्प" },
+    src: `${PUB}/gallery/mass-havan-ceremony.png`,
+    title: { en: "Mass Havan Ceremony", hi: "सामूहिक हवन अनुष्ठान" },
     description: {
-      en: "Ornate textures and warm gold tones that echo the sacred atmosphere.",
-      hi: "सूक्ष्म शिल्प और स्वर्णिम आभा — जो दिव्यता का अनुभव कराए।",
+      en: "Hundreds of devotees seated around havan kunds — a powerful collective sankalp at Nalkheda.",
+      hi: "सैकड़ों भक्त हवन कुंडों के चारों ओर — नलखेड़ा में सामूहिक संकल्प।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Deepa & Incense", hi: "दीपक और धूप" },
+    src: `${PUB}/gallery/havan-by-the-river.png`,
+    title: { en: "Havan by the Sacred Waters", hi: "पवित्र जल के तट पर हवन" },
     description: {
-      en: "Smoke, flame, and silence — the simplest offerings carry the deepest prayer.",
-      hi: "धुआँ, लौ और मौन — सरल अर्पण में ही गहन प्रार्थना।",
+      en: "Anushthan beside the river — where nature and devotion meet in serene ritual.",
+      hi: "नदी तट पर अनुष्ठान — जहाँ प्रकृति और भक्ति मिलकर दिव्यता बनती है।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1609766418204-94aae0ecf4e5?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Sacred Bells Above", hi: "ऊपर झूलती घंटियाँ" },
+    src: `${PUB}/gallery/temple-havan-kund.png`,
+    title: { en: "Temple Havan Kund", hi: "मंदिर हवन कुंड" },
     description: {
-      en: "Temple bells swaying softly — every ring feels like a blessing.",
-      hi: "मंदिर की घंटियाँ — हर ध्वनि मानो आशीर्वाद बन जाए।",
+      en: "Devotees gathered around the sacred fire pit within the temple pavilion.",
+      hi: "मंदिर प्रांगण में पवित्र हवन कुंड के चारों ओर एकत्रित भक्तगण।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1606293926249-ed22e4f2f12a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Evening Ritual Light", hi: "सांध्य अनुष्ठान की रोशनी" },
+    src: `${PUB}/gallery/havan-with-devotees.png`,
+    title: { en: "Devotees Offering in Havan", hi: "हवन में भक्तों का अर्पण" },
     description: {
-      en: "Warm amber light at dusk — a cinematic calm across the temple.",
-      hi: "सांझ की स्वर्णिम रोशनी — मंदिर में छाया दिव्य सुकून।",
+      en: "Families offering ahuti together — the golden glow of turmeric and sacred flame.",
+      hi: "परिवार सहित आहुति अर्पण — हल्दी और पवित्र अग्नि की स्वर्णिम आभा।",
     },
   },
   {
-    src: "https://images.unsplash.com/photo-1583309217394-d63f2bf7b3fa?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Offerings & Flowers", hi: "अर्पण और पुष्प" },
+    src: `${PUB}/gallery/devotees-at-peeth.png`,
+    title: { en: "Devotees at the Peeth", hi: "पीठ पर भक्तगण" },
     description: {
-      en: "Marigolds, petals, and sacred intent — devotion arranged with care.",
-      hi: "गेंदा, पुष्प और संकल्प — श्रद्धा को स्नेह से सजाया गया।",
-    },
-  },
-  {
-    src: "https://images.unsplash.com/photo-1604608672516-f1b9b1d52cd1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
-    title: { en: "Temple Lamps & Shadows", hi: "दीप और छायाएँ" },
-    description: {
-      en: "A play of lamp-light and shadow — a timeless temple mood.",
-      hi: "दीप प्रकाश और छाया का खेल — मंदिर का शाश्वत वातावरण।",
-    },
-  },
-  {
-    src: ABOUT_IMAGE,
-    title: { en: "Sanctum Atmosphere", hi: "गर्भगृह का वातावरण" },
-    description: {
-      en: "A sacred interior mood — quiet, focused, and devotional.",
-      hi: "पवित्र भीतरी वातावरण — शांत, एकाग्र और भक्तिमय।",
-    },
-  },
-  {
-    src: DIYA_IMAGE,
-    title: { en: "Diya Flame Close-up", hi: "दीपक की लौ" },
-    description: {
-      en: "A single diya can hold a whole prayer — steady and luminous.",
-      hi: "एक दीपक में पूरी प्रार्थना — स्थिर और उज्ज्वल।",
-    },
-  },
-  {
-    src: FLOWER_IMAGE,
-    title: { en: "Sacred Flowers", hi: "पवित्र पुष्प" },
-    description: {
-      en: "Flowers offered with sankalp — simplicity that reaches the divine.",
-      hi: "संकल्प सहित अर्पित पुष्प — सरलता में दिव्यता।",
-    },
-  },
-  {
-    src: MOUNTAIN_IMAGE,
-    title: { en: "Pilgrimage Journey", hi: "तीर्थ यात्रा" },
-    description: {
-      en: "Every journey begins with faith — the road itself becomes part of devotion.",
-      hi: "हर यात्रा विश्वास से शुरू होती है — मार्ग भी भक्ति बन जाता है।",
+      en: "Pilgrims at Maa Baglamukhi Siddha Peeth — faith dressed in devotion.",
+      hi: "माँ बगलामुखी सिद्ध पीठ पर तीर्थयात्री — श्रद्धा और भक्ति में सजे भक्त।",
     },
   },
 ];
@@ -140,13 +106,9 @@ export const FOOTER_LINKS = {
     { navKey: "home", href: "/" },
     { navKey: "about", href: "/about" },
     { navKey: "bookPuja", href: "/book-puja" },
-    { navKey: "liveDarshan", href: "/live-darshan" },
-    { navKey: "donate", href: "/donate" },
   ],
   pilgrimage: [
     { tKey: "footer.linkReach", href: "/#reach" },
-    { tKey: "footer.linkStay", href: "/#stay" },
-    { tKey: "footer.linkFestivals", href: "/festivals" },
     { tKey: "footer.linkGallery", href: "/gallery" },
     { tKey: "footer.linkContact", href: "/contact" },
   ],

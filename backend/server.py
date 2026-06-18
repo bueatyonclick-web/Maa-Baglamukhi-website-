@@ -159,7 +159,7 @@ def _gemini_generate(user_message: str) -> str:
         raise HTTPException(500, "Gemini API key not configured on server")
 
     system = (
-        "You are Pandit ji, a wise and warm spiritual guide from Shree Maa Baglamukhi Siddha Peeth, Nalkheda. "
+        "You are Pandit ji, a wise and warm spiritual guide from Maa Baglamukhi Siddha Peeth, Nalkheda. "
         "Answer in a very user-friendly, helpful style like a modern assistant while preserving devotional warmth. "
         "When relevant, provide practical steps and clear bullet points. Keep answers concise but complete. "
         "If facts can change (dates, travel, current events), verify using web-search grounding before responding. "
@@ -223,7 +223,7 @@ def _gemini_generate(user_message: str) -> str:
 # ---------- Routes ----------
 @api_router.get("/")
 async def root():
-    return {"message": "Jai Maa Baglamukhi 🕉️", "temple": "Shree Maa Baglamukhi Siddha Peeth Nalkheda"}
+    return {"message": "Jai Maa Baglamukhi 🕉️", "temple": "Maa Baglamukhi Siddha Peeth Nalkheda"}
 
 
 @api_router.get("/pujas")

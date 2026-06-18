@@ -48,7 +48,7 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="py-16 sm:py-20 md:py-24 lg:py-32" data-testid="gallery-section">
       <div className="mx-auto max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10">
-        <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-10 flex flex-col gap-6 sm:mb-12 md:mb-10 md:flex-row md:items-end md:justify-between lg:mb-12">
           <div className="min-w-0">
             <p className="mb-4 font-cinzel text-[10px] tracking-[0.45em] text-saffron-300 sm:mb-5 sm:text-xs sm:tracking-[0.5em]">
               {t("gallery.label")}
@@ -60,7 +60,7 @@ export default function GallerySection() {
           <p className="max-w-md text-sm leading-relaxed text-white/65 sm:text-base md:text-lg">{t("gallery.subtitle")}</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {display.map((item, i) => (
             <motion.button
               key={item.id || i}

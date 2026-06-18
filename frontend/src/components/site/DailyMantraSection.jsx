@@ -1,15 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, Volume2 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 export default function DailyMantraSection() {
   const { t } = useLanguage();
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => {
-    setPlaying(!playing);
-  };
 
   return (
     <section
@@ -53,19 +47,7 @@ export default function DailyMantraSection() {
           &ldquo;{t("mantra.meaning")}&rdquo;
         </motion.p>
 
-        <motion.button
-          onClick={toggle}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          className="mt-12 inline-flex items-center gap-3 px-7 py-3.5 rounded-full glass-card text-saffron-200 hover:text-white hover:border-saffron-400 transition-all animate-glow-pulse"
-          data-testid="mantra-play-button"
-        >
-          {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
-          <span className="font-serif text-lg">{playing ? t("mantra.pause") : t("mantra.play")}</span>
-          <Volume2 className="w-4 h-4 opacity-60" />
-        </motion.button>
-
-        <div className="divider-sacred mt-16 mx-auto max-w-md" />
+        <div className="divider-sacred mt-12 mx-auto max-w-md" />
       </div>
     </section>
   );

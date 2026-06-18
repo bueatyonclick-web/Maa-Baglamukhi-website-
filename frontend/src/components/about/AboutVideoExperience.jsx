@@ -366,7 +366,8 @@ export default function AboutVideoExperience() {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerLeave={() => setDragging(false)}
-            className={`relative z-[1] flex gap-8 overflow-x-auto scroll-smooth px-6 pb-6 pt-4 [scrollbar-width:thin] snap-x snap-mandatory ${
+            data-lenis-prevent
+            className={`scroll-touch-x relative z-[1] flex gap-8 overflow-x-auto px-6 pb-6 pt-4 [scrollbar-width:thin] snap-x snap-mandatory ${
               dragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             style={{ scrollbarColor: "rgba(245,158,11,0.45) #0A0505" }}

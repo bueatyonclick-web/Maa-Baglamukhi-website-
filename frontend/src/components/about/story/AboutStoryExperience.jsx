@@ -24,7 +24,7 @@ function AboutStoryExperience() {
 
   return (
     <article className="relative overflow-x-hidden bg-black" itemScope itemType="https://schema.org/PlaceOfWorship">
-      <meta itemProp="name" content="Shree Maa Baglamukhi Siddha Peeth Nalkheda" />
+      <meta itemProp="name" content="Maa Baglamukhi Siddha Peeth Nalkheda" />
       <AboutHeroCinematic />
 
       <div className="relative bg-gradient-to-b from-[#0a0505] via-black to-[#0a0505]">

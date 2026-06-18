@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { scrollToElement } from "../../lib/smoothScroll";
 
 export default function AboutFinalConnection() {
   const { t } = useLanguage();
@@ -12,7 +13,7 @@ export default function AboutFinalConnection() {
     e.preventDefault();
     navigate("/");
     window.setTimeout(() => {
-      document.getElementById("reach")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollToElement("reach");
     }, 350);
   };
 

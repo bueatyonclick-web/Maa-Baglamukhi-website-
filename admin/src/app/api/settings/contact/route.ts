@@ -10,10 +10,10 @@ async function getOrCreate() {
   if (!row) {
     row = await prisma.contactSettings.create({
       data: {
-        templeName: "Shree Maa Baglamukhi Siddha Peeth",
+        templeName: "Maa Baglamukhi Siddha Peeth",
         address: "",
         phone1: "",
-        email: "info@example.com",
+        email: "panditankitsharma93@gmail.com",
       },
     });
   }

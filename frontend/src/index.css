@@ -52,11 +52,16 @@
   * { @apply border-border; }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
     overflow-x: clip;
     /* Keep vertical scrolling on the viewport; avoid odd overflow-y:auto promotion on body. */
     overflow-y: scroll;
     /* `contain` can make section boundaries feel “stuck” on mobile; allow normal chaining */
     overscroll-behavior-y: auto;
+  }
+  html.lenis,
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -68,6 +73,16 @@
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea,
+  summary {
+    touch-action: manipulation;
   }
   html.lang-hi body {
     font-family: "Noto Sans Devanagari", "Tenor Sans", system-ui, sans-serif;
@@ -103,6 +118,13 @@ html.lang-hi .btn-ghost-sacred {
 }
   h1, h2, h3, h4, h5 { font-family: "Cormorant Garamond", serif; letter-spacing: -0.01em; }
   ::selection { background: rgba(245, 158, 11, 0.35); color: #fff; }
+}
+
+/* Horizontal scroll regions — native momentum on touch devices */
+.scroll-touch-x {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
 }
 
 /* Custom scrollbar */
@@ -193,6 +215,50 @@ html.lang-hi .btn-ghost-sacred {
   border-color: #F59E0B;
   background: rgba(245, 158, 11, 0.1);
   color: #FFF;
+}
+
+.btn-highlight-sacred {
+  @apply inline-flex min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-full px-8 py-3.5 font-medium tracking-wide;
+  color: #FEF3C7;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(146, 64, 14, 0.12) 100%);
+  border: 1.5px solid rgba(251, 191, 36, 0.85);
+  box-shadow:
+    0 0 28px rgba(245, 158, 11, 0.42),
+    0 0 56px rgba(245, 158, 11, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  animation: sacred-highlight-pulse 2.8s ease-in-out infinite;
+}
+.btn-highlight-sacred:hover {
+  transform: translateY(-2px);
+  color: #FFFBEB;
+  border-color: #FCD34D;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.32) 0%, rgba(217, 119, 6, 0.18) 100%);
+  box-shadow:
+    0 0 36px rgba(251, 191, 36, 0.55),
+    0 0 72px rgba(245, 158, 11, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+@media (max-width: 768px) {
+  .btn-highlight-sacred:hover {
+    transform: none;
+  }
+}
+
+@keyframes sacred-highlight-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 28px rgba(245, 158, 11, 0.42),
+      0 0 56px rgba(245, 158, 11, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 38px rgba(251, 191, 36, 0.58),
+      0 0 72px rgba(245, 158, 11, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
 }
 
 /* Floating particles */
