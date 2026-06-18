@@ -137,7 +137,7 @@ function Navbar() {
 
         {/* Mobile + tablet controls */}
         <div className="flex items-center justify-end gap-2 lg:hidden">
-          <MantraMuteButton className="hidden sm:flex" />
+          <MantraMuteButton />
           <button
             type="button"
             className="grid min-h-[44px] min-w-[44px] place-items-center rounded-full border border-saffron-500/20 bg-ink-700/60 p-2 text-saffron-300 touch-manipulation"
@@ -186,7 +186,6 @@ function Navbar() {
                 {t("nav.ctaBook")}
               </Link>
               <div className="flex flex-wrap items-center gap-3">
-                <MantraMuteButton className="sm:hidden" />
                 <LanguageToggle />
               </div>
             </div>

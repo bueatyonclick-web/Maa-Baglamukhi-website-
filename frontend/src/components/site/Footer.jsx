@@ -13,6 +13,7 @@ import { FOOTER_LINKS } from "../../data/content";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 const SITE_LOGO = `${process.env.PUBLIC_URL || ""}/site-logo.png`;
+const INSTAGRAM_URL = "https://www.instagram.com/pandit_ankitsharma5";
 
 function Footer() {
   const { t } = useLanguage();
@@ -62,17 +63,10 @@ function Footer() {
   const logoSrc = cmsLogo ? resolveAdminAssetUrl(cmsLogo) : SITE_LOGO;
 
   const socialPairs = useMemo(() => {
-    if (!cmsSocial) {
-      return [
-        { Icon: Instagram, href: "#", label: "Instagram" },
-        { Icon: Youtube, href: "#", label: "YouTube" },
-        { Icon: Facebook, href: "#", label: "Facebook" },
-      ];
-    }
     return [
-      { Icon: Instagram, href: cmsSocial.instagram || "#", label: "Instagram" },
-      { Icon: Youtube, href: cmsSocial.youtube || "#", label: "YouTube" },
-      { Icon: Facebook, href: cmsSocial.facebook || "#", label: "Facebook" },
+      { Icon: Instagram, href: cmsSocial?.instagram || INSTAGRAM_URL, label: "Instagram" },
+      { Icon: Youtube, href: cmsSocial?.youtube || "#", label: "YouTube" },
+      { Icon: Facebook, href: cmsSocial?.facebook || "#", label: "Facebook" },
     ];
   }, [cmsSocial]);
 
