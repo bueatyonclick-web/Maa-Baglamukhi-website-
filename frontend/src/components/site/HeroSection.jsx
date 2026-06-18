@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { removeHeroSplash } from "../../lib/heroSplash";
 import {
   Calendar,
   Check,
@@ -98,6 +99,10 @@ export default function HeroSection() {
   const { t, lang } = useLanguage();
   const isHi = lang === "hi";
   const [heroSrc, setHeroSrc] = useState(HOME_HERO_IMAGE);
+
+  useEffect(() => {
+    removeHeroSplash();
+  }, []);
 
   return (
     <section

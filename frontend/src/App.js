@@ -7,9 +7,9 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import WelcomeMantraAudio from "@/components/site/WelcomeMantraAudio";
 import { scrollToTop } from "@/lib/smoothScroll";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import { removeHeroSplash } from "@/lib/heroSplash";
 
-import HomePage from "@/pages/HomePage";
-
+const HomePage = React.lazy(() => import("@/pages/HomePage"));
 const AboutPage = React.lazy(() => import("@/pages/AboutPage"));
 const BookPujaPage = React.lazy(() => import("@/pages/BookPujaPage"));
 const FestivalsPage = React.lazy(() => import("@/pages/FestivalsPage"));
@@ -41,6 +41,8 @@ function ScrollToTop() {
     document.body.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("height");
+    // The home hero removes the splash itself; clear it on any other route.
+    if (pathname !== "/") removeHeroSplash();
   }, [pathname]);
   return null;
 }

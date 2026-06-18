@@ -89,10 +89,42 @@
             }
         </script>
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+
+        <!-- Critical CSS for the instant hero paint (LCP) shown before the JS bundle renders -->
+        <style>
+            #hero-splash {
+                position: fixed;
+                inset: 0;
+                z-index: 1;
+                background-color: #040201;
+                opacity: 1;
+                transition: opacity 0.5s ease;
+                pointer-events: none;
+            }
+            #hero-splash img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center 22%;
+                filter: contrast(1.12) saturate(1.02) brightness(0.92);
+            }
+        </style>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
+        <!-- Static hero so the largest image paints immediately; React removes it once the real hero mounts. -->
+        <div id="hero-splash">
+            <img
+                src="%PUBLIC_URL%/home-hero-maa-baglamukhi.webp"
+                srcset="%PUBLIC_URL%/home-hero-maa-baglamukhi-mobile.webp 820w, %PUBLIC_URL%/home-hero-maa-baglamukhi.webp 1400w"
+                sizes="(max-width: 1023px) 100vw, 58vw"
+                alt="Maa Bagalamukhī — Siddha Peeth"
+                fetchpriority="high"
+                decoding="async"
+            />
+        </div>
+        <script>setTimeout(function(){var s=document.getElementById("hero-splash");if(s){s.style.opacity="0";setTimeout(function(){s.parentNode&&s.parentNode.removeChild(s)},500)}},8000);</script>
         <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
