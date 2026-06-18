@@ -3,6 +3,7 @@ import "@/App.css";
 import "lenis/dist/lenis.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import WelcomeMantraAudio from "@/components/site/WelcomeMantraAudio";
 import { scrollToTop } from "@/lib/smoothScroll";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
@@ -74,6 +75,7 @@ function App() {
           },
         }}
       />
+      <SpeedInsights />
     </div>
   );
 }
